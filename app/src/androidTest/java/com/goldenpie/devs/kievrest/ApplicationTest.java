@@ -1,4 +1,4 @@
-package com.goldenpie.devs.kievpick;
+package com.goldenpie.devs.kievrest;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

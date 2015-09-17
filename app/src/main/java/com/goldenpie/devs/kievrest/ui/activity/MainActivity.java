@@ -1,11 +1,11 @@
-package com.goldenpie.devs.kievpick.ui.activity;
+package com.goldenpie.devs.kievrest.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.goldenpie.devs.kievpick.R;
+import com.goldenpie.devs.kievrest.R;
 
 public class MainActivity extends AppCompatActivity {
 
