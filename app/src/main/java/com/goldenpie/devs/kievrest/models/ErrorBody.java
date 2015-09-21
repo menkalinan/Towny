@@ -1,4 +1,4 @@
-package com.goldenpie.devs.kievrest.model;
+package com.goldenpie.devs.kievrest.models;
 
 import java.util.Map;
 
