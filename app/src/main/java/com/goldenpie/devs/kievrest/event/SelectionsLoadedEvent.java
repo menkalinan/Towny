@@ -8,5 +8,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class SelectionsLoadedEvent extends NewsLoadedEvent {
     @SerializedName("results")
-    protected List<SelectionModel> results;
+    private List<SelectionModel> results;
 }

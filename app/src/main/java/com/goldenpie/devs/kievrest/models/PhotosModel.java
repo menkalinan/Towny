@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class PhotosModel {
     @SerializedName("id")
-    int id;
+    private int id;
     @SerializedName("image")
-    String imageUrl;
+    private String imageUrl;
 }

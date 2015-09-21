@@ -9,35 +9,35 @@ import lombok.Data;
 @Data
 public class PlaceModel {
     @SerializedName("id")
-    int id;
+    private int id;
     @SerializedName("title")
-    String title;
+    private String title;
     @SerializedName("address")
-    String address;
+    private String address;
     @SerializedName("site_url")
-    String url;
+    private String url;
     @SerializedName("is_closed")
-    String isClosed;
+    private String isClosed;
     @SerializedName("timetable")
-    String timeTable;
+    private String timeTable;
     @SerializedName("phone")
-    String phone;
+    private String phone;
     @SerializedName("is_stub")
-    String isStub;
+    private String isStub;
     @SerializedName("images")
-    List<PhotosModel> photos;
+    private List<PhotosModel> photos;
     @SerializedName("body_text")
-    String body;
+    private String body;
     @SerializedName("foreign_url")
-    String extraUrl;
+    private String extraUrl;
     @SerializedName("coords")
-    CoordinatesModel coordinates;
+    private CoordinatesModel coordinates;
     @SerializedName("subway")
-    String subway;
+    private String subway;
     @SerializedName("favorite_count")
-    int favoriteCount;
+    private int favoriteCount;
     @SerializedName("comments_count")
-    int commentsCount;
+    private int commentsCount;
 
     public boolean isClosed(){
         return getIsClosed().equals("true");

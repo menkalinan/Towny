@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class CoordinatesModel {
     @SerializedName("lat")
-    double latitude;
+    private double latitude;
     @SerializedName("long")
-    double longitude;
+    private double longitude;
 
-    public LatLng getCoordinates(){
+    public LatLng getCoordinates() {
         return new LatLng(latitude, longitude);
     }
 }

@@ -7,17 +7,17 @@ import lombok.Data;
 @Data
 public class ItemModel {
     @SerializedName("id")
-    int id;
+    private int id;
     @SerializedName("title")
-    String title;
+    private String title;
     @SerializedName("favorites_count")
-    int favoriteCount;
+    private int favoriteCount;
     @SerializedName("comments_count")
-    int commentsCount;
+    private int commentsCount;
     @SerializedName("description")
-    String description;
+    private String description;
     @SerializedName("ctype")
-    String type;
+    private String type;
     @SerializedName("place")
-    PlaceModel place;
+    private PlaceModel place;
 }

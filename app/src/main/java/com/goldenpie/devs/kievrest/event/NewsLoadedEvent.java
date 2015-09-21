@@ -8,7 +8,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class NewsLoadedEvent {
+public class NewsLoadedEvent extends BaseLoadedEvent{
     @SerializedName("results")
-    protected List<NewsModel> results;
+    private List<NewsModel> results;
 }
