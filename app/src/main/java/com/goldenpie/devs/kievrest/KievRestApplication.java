@@ -30,6 +30,7 @@ public class KievRestApplication extends android.app.Application {
                 .appModule(new AppModule(this))
                 .build();
         appComponent.inject(this);
+        Fabric.with(this, new Crashlytics());
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/HelveticaNeue.ttf")
