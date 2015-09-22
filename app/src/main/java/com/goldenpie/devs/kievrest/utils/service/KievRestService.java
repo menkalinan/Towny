@@ -7,4 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(suppressConstructorProperties = true)
 public class KievRestService {
     private final KievRestApi kievRestApi;
+
+    public void loadNews() {
+
+    }
 }

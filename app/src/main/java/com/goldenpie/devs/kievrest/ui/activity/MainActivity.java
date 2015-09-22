@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.api.KievRestApi;
+
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        KievRestApplication.appComponent().inject(this);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -23,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return super.onOptionsItemSelected(item);
     }
 }
