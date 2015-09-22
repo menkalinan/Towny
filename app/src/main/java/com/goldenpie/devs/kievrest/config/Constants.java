@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 
 public class Constants {
     public static final String BASE_ENDPOINT = "http://kudago.com";
+    public static final String NEWS_LINK = "/public-api/v1/news/?location=kev&fields=description,publication_date,title,id,place,images,body_text,site_url&expand=place,images";
+
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override
         public String[] getMonths() {
@@ -12,7 +14,6 @@ public class Constants {
                     "июля", "августа", "сентября", "октября", "ноября", "декабря"};
         }
     };
-
     public static final SimpleDateFormat dateFormat =
             new SimpleDateFormat("d MMMM, H:m", dateFormatSymbols);
 }

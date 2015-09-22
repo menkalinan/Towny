@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 
 import butterknife.ButterKnife;
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
         KievRestApplication.appComponent().inject(this);
         ButterKnife.bind(this);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, NewsFragment.newInstance()).commit();
     }
 
     @Override

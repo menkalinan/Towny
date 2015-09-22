@@ -43,6 +43,8 @@ public class NewsAdapter extends ArrayAdapter<NewsModel> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+
+        convertView.setVisibility(View.VISIBLE);
         viewHolder.title.setText(getItem(position).getTitle());
         viewHolder.description.setText(getItem(position).getDescription());
 
@@ -52,6 +54,7 @@ public class NewsAdapter extends ArrayAdapter<NewsModel> {
             viewHolder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
                     .load(getItem(position).getPhotos().get(0).getImageUrl())
+                    .placeholder(R.drawable.no_preview_available)
                     .into(viewHolder.preview);
         } else {
             viewHolder.preview.setVisibility(View.GONE);

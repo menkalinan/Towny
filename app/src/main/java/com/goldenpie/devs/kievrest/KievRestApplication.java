@@ -9,12 +9,14 @@ import com.goldenpie.devs.kievrest.config.DaggerAppComponent;
 
 import io.fabric.sdk.android.Fabric;
 import lombok.Getter;
+import lombok.Setter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class KievRestApplication extends android.app.Application {
 
     @Getter
+    @Setter
     private static Context context;
     private AppComponent appComponent;
 
@@ -25,13 +27,12 @@ public class KievRestApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        context = this;
-
+        setContext(this);
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
         appComponent.inject(this);
+
         Fabric.with(this, new Crashlytics());
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()

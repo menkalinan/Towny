@@ -1,11 +1,12 @@
 package com.goldenpie.devs.kievrest.ui.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
@@ -22,15 +23,20 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class NewsFragment extends Fragment {
 
     @Bind(R.id.frag_news_list)
     protected ListView newsList;
+    @Bind(R.id.frag_news_progressbar)
+    protected ProgressBar progressBar;
     @Inject
     DataHelper helper;
     @Inject
     KievRestService service;
+    @Inject
+    EventBus BUS;
     private NewsAdapter adapter;
 
     public NewsFragment() {
@@ -44,6 +50,7 @@ public class NewsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         KievRestApplication.appComponent().inject(this);
+        BUS.register(this);
     }
 
     @Override
@@ -60,12 +67,12 @@ public class NewsFragment extends Fragment {
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             adapter = new NewsAdapter(getActivity(), 0, helper.getNewsList());
             newsList.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
         } else {
             service.loadNews();
         }
     }
 
-    @SuppressWarnings({"unchecked", "unused"})
     public void onEvent(NewsLoadedEvent event) {
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             ArrayList<NewsModel> tempList = helper.getNewsList();
@@ -75,6 +82,7 @@ public class NewsFragment extends Fragment {
             helper.getDataMap().put(ModelTypeEnum.NEWS, event.getResults());
         }
 
+        progressBar.setVisibility(View.GONE);
         adapter = new NewsAdapter(getActivity(), 0, helper.getNewsList());
         newsList.setAdapter(adapter);
     }

@@ -1,5 +1,7 @@
 package com.goldenpie.devs.kievrest.models;
 
+import android.text.Html;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -26,4 +28,8 @@ public class BaseDataModel {
     protected int favoritesCount;
     @SerializedName("comments_count")
     protected int commentsCount;
+
+    public String getClearBody(){
+        return Html.fromHtml(getBody()).toString();
+    }
 }
