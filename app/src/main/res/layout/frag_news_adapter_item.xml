@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/frag_news_item_description">
-
+<include layout="@layout/divider"/>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -128,6 +128,18 @@
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:textStyle="italic" />
+
+                <TintImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/secondary_text"
+                    android:layout_toLeftOf="@+id/frag_news_item_date"
+                    android:layout_toStartOf="@+id/frag_news_item_date"
+                    android:src="@drawable/ic_action_calendar"
+                    android:layout_margin="8dp" />
+
             </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

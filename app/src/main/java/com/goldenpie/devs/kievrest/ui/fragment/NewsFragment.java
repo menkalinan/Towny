@@ -65,7 +65,7 @@ public class NewsFragment extends Fragment {
         }
     }
 
-    @SuppressWarnings({"unchecked", "unused"})
+    @SuppressWarnings({"unchecked", "unused"})`
     public void onEvent(NewsLoadedEvent event) {
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             ArrayList<NewsModel> tempList = helper.getNewsList();
