@@ -6,7 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class NewsLoadedEvent extends BaseLoadedEvent {
     @SerializedName("results")
