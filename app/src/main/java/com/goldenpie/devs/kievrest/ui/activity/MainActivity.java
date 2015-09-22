@@ -1,13 +1,12 @@
 package com.goldenpie.devs.kievrest.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.api.KievRestApi;
 
 import butterknife.ButterKnife;
 

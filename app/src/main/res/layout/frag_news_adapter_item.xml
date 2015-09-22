@@ -1,144 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:card="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card:cardElevation="4dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
+        card:cardElevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/frag_news_item_image"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:id="@+id/frag_news_item_image"
-                android:src="@drawable/no_preview_available"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_preview_available" />
 
             <RelativeLayout
+                android:id="@+id/frag_news_item_adult_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:background="@drawable/sircle_drawable"
-                android:layout_margin="16dp"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/frag_news_item_adult_layout"
+                android:layout_margin="16dp"
+                android:background="@drawable/sircle_drawable"
+                android:padding="4dp"
                 android:visibility="gone">
 
                 <TextView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
+                    android:gravity="center"
                     android:text="@string/adult_label"
                     android:textColor="@android:color/white"
-                    android:gravity="center"
                     android:textSize="16sp" />
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/frag_news_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="«ВКонтакте» запускает фильтр нежелательных комментариев"
-                android:ellipsize="end"
-                android:id="@+id/frag_news_item_title"
                 android:layout_below="@+id/frag_news_item_image"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:maxLines="2"
                 android:textColor="@color/primary_text"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                tools:text="«ВКонтакте» запускает фильтр нежелательных комментариев" />
 
             <TextView
-                tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой."
+                android:id="@+id/frag_news_item_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:id="@+id/frag_news_item_description"
                 android:layout_below="@+id/frag_news_item_title"
+                android:ellipsize="end"
+                android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp"
                 android:textColor="@color/secondary_text"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой." />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/frag_news_item_description">
-<include layout="@layout/divider"/>
+
+                <include layout="@layout/divider" />
+
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/frag_news_item_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/frag_news_item_date"
                     android:layout_toStartOf="@+id/frag_news_item_date"
-                    android:id="@+id/frag_news_item_location"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
                     <TextView
+                        android:id="@+id/frag_news_item_location_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        tools:text="Medium Text"
-                        android:id="@+id/frag_news_item_location_title"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingRight="16dp"
-                        android:textSize="16sp"
-                        android:minLines="1"
                         android:ellipsize="end"
-                        android:textColor="@color/secondary_text" />
+                        android:minLines="1"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="16sp"
+                        tools:text="Medium Text" />
 
                     <TextView
+                        android:id="@+id/frag_news_item_location_is_open"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        tools:text="Small Text"
-                        android:id="@+id/frag_news_item_location_is_open"
-                        android:paddingLeft="16dp"
-                        android:textSize="12sp"
                         android:paddingBottom="8dp"
-                        android:textColor="@color/secondary_text" />
+                        android:paddingLeft="16dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="12sp"
+                        tools:text="Small Text" />
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/frag_news_item_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    tools:text="10 сентября, 16:30"
-                    android:id="@+id/frag_news_item_date"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:paddingRight="16dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/secondary_text"
-                    android:layout_alignParentLeft="false"
-                    android:layout_alignParentStart="false"
                     android:layout_alignBottom="@+id/frag_news_item_location"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="false"
                     android:paddingBottom="8dp"
+                    android:paddingRight="16dp"
                     android:paddingTop="8dp"
-                    android:textStyle="italic" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    tools:text="10 сентября, 16:30" />
 
                 <TintImageView
+                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView"
                     android:layout_centerVertical="true"
-                    android:backgroundTint="@color/secondary_text"
+                    android:layout_margin="8dp"
                     android:layout_toLeftOf="@+id/frag_news_item_date"
                     android:layout_toStartOf="@+id/frag_news_item_date"
-                    android:src="@drawable/ic_action_calendar"
-                    android:layout_margin="8dp" />
+                    android:backgroundTint="@color/secondary_text"
+                    android:src="@drawable/ic_action_calendar" />
 
             </RelativeLayout>
         </RelativeLayout>

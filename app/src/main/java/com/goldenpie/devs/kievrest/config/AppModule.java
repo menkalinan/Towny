@@ -47,7 +47,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public KievRestService provideKievRestService(KievRestApi kievRestApi){
+    public KievRestService provideKievRestService(KievRestApi kievRestApi) {
         return new KievRestService(kievRestApi);
     }
 

@@ -32,13 +32,13 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:+'
     compile 'com.google.android.gms:play-services-analytics:+'
     compile 'com.google.android.gms:play-services-ads:+'
-    
+
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.jakewharton:butterknife:7.0.1'
 
-    compile ('com.github.florent37:materialviewpager:+@aar'){
+    compile('com.github.florent37:materialviewpager:+@aar') {
         transitive = true
     }
     provided 'org.glassfish:javax.annotation:10.0-b28'

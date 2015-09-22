@@ -25,20 +25,19 @@ import butterknife.ButterKnife;
 
 public class NewsFragment extends Fragment {
 
+    @Bind(R.id.frag_news_list)
+    protected ListView newsList;
     @Inject
     DataHelper helper;
     @Inject
     KievRestService service;
-
-    @Bind(R.id.frag_news_list)
-    protected ListView newsList;
-
     private NewsAdapter adapter;
-    public static NewsFragment newInstance() {
-        return new NewsFragment();
-    }
 
     public NewsFragment() {
+    }
+
+    public static NewsFragment newInstance() {
+        return new NewsFragment();
     }
 
     @Override
@@ -60,12 +59,13 @@ public class NewsFragment extends Fragment {
 
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             adapter = new NewsAdapter(getActivity(), 0, helper.getNewsList());
+            newsList.setAdapter(adapter);
         } else {
             service.loadNews();
         }
     }
 
-    @SuppressWarnings({"unchecked", "unused"})`
+    @SuppressWarnings({"unchecked", "unused"})
     public void onEvent(NewsLoadedEvent event) {
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             ArrayList<NewsModel> tempList = helper.getNewsList();
@@ -76,5 +76,6 @@ public class NewsFragment extends Fragment {
         }
 
         adapter = new NewsAdapter(getActivity(), 0, helper.getNewsList());
+        newsList.setAdapter(adapter);
     }
 }

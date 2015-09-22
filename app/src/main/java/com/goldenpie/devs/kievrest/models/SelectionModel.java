@@ -9,9 +9,9 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class SelectionModel extends BaseDataModel{
+public class SelectionModel extends BaseDataModel {
     @SerializedName("ctype")
-   private String type;
+    private String type;
     @SerializedName("items")
-   private List<ItemModel> items;
+    private List<ItemModel> items;
 }

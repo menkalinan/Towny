@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class Constants {
     public static final String BASE_ENDPOINT = "http://kudago.com";
-    public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols(){
+    public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override
         public String[] getMonths() {
             return new String[]{"января", "февраля", "марта", "апреля", "мая", "июня",
@@ -14,5 +14,5 @@ public class Constants {
     };
 
     public static final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("d MMMM, H:m" , dateFormatSymbols);
+            new SimpleDateFormat("d MMMM, H:m", dateFormatSymbols);
 }

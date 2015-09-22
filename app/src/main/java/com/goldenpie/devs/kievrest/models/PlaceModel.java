@@ -39,7 +39,7 @@ public class PlaceModel {
     @SerializedName("comments_count")
     private int commentsCount;
 
-    public boolean isClosed(){
+    public boolean isClosed() {
         return getIsClosed().equals("true");
     }
 }

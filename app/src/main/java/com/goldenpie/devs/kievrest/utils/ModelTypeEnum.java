@@ -1,6 +1,6 @@
 package com.goldenpie.devs.kievrest.utils;
 
 
-public enum  ModelTypeEnum  {
+public enum ModelTypeEnum {
     NEWS
 }

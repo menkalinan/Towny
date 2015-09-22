@@ -14,6 +14,21 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class BaseCallback<T> implements Callback<T> {
+    public static String getErrorHeaderMessage(RetrofitError error) {
+        String message = null;
+        Response response = error.getResponse();
+        if (response != null && response.getStatus() == HttpURLConnection.HTTP_INTERNAL_ERROR) {
+
+        }
+        if (message == null) {
+            message = error.getMessage();
+        }
+        if (error.getCause() != null && error.getCause() instanceof UnknownHostException) {
+            message += "\nPlease check your network connection and try again";
+        }
+        return message;
+    }
+
     @Override
     public void success(T t, Response response) {
         EventBus.getDefault().post(t);
@@ -31,27 +46,13 @@ public class BaseCallback<T> implements Callback<T> {
         EventBus.getDefault().post(new ErrorEvent<T>(message));
     }
 
-    public static String getErrorHeaderMessage(RetrofitError error) {
-        String message = null;
-        Response response = error.getResponse();
-        if (response != null && response.getStatus() == HttpURLConnection.HTTP_INTERNAL_ERROR) {
-
-        }
-        if (message == null) {
-            message = error.getMessage();
-        }
-        if(error.getCause() != null && error.getCause() instanceof UnknownHostException) {
-            message += "\nPlease check your network connection and try again";
-        }
-        return message;
-    }
-
     /**
      * Handle all non HTTP errors
+     *
      * @param error current error
      */
-    public void handleGlobalError(RetrofitError error){
-        if(error.getKind() == RetrofitError.Kind.NETWORK){
+    public void handleGlobalError(RetrofitError error) {
+        if (error.getKind() == RetrofitError.Kind.NETWORK) {
             EventBus.getDefault().post(new NetworkErrorEvent());
         }
     }
