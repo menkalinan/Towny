@@ -2,7 +2,8 @@
     android:layout_width="80dp"
     android:layout_height="80dp"
     android:layout_centerHorizontal="true"
-    android:background="@drawable/circle_drawable">
+    android:id="@+id/header_logo_background"
+    android:background="@drawable/news_circle_drawable">
 
     <ImageView
         android:layout_width="30dp"

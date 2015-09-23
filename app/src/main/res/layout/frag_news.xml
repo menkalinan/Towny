@@ -1,24 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.goldenpie.devs.kievrest.ui.fragment.NewsFragment">
+    android:layout_height="match_parent">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/frag_news_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="0px"
+        android:paddingTop="280dp"
         android:scrollbars="none"
+        tools:context="com.goldenpie.devs.kievrest.ui.fragment.NewsFragment"
         tools:listitem="@layout/frag_news_adapter_item" />
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/frag_news_progressbar"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:indeterminate="true" />
-
 </RelativeLayout>

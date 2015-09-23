@@ -2,12 +2,13 @@ package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
@@ -28,9 +29,7 @@ import de.greenrobot.event.EventBus;
 public class NewsFragment extends Fragment {
 
     @Bind(R.id.frag_news_list)
-    protected ListView newsList;
-    @Bind(R.id.frag_news_progressbar)
-    protected ProgressBar progressBar;
+    protected RecyclerView newsList;
     @Inject
     DataHelper helper;
     @Inject
@@ -56,7 +55,7 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        return inflater.inflate(R.layout.frag_news, container, false);
     }
 
     @Override
@@ -65,12 +64,13 @@ public class NewsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
-            adapter = new NewsAdapter(getActivity(), 0, helper.getNewsList());
+            adapter = new NewsAdapter(helper.getNewsList(), getActivity());
             newsList.setAdapter(adapter);
-            progressBar.setVisibility(View.GONE);
         } else {
             service.loadNews();
         }
+        newsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), newsList, null);
     }
 
     public void onEvent(NewsLoadedEvent event) {
@@ -82,8 +82,7 @@ public class NewsFragment extends Fragment {
             helper.getDataMap().put(ModelTypeEnum.NEWS, event.getResults());
         }
 
-        progressBar.setVisibility(View.GONE);
-        adapter = new NewsAdapter(getActivity(), 0, helper.getNewsList());
+        adapter = new NewsAdapter(helper.getNewsList(), getActivity());
         newsList.setAdapter(adapter);
     }
 }

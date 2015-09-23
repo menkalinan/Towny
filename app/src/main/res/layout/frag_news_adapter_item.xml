@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="16dp"
-                android:background="@drawable/sircle_drawable"
+                android:background="@drawable/circle_drawable"
                 android:padding="4dp"
                 android:visibility="gone">
 

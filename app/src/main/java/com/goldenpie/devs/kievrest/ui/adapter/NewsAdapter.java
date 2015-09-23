@@ -1,13 +1,13 @@
 package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,60 +21,68 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import lombok.Getter;
 
-public class NewsAdapter extends ArrayAdapter<NewsModel> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private int lastPosition = -1;
 
-    public NewsAdapter(Context context, int resource, ArrayList<NewsModel> models) {
-        super(context, resource, models);
-        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    private ArrayList<NewsModel> models;
+    @Getter
+    private Context context;
+
+    public NewsAdapter(ArrayList<NewsModel> models, Context context) {
+        this.context = context;
+        this.models = models;
+        this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.frag_news_adapter_item, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = inflater.inflate(R.layout.frag_news_adapter_item, viewGroup, false);
+        return new ViewHolder(v);
+    }
 
 
-        convertView.setVisibility(View.VISIBLE);
-        viewHolder.title.setText(getItem(position).getTitle());
-        viewHolder.description.setText(getItem(position).getDescription());
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        NewsModel model = models.get(position);
 
-        getDate(viewHolder, position);
+        holder.itemView.setVisibility(View.VISIBLE);
+        holder.title.setText(model.getTitle());
+        holder.description.setText(model.getDescription());
 
-        if (!TextUtils.isEmpty(getItem(position).getPhotos().get(0).getImageUrl())) {
-            viewHolder.preview.setVisibility(View.VISIBLE);
+        getDate(holder, position);
+
+        if (!TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
+            holder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
-                    .load(getItem(position).getPhotos().get(0).getImageUrl())
+                    .load(model.getPhotos().get(0).getImageUrl())
                     .placeholder(R.drawable.no_preview_available)
-                    .into(viewHolder.preview);
+                    .into(holder.preview);
         } else {
-            viewHolder.preview.setVisibility(View.GONE);
+            holder.preview.setVisibility(View.GONE);
         }
 
         if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_from_bottom);
-            convertView.startAnimation(animation);
+            holder.itemView.startAnimation(animation);
             lastPosition = position;
         }
+    }
 
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return models.size();
     }
 
     private void getDate(ViewHolder viewHolder, int position) {
-        Date time = new Date(getItem(position).getPublicationDate() * 1000);
+        Date time = new Date(models.get(position).getPublicationDate() * 1000);
         viewHolder.date.setText(Constants.dateFormat.format(time));
     }
 
-    static class ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.frag_news_item_title)
         TextView title;
         @Bind(R.id.frag_news_item_description)
@@ -85,6 +93,7 @@ public class NewsAdapter extends ArrayAdapter<NewsModel> {
         ImageView preview;
 
         ViewHolder(View view) {
+            super(view);
             ButterKnife.bind(this, view);
         }
     }
