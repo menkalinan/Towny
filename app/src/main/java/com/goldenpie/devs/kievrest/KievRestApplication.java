@@ -11,7 +11,6 @@ import io.fabric.sdk.android.Fabric;
 import lombok.Getter;
 import lombok.Setter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class KievRestApplication extends android.app.Application {
 
@@ -27,6 +26,10 @@ public class KievRestApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/PTSansRegular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
         setContext(this);
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
@@ -34,15 +37,6 @@ public class KievRestApplication extends android.app.Application {
         appComponent.inject(this);
 
         Fabric.with(this, new Crashlytics());
-
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/HelveticaNeue.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build());
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 }

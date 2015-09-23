@@ -128,8 +128,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/secondary_text"
                     android:textSize="12sp"
-                    android:textStyle="italic"
-                    tools:text="10 сентября, 16:30" />
+                    fontPath="fonts/PTSansItalic.ttf"
+                    tools:text="10 сентября, 16:30"
+                    tools:ignore="MissingPrefix" />
 
                 <android.support.v7.internal.widget.TintImageView
                     android:id="@+id/imageView"
@@ -140,8 +141,7 @@
                     android:layout_toLeftOf="@+id/frag_news_item_date"
                     android:layout_toStartOf="@+id/frag_news_item_date"
                     android:src="@drawable/ic_action_calendar"
-                    android:backgroundTintMode="src_over"
-                    android:backgroundTint="@color/secondary_text"/>
+                    android:tint="@color/secondary_text"/>
 
             </RelativeLayout>
         </RelativeLayout>
