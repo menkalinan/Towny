@@ -9,20 +9,26 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
+import com.goldenpie.devs.kievrest.utils.service.KievRestService;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
     protected FrameLayout headerLogoBackground;
     @Bind(R.id.header_logo_image)
     protected ImageView headerImage;
+    @Bind(R.id.nav_drawer_current_weather)
+    protected TextView currentWeather;
+
+    @Inject
+    protected KievRestService service;
+    @Inject
+    protected EventBus BUS;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
@@ -45,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.act_main);
         KievRestApplication.appComponent().inject(this);
         ButterKnife.bind(this);
+        BUS.register(this);
+        service.loadCurrentWeather();
 
         toolbar = mViewPager.getToolbar();
 
@@ -110,14 +125,16 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         headerLogoBackground.setBackground(
                                 getApplicationContext().getDrawable(R.drawable.news_circle_drawable));
-                        headerImage.setImageDrawable(getApplicationContext().getDrawable(R.drawable.news_icon));
+                        headerImage.setImageDrawable(getApplicationContext()
+                                .getDrawable(R.drawable.news_icon));
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_indigo,
                                 "http://static.vueling.com/cms/media/1216777/kiev.jpg");
                     case 1:
                         headerLogoBackground.setBackground(
-                            getApplicationContext().getDrawable(R.drawable.selection_circle_drawable));
-                        headerImage.setImageDrawable(getApplicationContext().getDrawable(R.drawable.ic_action_whatshot));
+                                getApplicationContext().getDrawable(R.drawable.selection_circle_drawable));
+                        headerImage.setImageDrawable(getApplicationContext()
+                                .getDrawable(R.drawable.ic_action_whatshot));
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_purple,
                                 "http://relax.com.ua/wp-content/media/kiew/2012/09/kiev-at-night.jpg");
@@ -128,6 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+    }
+
+    @SuppressWarnings("unused")
+    public void onEvent(WeatherLoadedEvent event) {
+        if (!TextUtils.isEmpty(event.getWeatherData().getCurrentTemperature())) {
+            currentWeather.setText(String.format(getString(R.string.current_weather),
+                    event.getWeatherData().getCurrentTemperature()));
+        }
     }
 
     @Override

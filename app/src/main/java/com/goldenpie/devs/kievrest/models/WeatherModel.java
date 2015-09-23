@@ -14,7 +14,7 @@ public class WeatherModel {
     private String visibility;
 
     @Data
-    private class WeatherDataModel {
+    public class WeatherDataModel {
         @SerializedName("temp")
         private String temperature;
         @SerializedName("pressure")
@@ -27,7 +27,7 @@ public class WeatherModel {
         private String maxTemperature;
 
         public String getCurrentTemperature() {
-            return String.valueOf(Double.parseDouble(getTemperature()) - 273.0);
+            return String.valueOf(Math.round(Double.parseDouble(getTemperature()) - 273.0));
         }
         public String getCelsiusMaxTemperature() {
             return String.valueOf(Double.parseDouble(getMaxTemperature()) - 273.0);
