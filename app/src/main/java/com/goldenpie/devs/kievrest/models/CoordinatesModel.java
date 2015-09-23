@@ -11,8 +11,13 @@ public class CoordinatesModel {
     private double latitude;
     @SerializedName("long")
     private double longitude;
+    @SerializedName("lon")
+    private double weatherLongitude;
 
     public LatLng getCoordinates() {
         return new LatLng(latitude, longitude);
+    }
+    public LatLng getWeatherCoordinates() {
+        return new LatLng(latitude, weatherLongitude);
     }
 }

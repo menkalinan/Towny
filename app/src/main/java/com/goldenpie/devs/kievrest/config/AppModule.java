@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.goldenpie.devs.kievrest.api.KievRestApi;
+import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 import com.google.gson.FieldNamingPolicy;
@@ -47,8 +48,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public KievRestService provideKievRestService(KievRestApi kievRestApi) {
-        return new KievRestService(kievRestApi);
+    public KievRestService provideKievRestService(KievRestApi kievRestApi, WeatherApi weatherApi) {
+        return new KievRestService(kievRestApi , weatherApi);
     }
 
     @Provides
@@ -65,5 +66,21 @@ public class AppModule {
                 .build();
 
         return restAdapter.create(KievRestApi.class);
+    }
+
+    @Provides
+    @Singleton
+    public WeatherApi provideWeatherService() {
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .disableHtmlEscaping()
+                .create();
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setConverter(new GsonConverter(gson))
+                .setEndpoint(Constants.WEATHER_ENDPOINT)
+                .build();
+
+        return restAdapter.create(WeatherApi.class);
     }
 }
