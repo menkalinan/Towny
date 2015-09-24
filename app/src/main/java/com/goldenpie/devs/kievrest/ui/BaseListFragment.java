@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-public abstract class BaseFragment extends Fragment{
+public abstract class BaseListFragment extends Fragment{
 
     @Inject
     protected DataHelper helper;
@@ -33,6 +34,8 @@ public abstract class BaseFragment extends Fragment{
     protected RelativeLayout noInternetLayout;
     @Bind(R.id.progressBar)
     protected ProgressBar progressBar;
+    @Bind(R.id.swipe_refresh_layout)
+    protected SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

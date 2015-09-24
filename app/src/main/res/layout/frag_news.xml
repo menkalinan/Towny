@@ -3,28 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/frag_news_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0px"
-        android:paddingTop="280dp"
-        android:scrollbars="none"
-        tools:context="com.goldenpie.devs.kievrest.ui.fragment.NewsFragment"
-        tools:listitem="@layout/frag_news_adapter_item" />
+        android:layout_height="match_parent">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="280dp" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/frag_news_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0px"
+            android:paddingTop="280dp"
+            android:scrollbars="none"
+            tools:context="com.goldenpie.devs.kievrest.ui.fragment.NewsFragment"
+            tools:listitem="@layout/frag_news_adapter_item" />
 
-    <include layout="@layout/no_internet_layout"
-        android:layout_marginTop="280dp"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingTop="280dp" />
+
+        <include
+            layout="@layout/no_internet_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="280dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

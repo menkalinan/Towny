@@ -2,7 +2,7 @@ package com.goldenpie.devs.kievrest.config;
 
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
-import com.goldenpie.devs.kievrest.ui.BaseFragment;
+import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.activity.MainActivity;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
@@ -22,5 +22,5 @@ public interface AppComponent {
 
     void inject(SelectionsFragment selectionsFragment);
 
-    void inject(BaseFragment baseFragment);
+    void inject(BaseListFragment baseListFragment);
 }

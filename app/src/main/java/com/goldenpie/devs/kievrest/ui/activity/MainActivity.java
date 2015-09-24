@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("unused")
     public void onEvent(WeatherLoadedEvent event) {
-        if (!TextUtils.isEmpty(event.getWeatherData().getCurrentTemperature())) {
+        if (!TextUtils.isEmpty(event.getWeatherData().getTemperature())) {
             currentWeather.setText(String.format(getString(R.string.current_weather),
                     event.getWeatherData().getCurrentTemperature()));
         }

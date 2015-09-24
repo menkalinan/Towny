@@ -4,24 +4,23 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
-import com.goldenpie.devs.kievrest.ui.BaseFragment;
+import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.SelectionsAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class SelectionsFragment extends BaseFragment {
+public class SelectionsFragment extends BaseListFragment {
 
     @Bind(R.id.frag_news_list)
-    protected RecyclerView newsList;
+    protected RecyclerView selectionsList;
 
     private SelectionsAdapter adapter;
 
@@ -50,13 +49,13 @@ public class SelectionsFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
             adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-            newsList.setAdapter(adapter);
+            selectionsList.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         } else {
             service.loadSelections();
         }
-        newsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), newsList, null);
+        selectionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), selectionsList, null);
     }
 
     @SuppressWarnings("unused")
@@ -80,7 +79,7 @@ public class SelectionsFragment extends BaseFragment {
 
         if (helper.getSelectionsList().size() == itemCount) {
             adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-            newsList.setAdapter(adapter);
+            selectionsList.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         }
     }

@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.NewsModel;
-import com.goldenpie.devs.kievrest.ui.BaseFragment;
+import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.NewsAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
@@ -20,10 +19,11 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends BaseListFragment {
 
     @Bind(R.id.frag_news_list)
     protected RecyclerView newsList;
+
     private NewsAdapter adapter;
 
     public NewsFragment() {
@@ -58,6 +58,7 @@ public class NewsFragment extends BaseFragment {
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), newsList, null);
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(NewsLoadedEvent event) {
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             ArrayList<NewsModel> tempList = helper.getNewsList();

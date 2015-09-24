@@ -1,7 +1,5 @@
 package com.goldenpie.devs.kievrest.utils;
 
-import android.util.Log;
-
 import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 
@@ -42,7 +40,6 @@ public class BaseCallback<T> implements Callback<T> {
 
     protected void handleError(RetrofitError error) {
         String message = getErrorHeaderMessage(error);
-        Log.e("BaseCallback", message, error);
         EventBus.getDefault().post(new ErrorEvent<T>(message));
     }
 

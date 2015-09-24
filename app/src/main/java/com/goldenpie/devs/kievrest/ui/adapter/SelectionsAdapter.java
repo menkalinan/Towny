@@ -59,7 +59,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         if (model.getPhotos() != null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             holder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
-                    .load(model.getPhotos().get(0).getImageUrl())
+                    .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
                     .placeholder(R.drawable.no_preview_available)
                     .into(holder.preview);
         } else {
