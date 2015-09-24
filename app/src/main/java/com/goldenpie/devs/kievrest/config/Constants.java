@@ -18,4 +18,6 @@ public class Constants {
     };
     public static final SimpleDateFormat dateFormat =
             new SimpleDateFormat("d MMMM, H:m", dateFormatSymbols);
+    public static final String SELECTION_LINK = "/public-api/v1/lists/?location=kev";
+    public static final String CONCRETE_SELECTION_LINK = "/public-api/v1/lists/{id}/?expand=place";
 }

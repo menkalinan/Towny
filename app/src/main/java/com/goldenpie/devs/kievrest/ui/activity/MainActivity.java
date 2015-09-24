@@ -2,11 +2,13 @@ package com.goldenpie.devs.kievrest.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -16,12 +18,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
+import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 
 import javax.inject.Inject;
@@ -50,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     protected EventBus BUS;
 
     private ActionBarDrawerToggle mDrawerToggle;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         BUS.register(this);
         service.loadCurrentWeather();
 
-        toolbar = mViewPager.getToolbar();
+        Toolbar toolbar = mViewPager.getToolbar();
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -78,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
-
         setMainViewPager();
     }
 
@@ -90,14 +95,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public Fragment getItem(int position) {
                         switch (position) {
-                            //case 0:
-                            //    return RecyclerViewFragment.newInstance();
-                            //case 1:
-                            //    return RecyclerViewFragment.newInstance();
-                            //case 2:
-                            //    return WebViewFragment.newInstance();
-                            default:
+                            case 0:
                                 return NewsFragment.newInstance();
+                            case 1:
+                                return SelectionsFragment.newInstance();
+                            default: return null;
                         }
                     }
 
@@ -120,25 +122,37 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
-            public HeaderDesign getHeaderDesign(int page) {
+            public HeaderDesign getHeaderDesign(final int page) {
+                YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (page) {
+                            case 0:
+                                headerLogoBackground.setBackgroundResource(R.drawable.news_circle_drawable);
+                                headerImage.setImageResource(R.drawable.news_icon);
+                                break;
+                            case 1:
+                                headerLogoBackground.setBackgroundResource(R.drawable.selection_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_whatshot);
+                                break;
+                        }
+                        YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
+                    }
+                }, 200);
+
                 switch (page) {
                     case 0:
-                        headerLogoBackground.setBackground(
-                                getApplicationContext().getDrawable(R.drawable.news_circle_drawable));
-                        headerImage.setImageDrawable(getApplicationContext()
-                                .getDrawable(R.drawable.news_icon));
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_indigo,
                                 "http://static.vueling.com/cms/media/1216777/kiev.jpg");
                     case 1:
-                        headerLogoBackground.setBackground(
-                                getApplicationContext().getDrawable(R.drawable.selection_circle_drawable));
-                        headerImage.setImageDrawable(getApplicationContext()
-                                .getDrawable(R.drawable.ic_action_whatshot));
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_purple,
                                 "http://relax.com.ua/wp-content/media/kiew/2012/09/kiev-at-night.jpg");
                 }
+
                 return null;
             }
         });
@@ -163,6 +177,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                service.loadCurrentWeather();
+                break;
+        }
         return mDrawerToggle.onOptionsItemSelected(item) ||
                 super.onOptionsItemSelected(item);
     }
@@ -177,5 +196,4 @@ public class MainActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
 }

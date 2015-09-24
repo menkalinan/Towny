@@ -1,41 +1,29 @@
 package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
-import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.NewsModel;
+import com.goldenpie.devs.kievrest.ui.BaseFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.NewsAdapter;
-import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
-import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
+import butterknife.OnClick;
 
-public class NewsFragment extends Fragment {
+public class NewsFragment extends BaseFragment {
 
     @Bind(R.id.frag_news_list)
     protected RecyclerView newsList;
-    @Inject
-    DataHelper helper;
-    @Inject
-    KievRestService service;
-    @Inject
-    EventBus BUS;
     private NewsAdapter adapter;
 
     public NewsFragment() {
@@ -46,26 +34,23 @@ public class NewsFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        KievRestApplication.appComponent().inject(this);
-        BUS.register(this);
+    protected int getContentView() {
+        return R.layout.frag_news;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_news, container, false);
+    @OnClick(R.id.no_internet_layout_repaet_button)
+    protected void reload() {
+        service.loadNews();
+        super.reload();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
-
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             adapter = new NewsAdapter(helper.getNewsList(), getActivity());
             newsList.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
         } else {
             service.loadNews();
         }
@@ -84,5 +69,12 @@ public class NewsFragment extends Fragment {
 
         adapter = new NewsAdapter(helper.getNewsList(), getActivity());
         newsList.setAdapter(adapter);
+        progressBar.setVisibility(View.GONE);
     }
+
+    public void onEvent(NetworkErrorEvent errorEvent) {
+        if (!helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS))
+            super.onEvent(errorEvent);
+    }
+
 }

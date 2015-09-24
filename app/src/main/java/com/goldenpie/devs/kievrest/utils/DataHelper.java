@@ -1,6 +1,7 @@
 package com.goldenpie.devs.kievrest.utils;
 
 import com.goldenpie.devs.kievrest.models.NewsModel;
+import com.goldenpie.devs.kievrest.models.SelectionModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,5 +17,9 @@ public class DataHelper {
     @SuppressWarnings("unchecked")
     public ArrayList<NewsModel> getNewsList() {
         return (ArrayList<NewsModel>) dataMap.get(ModelTypeEnum.NEWS);
+    }
+    @SuppressWarnings("unchecked")
+    public ArrayList<SelectionModel> getSelectionsList() {
+        return (ArrayList<SelectionModel>) dataMap.get(ModelTypeEnum.SELECTIONS);
     }
 }

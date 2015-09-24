@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.models.NewsModel;
+import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,16 +24,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import lombok.Getter;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private int lastPosition = -1;
 
-    private ArrayList<NewsModel> models;
+    private ArrayList<SelectionModel> models;
     @Getter
     private Context context;
 
-    public NewsAdapter(ArrayList<NewsModel> models, Context context) {
+    public SelectionsAdapter(ArrayList<SelectionModel> models, Context context) {
         this.context = context;
         this.models = models;
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -47,7 +48,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        NewsModel model = models.get(position);
+        SelectionModel model = models.get(position);
 
 //        holder.itemView.setVisibility(View.VISIBLE);
         holder.title.setText(model.getTitle());
@@ -55,7 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         getDate(holder, position);
 
-        if (!TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
+        if (model.getPhotos() != null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             holder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
                     .load(model.getPhotos().get(0).getImageUrl())

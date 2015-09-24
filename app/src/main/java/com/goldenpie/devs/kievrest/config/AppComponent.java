@@ -2,8 +2,10 @@ package com.goldenpie.devs.kievrest.config;
 
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
+import com.goldenpie.devs.kievrest.ui.BaseFragment;
 import com.goldenpie.devs.kievrest.ui.activity.MainActivity;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 
 import javax.inject.Singleton;
 
@@ -17,4 +19,8 @@ public interface AppComponent {
     void inject(MainActivity mainActivity);
 
     void inject(NewsFragment newsFragment);
+
+    void inject(SelectionsFragment selectionsFragment);
+
+    void inject(BaseFragment baseFragment);
 }

@@ -14,4 +14,17 @@
         android:scrollbars="none"
         tools:context="com.goldenpie.devs.kievrest.ui.fragment.NewsFragment"
         tools:listitem="@layout/frag_news_adapter_item" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="280dp" />
+
+    <include layout="@layout/no_internet_layout"
+        android:layout_marginTop="280dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 </RelativeLayout>
