@@ -1,6 +1,7 @@
 package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,35 +19,39 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SelectionPlaceAdapter extends ArrayAdapter<ItemModel> {
+public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAdapter.ViewHolder>  {
 
     private LayoutInflater inflater;
+    private List<ItemModel> models;
 
-    public SelectionPlaceAdapter(Context context, int resource, List<ItemModel> objects) {
-        super(context, resource, objects);
+    public SelectionPlaceAdapter(Context context, List<ItemModel> objects) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.models = objects;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.place_listing_adapter_item, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        viewHolder.location.setText(getItem(position).getAddress());
-        viewHolder.description.setText(getItem(position).getDescription());
-        viewHolder.title.setText(getItem(position).getFinalTitle());
-
-        return convertView;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = inflater.inflate(R.layout.place_listing_adapter_item, parent, false);
+        return new ViewHolder(v);
     }
 
-    static class ViewHolder{
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.location.setText(getItem(position).getAddress());
+        holder.description.setText(getItem(position).getDescription());
+        holder.title.setText(getItem(position).getFinalTitle());
+    }
+
+    private ItemModel getItem(int position) {
+        return models.get(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return models.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.place_lisitng_adapter_item_location)
         TextView location;
         @Bind(R.id.place_lisitng_adapter_item_description)
@@ -55,6 +60,7 @@ public class SelectionPlaceAdapter extends ArrayAdapter<ItemModel> {
         TextView title;
 
         ViewHolder(View view){
+            super(view);
             ButterKnife.bind(this, view);
         }
     }

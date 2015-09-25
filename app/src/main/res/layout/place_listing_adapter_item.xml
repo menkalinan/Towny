@@ -63,4 +63,9 @@
 
     </LinearLayout>
 
+    <include layout="@layout/divider"
+        android:layout_below="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
 </RelativeLayout>
