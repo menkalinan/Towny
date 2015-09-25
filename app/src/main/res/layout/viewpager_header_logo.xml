@@ -11,6 +11,5 @@
         android:fitsSystemWindows="true"
         android:adjustViewBounds="true"
         android:layout_gravity="center"
-        android:id="@+id/header_logo_image"
-        android:src="@drawable/common_full_open_on_phone" />
+        android:id="@+id/header_logo_image" />
 </FrameLayout>

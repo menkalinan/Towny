@@ -16,6 +16,9 @@ import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.squareup.picasso.Picasso;
 
+import org.solovyev.android.views.llm.DividerItemDecoration;
+import org.solovyev.android.views.llm.LinearLayoutManager;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -69,8 +72,9 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         if (model.getType().equals("list")) {
             holder.listLayout.setVisibility(View.VISIBLE);
             if (model.getItems().get(0).getType().equals("place")) {
-                holder.list.setAdapter(new SelectionPlaceAdapter(getContext(), 0, model.getItems()));
-                setListViewHeightBasedOnItems(holder.list);
+                final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                holder.list.setLayoutManager(layoutManager);
+                holder.list.setAdapter(new SelectionPlaceAdapter(getContext(), model.getItems()));
             }
         }
 //
@@ -124,7 +128,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         @Bind(R.id.frag_listing_item_image)
         ImageView preview;
         @Bind(R.id.frag_listing_item_list)
-        ListView list;
+        RecyclerView list;
         @Bind(R.id.frag_listing_item_list_layout)
         LinearLayout listLayout;
 
