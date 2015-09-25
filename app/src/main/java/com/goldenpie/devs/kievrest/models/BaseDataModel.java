@@ -32,4 +32,8 @@ public class BaseDataModel {
     public String getClearBody(){
         return Html.fromHtml(getBody()).toString();
     }
+
+    public String getFinalTitle() {
+        return title.substring(0, 1).toUpperCase() + title.substring(1);
+    }
 }

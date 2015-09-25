@@ -2,18 +2,17 @@ package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
-import com.goldenpie.devs.kievrest.models.NewsModel;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +40,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = inflater.inflate(R.layout.frag_news_adapter_item, viewGroup, false);
+        View v = inflater.inflate(R.layout.listing_adapter_item, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -56,7 +55,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
         getDate(holder, position);
 
-        if (model.getPhotos() != null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
+        holder.listLayout.setVisibility(View.GONE);
+        if (model.getPhotos() != null) {
             holder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
@@ -65,12 +65,43 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         } else {
             holder.preview.setVisibility(View.GONE);
         }
+
+        if (model.getType().equals("list")) {
+            holder.listLayout.setVisibility(View.VISIBLE);
+            if (model.getItems().get(0).getType().equals("place")) {
+                holder.list.setAdapter(new SelectionPlaceAdapter(getContext(), 0, model.getItems()));
+                setListViewHeightBasedOnItems(holder.list);
+            }
+        }
 //
 //        if (position > lastPosition) {
 //            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_from_bottom);
 //            holder.itemView.startAnimation(animation);
 //            lastPosition = position;
 //        }
+    }
+
+
+    public static void setListViewHeightBasedOnItems(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     @Override
@@ -84,14 +115,18 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.frag_news_item_title)
+        @Bind(R.id.frag_listing_item_title)
         TextView title;
-        @Bind(R.id.frag_news_item_description)
+        @Bind(R.id.frag_listing_item_description)
         TextView description;
-        @Bind(R.id.frag_news_item_date)
+        @Bind(R.id.frag_listing_item_date)
         TextView date;
-        @Bind(R.id.frag_news_item_image)
+        @Bind(R.id.frag_listing_item_image)
         ImageView preview;
+        @Bind(R.id.frag_listing_item_list)
+        ListView list;
+        @Bind(R.id.frag_listing_item_list_layout)
+        LinearLayout listLayout;
 
         ViewHolder(View view) {
             super(view);

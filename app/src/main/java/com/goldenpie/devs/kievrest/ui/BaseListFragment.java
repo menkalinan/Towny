@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
@@ -55,20 +56,21 @@ public abstract class BaseListFragment extends Fragment{
     protected abstract int getContentView();
     protected void reload(){
         showLoader();
-    };
+    }
 
-    public void onEvent(NetworkErrorEvent errorEvent){
+    public void onEvent(ErrorEvent<?> errorEvent){
         if(noInternetLayout.getVisibility() == View.GONE) {
             noInternetLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
     }
+    public void onEvent(NetworkErrorEvent errorEvent){
+        onEvent(new ErrorEvent<>(""));
+    }
 
     protected void showLoader(){
-        if(noInternetLayout.getVisibility() == View.VISIBLE) {
             noInternetLayout.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-        }
     }
 
 }

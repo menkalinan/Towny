@@ -13,18 +13,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/frag_news_item_image"
+                android:id="@+id/frag_listing_item_image"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/no_preview_available" />
 
             <RelativeLayout
-                android:id="@+id/frag_news_item_adult_layout"
+                android:id="@+id/frag_listing_item_adult_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -43,10 +42,10 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/frag_news_item_title"
+                android:id="@+id/frag_listing_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/frag_news_item_image"
+                android:layout_below="@+id/frag_listing_item_image"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingLeft="16dp"
@@ -57,10 +56,10 @@
                 tools:text="«ВКонтакте» запускает фильтр нежелательных комментариев" />
 
             <TextView
-                android:id="@+id/frag_news_item_description"
+                android:id="@+id/frag_listing_item_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/frag_news_item_title"
+                android:layout_below="@+id/frag_listing_item_title"
                 android:ellipsize="end"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
@@ -70,24 +69,47 @@
                 android:textSize="14sp"
                 tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой." />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frag_listing_item_list_layout"
+                android:visibility="gone"
+                android:layout_below="@+id/frag_listing_item_description">
+
+                <include
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px" />
+
+                <ListView
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_width="match_parent"
+                    android:scrollbars="none"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/frag_listing_item_list"
+                    android:layout_below="@+id/frag_listing_item_description" />
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/frag_news_item_description">
+                android:layout_below="@+id/frag_listing_item_list_layout">
 
                 <include layout="@layout/divider" />
 
                 <LinearLayout
-                    android:id="@+id/frag_news_item_location"
+                    android:id="@+id/frag_listing_item_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/frag_news_item_date"
-                    android:layout_toStartOf="@+id/frag_news_item_date"
+                    android:layout_toLeftOf="@+id/frag_listing_item_date"
+                    android:layout_toStartOf="@+id/frag_listing_item_date"
                     android:orientation="vertical"
                     android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/frag_news_item_location_title"
+                        android:id="@+id/frag_listing_item_location_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -101,7 +123,7 @@
                         tools:text="Medium Text" />
 
                     <TextView
-                        android:id="@+id/frag_news_item_location_is_open"
+                        android:id="@+id/frag_listing_item_location_is_open"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
@@ -113,10 +135,10 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/frag_news_item_date"
+                    android:id="@+id/frag_listing_item_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/frag_news_item_location"
+                    android:layout_alignBottom="@+id/frag_listing_item_location"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentLeft="false"
                     android:layout_alignParentRight="true"
@@ -137,8 +159,8 @@
                     android:layout_height="16dp"
                     android:layout_centerVertical="true"
                     android:layout_margin="8dp"
-                    android:layout_toLeftOf="@+id/frag_news_item_date"
-                    android:layout_toStartOf="@+id/frag_news_item_date"
+                    android:layout_toLeftOf="@+id/frag_listing_item_date"
+                    android:layout_toStartOf="@+id/frag_listing_item_date"
                     android:src="@drawable/ic_action_calendar"
                     android:tint="@color/secondary_text"/>
 

@@ -20,4 +20,10 @@ public class ItemModel {
     private String type;
     @SerializedName("place")
     private PlaceModel place;
+    @SerializedName("address")
+    private String address;
+
+    public String getFinalTitle() {
+        return title.substring(0, 1).toUpperCase() + title.substring(1);
+    }
 }

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        card:cardElevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/frag_news_item_image"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_preview_available" />
+
+            <RelativeLayout
+                android:id="@+id/frag_news_item_adult_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp"
+                android:background="@drawable/circle_drawable"
+                android:padding="4dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:gravity="center"
+                    android:text="@string/adult_label"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/frag_news_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frag_news_item_image"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/primary_text"
+                android:textSize="18sp"
+                tools:text="«ВКонтакте» запускает фильтр нежелательных комментариев" />
+
+            <TextView
+                android:id="@+id/frag_news_item_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frag_news_item_title"
+                android:ellipsize="end"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp"
+                tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой." />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frag_news_item_description">
+
+                <include layout="@layout/divider" />
+
+                <LinearLayout
+                    android:id="@+id/frag_news_item_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/frag_news_item_date"
+                    android:layout_toStartOf="@+id/frag_news_item_date"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/frag_news_item_location_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:minLines="1"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="16sp"
+                        tools:text="Medium Text" />
+
+                    <TextView
+                        android:id="@+id/frag_news_item_location_is_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="16dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="12sp"
+                        tools:text="Small Text" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/frag_news_item_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/frag_news_item_location"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="false"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="8dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="12sp"
+                    fontPath="fonts/PTSansItalic.ttf"
+                    tools:text="10 сентября, 16:30"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.internal.widget.TintImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    android:layout_toLeftOf="@+id/frag_news_item_date"
+                    android:layout_toStartOf="@+id/frag_news_item_date"
+                    android:src="@drawable/ic_action_calendar"
+                    android:tint="@color/secondary_text"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
