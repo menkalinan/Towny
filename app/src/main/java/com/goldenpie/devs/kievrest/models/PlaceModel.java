@@ -42,4 +42,7 @@ public class PlaceModel {
     public boolean isClosed() {
         return getIsClosed().equals("true");
     }
+    public String getFinalTitle() {
+        return title.substring(0, 1).toUpperCase() + title.substring(1);
+    }
 }

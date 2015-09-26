@@ -12,6 +12,7 @@ import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.NewsModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.NewsAdapter;
+import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
@@ -54,12 +55,23 @@ public class NewsFragment extends BaseListFragment {
         } else {
             service.loadNews();
         }
-        newsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        newsList.setLayoutManager(linearLayoutManager);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), newsList, null);
+
+        newsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                swipeRefreshLayout.setRefreshing(true);
+                service.loadMoreNews((adapter.getItemCount() / 20) + 1);
+            }
+        });
     }
 
     @SuppressWarnings("unused")
     public void onEvent(NewsLoadedEvent event) {
+        swipeRefreshLayout.setRefreshing(false);
         if (helper.getDataMap().containsKey(ModelTypeEnum.NEWS)) {
             ArrayList<NewsModel> tempList = helper.getNewsList();
             tempList.addAll(event.getResults());
@@ -68,14 +80,18 @@ public class NewsFragment extends BaseListFragment {
             helper.getDataMap().put(ModelTypeEnum.NEWS, event.getResults());
         }
 
-        adapter = new NewsAdapter(helper.getNewsList(), getActivity());
-        newsList.setAdapter(adapter);
-        progressBar.setVisibility(View.GONE);
+        if (adapter == null) {
+            adapter = new NewsAdapter(helper.getNewsList(), getActivity());
+            newsList.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
+        }
+        adapter.notifyDataSetChanged();
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(NetworkErrorEvent errorEvent) {
-        if (!helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS))
-            super.onEvent(errorEvent);
+        if (!helper.getDataMap().containsKey(ModelTypeEnum.NEWS))
+            showError();
     }
 
 }

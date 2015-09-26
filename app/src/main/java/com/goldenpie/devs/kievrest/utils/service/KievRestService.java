@@ -28,4 +28,12 @@ public class KievRestService {
     public void loadSelection(String id) {
         kievRestApi.getSelection(id, new BaseCallback<SelectionLoadedEvent>());
     }
+
+    public void loadMoreNews(int current_page) {
+        kievRestApi.getNews(String.valueOf(current_page), new BaseCallback<NewsLoadedEvent>());
+    }
+
+    public void loadMoreSelection(int current_page) {
+        kievRestApi.getSelections(String.valueOf(current_page), new BaseCallback<SelectionsLoadedEvent>());
+    }
 }

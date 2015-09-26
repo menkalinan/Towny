@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.squareup.picasso.Picasso;
 
-import org.solovyev.android.views.llm.DividerItemDecoration;
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = inflater.inflate(R.layout.listing_adapter_item, viewGroup, false);
+        View v = inflater.inflate(R.layout.adapter_listing_item, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -69,7 +69,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
             holder.preview.setVisibility(View.GONE);
         }
 
-        if (model.getType().equals("list")) {
+        if (!TextUtils.isEmpty(model.getType()) && model.getType().equals("list")) {
             holder.listLayout.setVisibility(View.VISIBLE);
             if (model.getItems().get(0).getType().equals("place")) {
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -77,35 +77,6 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
                 holder.list.setAdapter(new SelectionPlaceAdapter(getContext(), model.getItems()));
             }
         }
-//
-//        if (position > lastPosition) {
-//            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_from_bottom);
-//            holder.itemView.startAnimation(animation);
-//            lastPosition = position;
-//        }
-    }
-
-
-    public static void setListViewHeightBasedOnItems(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
     }
 
     @Override

@@ -5,15 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.models.ItemModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -31,7 +27,7 @@ public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.place_listing_adapter_item, parent, false);
+        View v = inflater.inflate(R.layout.adapter_place_listing_item, parent, false);
         return new ViewHolder(v);
     }
 

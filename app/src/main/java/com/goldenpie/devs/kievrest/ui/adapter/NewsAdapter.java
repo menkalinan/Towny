@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.goldenpie.devs.kievrest.R;
@@ -24,7 +26,6 @@ import lombok.Getter;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private int lastPosition = -1;
 
     private ArrayList<NewsModel> models;
     @Getter
@@ -42,18 +43,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         return new ViewHolder(v);
     }
 
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         NewsModel model = models.get(position);
 
-//        holder.itemView.setVisibility(View.VISIBLE);
         holder.title.setText(model.getTitle());
         holder.description.setText(model.getDescription());
 
         getDate(holder, position);
 
-        if (!TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
+        if (model.getPhotos()!= null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             holder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
@@ -62,12 +61,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         } else {
             holder.preview.setVisibility(View.GONE);
         }
-//
-//        if (position > lastPosition) {
-//            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_from_bottom);
-//            holder.itemView.startAnimation(animation);
-//            lastPosition = position;
-//        }
+        if (model.getPlace() != null) {
+            holder.placeLayout.setVisibility(View.VISIBLE);
+            holder.locationDescription.setText(model.getPlace().getFinalTitle());
+            holder.locationPlace.setText(model.getPlace().getAddress());
+        } else {
+            holder.placeLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -89,6 +89,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         TextView date;
         @Bind(R.id.frag_news_item_image)
         ImageView preview;
+        @Bind(R.id.frag_news_item_location)
+        LinearLayout placeLayout;
+        @Bind(R.id.frag_news_item_location_description)
+        TextView locationDescription;
+        @Bind(R.id.frag_news_item_location_place)
+        TextView locationPlace;
 
         ViewHolder(View view) {
             super(view);

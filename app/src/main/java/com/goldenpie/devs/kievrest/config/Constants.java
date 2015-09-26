@@ -10,6 +10,8 @@ public class Constants {
     public static final String CONCRETE_SELECTION_LINK = "/public-api/v1/lists/{id}/?expand=place,images";
     public static final String NEWS_LINK = "/public-api/v1/news/?location=kev&fields=description,publication_date,title,id,place,images,body_text,site_url&expand=place,images";
     public static final String CURRENT_WEATHER = "/data/2.5/weather?q=Kiev,ua";
+    public static final String MORE_NEWS_LINK = "/public-api/v1/news/?location=kev&fields=description,publication_date,title,id,place,images,body_text,site_url&expand=place,images";
+    public static final String MORE_SELECTIONS_LINK = "/public-api/v1/lists/?location=kev";
 
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override

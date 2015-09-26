@@ -58,19 +58,15 @@ public abstract class BaseListFragment extends Fragment{
         showLoader();
     }
 
-    public void onEvent(ErrorEvent<?> errorEvent){
-        if(noInternetLayout.getVisibility() == View.GONE) {
-            noInternetLayout.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-    public void onEvent(NetworkErrorEvent errorEvent){
-        onEvent(new ErrorEvent<>(""));
+
+    protected void showError(){
+        noInternetLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     protected void showLoader(){
-            noInternetLayout.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
+        noInternetLayout.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
 }

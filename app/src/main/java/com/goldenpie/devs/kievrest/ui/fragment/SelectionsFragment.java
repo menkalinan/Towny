@@ -8,11 +8,18 @@ import android.view.View;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
+import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
+import com.goldenpie.devs.kievrest.models.NewsModel;
+import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.adapter.NewsAdapter;
 import com.goldenpie.devs.kievrest.ui.adapter.SelectionsAdapter;
+import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -54,13 +61,30 @@ public class SelectionsFragment extends BaseListFragment {
         } else {
             service.loadSelections();
         }
-        selectionsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        selectionsList.setLayoutManager(linearLayoutManager);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), selectionsList, null);
+
+        selectionsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                swipeRefreshLayout.setRefreshing(true);
+                service.loadMoreSelection((adapter.getItemCount() / 20) + 1);
+            }
+        });
     }
+
 
     @SuppressWarnings("unused")
     public void onEvent(SelectionsLoadedEvent event) {
-        helper.getDataMap().put(ModelTypeEnum.SELECTIONS, event.getResults());
+        if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
+            ArrayList<SelectionModel> tempList = helper.getSelectionsList();
+            tempList.addAll(event.getResults());
+            helper.getDataMap().put(ModelTypeEnum.SELECTIONS, tempList);
+        } else {
+            helper.getDataMap().put(ModelTypeEnum.SELECTIONS, event.getResults());
+        }
+
         for (int i = 0; i < event.getResults().size(); i++) {
             service.loadSelection(String.valueOf(event.getResults().get(i).getId()));
         }
@@ -68,7 +92,6 @@ public class SelectionsFragment extends BaseListFragment {
 
     @SuppressWarnings("unused")
     public void onEvent(SelectionLoadedEvent event) {
-
         for (int i = 0; i < helper.getSelectionsList().size(); i++) {
             if (helper.getSelectionsList().get(i).getId() == event.getId()) {
                 helper.getSelectionsList().set(i, event);
@@ -76,17 +99,21 @@ public class SelectionsFragment extends BaseListFragment {
                 break;
             }
         }
-
         if (helper.getSelectionsList().size() == itemCount) {
-            adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-            selectionsList.setAdapter(adapter);
-            progressBar.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
+            if(adapter == null) {
+                adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
+                selectionsList.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
+            }
+            adapter.notifyDataSetChanged();
         }
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(NetworkErrorEvent errorEvent) {
         if (!helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS))
-            super.onEvent(errorEvent);
+            showError();
     }
 
 }
