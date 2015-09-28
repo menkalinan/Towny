@@ -9,10 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.internal.widget.TintImageView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,14 +23,19 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.config.RequestScrollToTopEvent;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
+import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,6 +47,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
+    @Bind({R.id.nav_drawer_main_layout
+            , R.id.nav_drawer_places_layout})
+    protected List<View> drawerItems;
     @Bind(R.id.materialViewPager)
     public MaterialViewPager mViewPager;
     @Bind(R.id.drawer_layout)
@@ -49,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     protected ImageView headerImage;
     @Bind(R.id.nav_drawer_current_weather)
     protected TextView currentWeather;
+
+    private String currentCat = CategoryTypeEnum.MAIN.name();
 
     @Inject
     protected KievRestService service;
@@ -87,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMainViewPager() {
+        updateDrawerItem(drawerItems.get(0));
         setTitle(getString(R.string.main));
         final int count = 2;
         mViewPager.getViewPager().setAdapter(
@@ -162,7 +176,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setPlacesViewPager() {
-        setTitle(getString(R.string.main));
+        updateDrawerItem(drawerItems.get(1));
+        setTitle(getString(R.string.places));
         final int count = 1;
         mViewPager.getViewPager().setAdapter(
                 new FragmentStatePagerAdapter(getSupportFragmentManager()) {
@@ -299,8 +314,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     public void onEvent(WeatherLoadedEvent event) {
         if (!TextUtils.isEmpty(event.getWeatherData().getTemperature())) {
-                currentWeather.setText(String.format(getString(R.string.current_weather),
-                        event.getWeatherData().getCurrentTemperature()));
+            currentWeather.setText(String.format(getString(R.string.current_weather),
+                    event.getWeatherData().getCurrentTemperature()));
 
         }
     }
@@ -333,19 +348,71 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    private void updateDrawerItem(View view) {
+        clearAllDrawerItems();
+        for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+            View v = ((ViewGroup) view).getChildAt(i);
+            if (v instanceof TextView) {
+                ((TextView) v).setTextColor(getResources().getColor(R.color.primary_dark));
+            } else if (v instanceof TintImageView) {
+                ((TintImageView) v).setColorFilter(getResources().getColor(R.color.primary_dark));
+            }
+        }
+    }
+
+    private void clearAllDrawerItems() {
+        for (int i = 0; i < drawerItems.size(); i++) {
+            View item = drawerItems.get(i);
+            for (int j = 0; j < ((ViewGroup) item).getChildCount(); j++) {
+                View v = ((ViewGroup) item).getChildAt(j);
+                if (v instanceof TextView) {
+                    ((TextView) v).setTextColor(getResources().getColor(R.color.primary_text));
+                } else if (v instanceof TintImageView) {
+                    ((TintImageView) v).setColorFilter(getResources().getColor(R.color.secondary_text));
+                }
+            }
+        }
+    }
+
     @OnClick(R.id.nav_drawer_places_layout)
-    protected void onPlacesClick(){
-        mViewPager.getViewPager().setCurrentItem(1);
-        setPlacesViewPager();
+    protected void onPlacesClick() {
+        if (!currentCat.equals(CategoryTypeEnum.PLACES.name())) {
+            currentCat = CategoryTypeEnum.PLACES.name();
+            mViewPager.post(new Runnable() {
+                @Override
+                public void run() {
+                    MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
+                }
+            });
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setPlacesViewPager();
+                    mViewPager.notifyHeaderChanged();
+                }
+            }, 101);
+        }
         mDrawer.closeDrawers();
-        mViewPager.getViewPager().setCurrentItem(0);
     }
 
     @OnClick(R.id.nav_drawer_main_layout)
-    protected void onManeClick(){
-        setMainViewPager();
+    protected void onManeClick() {
+        if (!currentCat.equals(CategoryTypeEnum.MAIN.name())) {
+            currentCat = CategoryTypeEnum.MAIN.name();
+            mViewPager.post(new Runnable() {
+                @Override
+                public void run() {
+                    MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
+                }
+            });
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setMainViewPager();
+                    mViewPager.notifyHeaderChanged();
+                }
+            }, 101);
+        }
         mDrawer.closeDrawers();
-        mViewPager.getViewPager().setCurrentItem(1);
-        mViewPager.getViewPager().setCurrentItem(0);
     }
 }

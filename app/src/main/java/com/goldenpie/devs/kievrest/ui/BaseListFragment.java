@@ -3,6 +3,8 @@ package com.goldenpie.devs.kievrest.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.event.ErrorEvent;
-import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
+import com.goldenpie.devs.kievrest.config.RequestScrollToTopEvent;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
@@ -34,6 +35,8 @@ public abstract class BaseListFragment extends Fragment{
     @Inject
     protected EventBus BUS;
 
+    @Bind(R.id.frag_news_list)
+    protected RecyclerView list;
     @Bind(R.id.no_internet_layout)
     protected RelativeLayout noInternetLayout;
     @Bind(R.id.progressBar)
@@ -68,7 +71,6 @@ public abstract class BaseListFragment extends Fragment{
     protected void reload(){
         showLoader();
     }
-
 
     protected void showError(){
         noInternetLayout.setVisibility(View.VISIBLE);

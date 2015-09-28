@@ -21,10 +21,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class RestaurantsFragment extends BaseListFragment {
-
-    @Bind(R.id.frag_news_list)
-    protected RecyclerView newsList;
-
     private PlacesAdapter adapter;
 
     public RestaurantsFragment() {
@@ -50,20 +46,20 @@ public class RestaurantsFragment extends BaseListFragment {
         super.onViewCreated(view, savedInstanceState);
         if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
             adapter = new PlacesAdapter(helper.getRestaurantsList(), getActivity());
-            newsList.setAdapter(adapter);
+            list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         } else {
             service.loadRestaurants();
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        newsList.setLayoutManager(linearLayoutManager);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), newsList, null);
+        list.setLayoutManager(linearLayoutManager);
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
 
-        newsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                service.loadMoreSelection((adapter.getItemCount() / 20) + 1);
+                swipeRefreshLayout.setRefreshing(true);
                 service.loadMoreRestaurants((preferences.getTotalRestauratsDataSize() / 20) + 1);
             }
         });
@@ -97,7 +93,7 @@ public class RestaurantsFragment extends BaseListFragment {
 
         if (adapter == null) {
             adapter = new PlacesAdapter(helper.getRestaurantsList(), getActivity());
-            newsList.setAdapter(adapter);
+            list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         }
         adapter.notifyDataSetChanged();

@@ -1,6 +1,7 @@
 package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,10 +26,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class SelectionsFragment extends BaseListFragment {
-
-    @Bind(R.id.frag_news_list)
-    protected RecyclerView selectionsList;
-
     private SelectionsAdapter adapter;
 
     private int itemCount = 0;
@@ -55,17 +52,15 @@ public class SelectionsFragment extends BaseListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
-            adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-            selectionsList.setAdapter(adapter);
-            progressBar.setVisibility(View.GONE);
+           hardCreateRecycler();
         } else {
             service.loadSelections();
         }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        selectionsList.setLayoutManager(linearLayoutManager);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), selectionsList, null);
+        list.setLayoutManager(linearLayoutManager);
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
 
-        selectionsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 swipeRefreshLayout.setRefreshing(true);
@@ -102,9 +97,7 @@ public class SelectionsFragment extends BaseListFragment {
         if (helper.getSelectionsList().size() == itemCount) {
             swipeRefreshLayout.setRefreshing(false);
             if(adapter == null) {
-                adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-                selectionsList.setAdapter(adapter);
-                progressBar.setVisibility(View.GONE);
+               hardCreateRecycler();
             }
             adapter.notifyDataSetChanged();
         }
@@ -116,4 +109,14 @@ public class SelectionsFragment extends BaseListFragment {
             showError();
     }
 
+    private void hardCreateRecycler(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
+                list.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
+            }
+        }, 300);
+    }
 }
