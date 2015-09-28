@@ -63,8 +63,8 @@ public class RestaurantsFragment extends BaseListFragment {
         newsList.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreRestaurants(current_page);
+                service.loadMoreSelection((adapter.getItemCount() / 20) + 1);
+                service.loadMoreRestaurants((preferences.getTotalRestauratsDataSize() / 20) + 1);
             }
         });
     }
@@ -73,6 +73,7 @@ public class RestaurantsFragment extends BaseListFragment {
     public void onEvent(RestaurantsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
+        int size = event.getResults().size();
         ArrayList<PlaceModel> modelToDelete = new ArrayList<>();
         for (int i = 0; i < event.getResults().size(); i++) {
             if (i < event.getResults().size() - 1) {
@@ -85,10 +86,12 @@ public class RestaurantsFragment extends BaseListFragment {
         event.getResults().removeAll(modelToDelete);
 
         if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
+            preferences.setTotalRestauratsDataSize(preferences.getTotalRestauratsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getRestaurantsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, tempList);
         } else {
+            preferences.setTotalRestauratsDataSize(size);
             helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, event.getResults());
         }
 

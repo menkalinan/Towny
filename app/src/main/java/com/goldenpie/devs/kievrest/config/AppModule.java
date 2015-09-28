@@ -6,6 +6,7 @@ import android.content.Context;
 import com.goldenpie.devs.kievrest.api.KievRestApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
+import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -50,6 +51,12 @@ public class AppModule {
     @Singleton
     public KievRestService provideKievRestService(KievRestApi kievRestApi, WeatherApi weatherApi) {
         return new KievRestService(kievRestApi , weatherApi);
+    }
+
+    @Provides
+    @Singleton
+    public ApplicationPreferences provideApplicationPreferences(Context context) {
+        return new ApplicationPreferences(context);
     }
 
     @Provides

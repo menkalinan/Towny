@@ -66,7 +66,7 @@ public class NewsFragment extends BaseListFragment {
             @Override
             public void onLoadMore(int current_page) {
                 swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreNews(current_page);
+                service.loadMoreNews((adapter.getItemCount() / 20) + 1);
             }
         });
     }

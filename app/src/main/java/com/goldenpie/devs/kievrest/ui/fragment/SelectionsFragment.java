@@ -69,7 +69,7 @@ public class SelectionsFragment extends BaseListFragment {
             @Override
             public void onLoadMore(int current_page) {
                 swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreSelection(current_page);
+                service.loadMoreSelection((adapter.getItemCount() / 20) + 1);
             }
         });
     }

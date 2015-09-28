@@ -14,6 +14,7 @@ import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
+import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 
 import javax.inject.Inject;
@@ -28,6 +29,8 @@ public abstract class BaseListFragment extends Fragment{
     protected DataHelper helper;
     @Inject
     protected KievRestService service;
+    @Inject
+    protected ApplicationPreferences preferences;
     @Inject
     protected EventBus BUS;
 
