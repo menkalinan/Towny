@@ -9,9 +9,11 @@ public class Constants {
     public static final String SELECTION_LINK = "/public-api/v1/lists/?location=kev";
     public static final String CONCRETE_SELECTION_LINK = "/public-api/v1/lists/{id}/?expand=place,images";
     public static final String NEWS_LINK = "/public-api/v1/news/?location=kev&fields=description,publication_date,title,id,place,images,body_text,site_url&expand=place,images";
-    public static final String CURRENT_WEATHER = "/data/2.5/weather?q=Kiev,ua";
+    public static final String CURRENT_WEATHER = "/data/2.5/weather?q=Kiev,ua&lang=ru";
     public static final String MORE_NEWS_LINK = "/public-api/v1/news/?location=kev&fields=description,publication_date,title,id,place,images,body_text,site_url&expand=place,images";
     public static final String MORE_SELECTIONS_LINK = "/public-api/v1/lists/?location=kev";
+    public static final String RESTAURANT_LINK = "/public-api/v1/places/?location=kev&categories=cafe,restaurants&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
+    public static final String MORE_RESTAURANTS_LINK = "/public-api/v1/places/?location=kev&categories=cafe,restaurants&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
 
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override

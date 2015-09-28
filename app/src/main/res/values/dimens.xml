@@ -2,4 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="scroll_offset">56dp</dimen>
+    <dimen name="credentials_row_badge_size">35dp</dimen>
+    <dimen name="host_details_default_padding">10dp</dimen>
 </resources>

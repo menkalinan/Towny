@@ -2,6 +2,8 @@ package com.goldenpie.devs.kievrest.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data
@@ -10,6 +12,8 @@ public class WeatherModel {
     private CoordinatesModel coordinates;
     @SerializedName("main")
     private WeatherDataModel weatherData;
+    @SerializedName("weather")
+    private ArrayList<WeatherInfoModel> weatherInfo;
     @SerializedName("visibility")
     private String visibility;
 
@@ -34,6 +38,16 @@ public class WeatherModel {
         }
         public String getCelsiusMinTemperature() {
             return String.valueOf(Double.parseDouble(getMinTemperature()) - 273.0);
+        }
+    }
+
+    @Data
+    public class WeatherInfoModel {
+        @SerializedName("description")
+        private String description;
+
+        public String getFinalDescription() {
+            return description.substring(0, 1).toUpperCase() + description.substring(1);
         }
     }
 }

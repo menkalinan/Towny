@@ -2,11 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.goldenpie.devs.kievrest">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.read_external_storage" />
+    <uses-permission android:name="android.permission.write_external_storage" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".KievRestApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
@@ -14,7 +19,6 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,5 +27,4 @@
             android:value="d1532bea837e3abf29e92dca516b1c1ab497ea4e" />
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

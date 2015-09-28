@@ -3,4 +3,10 @@
     <string name="adult_label">18+</string>
 
     <string name="current_weather">Киев - %1$S℃</string>
-    </resources>
+    <string name="current_weather_with_status">Киев - %1$S℃, %2$S</string>
+    <string name="news">Новости</string>
+    <string name="interesting">Интересное</string>
+    <string name="main">Главная</string>
+    <string name="closed">Закрыто</string>
+    <string name="opened">Открыто</string>
+</resources>

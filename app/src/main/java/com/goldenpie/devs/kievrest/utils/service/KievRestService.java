@@ -3,6 +3,7 @@ package com.goldenpie.devs.kievrest.utils.service;
 import com.goldenpie.devs.kievrest.api.KievRestApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
@@ -35,5 +36,12 @@ public class KievRestService {
 
     public void loadMoreSelection(int current_page) {
         kievRestApi.getSelections(String.valueOf(current_page), new BaseCallback<SelectionsLoadedEvent>());
+    }
+
+    public void loadRestaurants() {
+        kievRestApi.getRestaurants(new BaseCallback<RestaurantsLoadedEvent>());
+    }
+    public void loadMoreRestaurants(int current_page) {
+        kievRestApi.getRestaurants(String.valueOf(current_page), new BaseCallback<RestaurantsLoadedEvent>());
     }
 }

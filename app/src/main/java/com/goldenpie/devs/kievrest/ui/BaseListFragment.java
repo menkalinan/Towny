@@ -53,6 +53,14 @@ public abstract class BaseListFragment extends Fragment{
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        swipeRefreshLayout.setEnabled(false);
+        swipeRefreshLayout.setProgressViewOffset(false, 0,
+                getActivity().getResources().getDimensionPixelSize(R.dimen.scroll_offset));
+    }
+
     protected abstract int getContentView();
     protected void reload(){
         showLoader();

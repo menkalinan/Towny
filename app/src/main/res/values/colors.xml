@@ -22,6 +22,6 @@
     <color name="dark_orange">#F57C00</color>
     <color name="lime">#CDDC39</color>
     <color name="dark_lime">#AFB42B</color>
-    <color name="light_blue">#0288D1</color>
-    <color name="dark_light_blue">#03A9F4</color>
+    <color name="dark_light_blue">#0288D1</color>
+    <color name="light_blue">#03A9F4</color>
 </resources>

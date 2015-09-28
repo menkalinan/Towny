@@ -1,5 +1,7 @@
 package com.goldenpie.devs.kievrest.models;
 
+import android.text.Html;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -44,5 +46,8 @@ public class PlaceModel {
     }
     public String getFinalTitle() {
         return title.substring(0, 1).toUpperCase() + title.substring(1);
+    }
+    public String getFinalBody() {
+        return Html.fromHtml(body).toString();
     }
 }

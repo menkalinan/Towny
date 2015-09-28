@@ -11,11 +11,13 @@ import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.NewsModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.activity.MainActivity;
 import com.goldenpie.devs.kievrest.ui.adapter.NewsAdapter;
 import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -64,7 +66,7 @@ public class NewsFragment extends BaseListFragment {
             @Override
             public void onLoadMore(int current_page) {
                 swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreNews((adapter.getItemCount() / 20) + 1);
+                service.loadMoreNews(current_page);
             }
         });
     }

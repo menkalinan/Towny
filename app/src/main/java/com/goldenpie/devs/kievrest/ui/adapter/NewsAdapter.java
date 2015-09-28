@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.goldenpie.devs.kievrest.R;
@@ -39,7 +38,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = inflater.inflate(R.layout.news_adapter_item, viewGroup, false);
+        View v = inflater.inflate(R.layout.adapter_news_item, viewGroup, false);
         return new ViewHolder(v);
     }
 
