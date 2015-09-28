@@ -33,6 +33,7 @@ import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
+import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 
 import java.util.List;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     protected ImageView headerImage;
     @Bind(R.id.nav_drawer_current_weather)
     protected TextView currentWeather;
+    @Bind(R.id.nav_drawer_header_image)
+    protected ImageView drawerHeaderImage;
 
     private String currentCat = CategoryTypeEnum.MAIN.name();
 
@@ -67,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
     protected KievRestService service;
     @Inject
     protected EventBus BUS;
+    @Inject
+    protected DataHelper helper;
 
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -97,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
         setMainViewPager();
+
+        drawerHeaderImage.setImageResource(helper.getWeatherImage());
     }
 
     private void setMainViewPager() {
