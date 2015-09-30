@@ -1,6 +1,8 @@
 package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
+import com.goldenpie.devs.kievrest.models.ItemModel;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +24,7 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,11 +33,13 @@ import lombok.Getter;
 public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private int lastPosition = -1;
 
     private ArrayList<SelectionModel> models;
     @Getter
     private Context context;
+    private int lastPosition = -1;
+
+    private HashMap<Integer, SelectionPlaceAdapter> placeAdapterHashMap = new HashMap<>();
 
     public SelectionsAdapter(ArrayList<SelectionModel> models, Context context) {
         this.context = context;
@@ -49,8 +55,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        SelectionModel model = models.get(position);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final SelectionModel model = models.get(position);
 
 //        holder.itemView.setVisibility(View.VISIBLE);
         holder.title.setText(model.getTitle());
@@ -70,13 +76,54 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         }
 
         if (!TextUtils.isEmpty(model.getType()) && model.getType().equals("list")) {
-            holder.listLayout.setVisibility(View.VISIBLE);
             if (model.getItems().get(0).getType().equals("place")) {
-                final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                holder.list.setLayoutManager(layoutManager);
-                holder.list.setAdapter(new SelectionPlaceAdapter(getContext(), model.getItems()));
+                setInnerListLogic(holder, position, model);
+
             }
         }
+
+        holder.cardView.setVisibility(View.VISIBLE);
+
+        if (lastPosition < position) {
+            lastPosition = position;
+            YoYo.with(Techniques.FadeInUp).duration(350).playOn(holder.cardView);
+        }
+    }
+
+    private void setInnerListLogic(final ViewHolder holder, final int position, final SelectionModel model) {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!placeAdapterHashMap.containsKey(position)) {
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    holder.list.setLayoutManager(layoutManager);
+                    SelectionPlaceAdapter placeAdapter = new SelectionPlaceAdapter(getContext(), model.getItems());
+                    placeAdapterHashMap.put(position, placeAdapter);
+                    holder.list.setAdapter(placeAdapter);
+                } else {
+                    holder.list.setAdapter(placeAdapterHashMap.get(position));
+                }
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (holder.listLayout.getVisibility() == View.GONE) {
+                            holder.listLayout.setVisibility(View.VISIBLE);
+                            YoYo.with(Techniques.FadeIn).duration(200).playOn(holder.listLayout);
+                        } else {
+                            YoYo.with(Techniques.FadeOut).duration(200).playOn(holder.listLayout);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    holder.listLayout.setVisibility(View.GONE);
+                                }
+                            }, 200);
+                        }
+                    }
+                }, 50);
+
+            }
+        });
     }
 
     @Override
@@ -102,6 +149,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         RecyclerView list;
         @Bind(R.id.frag_listing_item_list_layout)
         LinearLayout listLayout;
+        @Bind(R.id.adp_selection_card)
+        CardView cardView;
 
         ViewHolder(View view) {
             super(view);

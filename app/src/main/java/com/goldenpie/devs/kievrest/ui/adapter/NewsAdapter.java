@@ -1,6 +1,7 @@
 package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.models.NewsModel;
@@ -29,6 +32,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private ArrayList<NewsModel> models;
     @Getter
     private Context context;
+    private int lastPosition = -1;
 
     public NewsAdapter(ArrayList<NewsModel> models, Context context) {
         this.context = context;
@@ -67,6 +71,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         } else {
             holder.placeLayout.setVisibility(View.GONE);
         }
+
+        holder.cardView.setVisibility(View.VISIBLE);
+
+        if(lastPosition < position) {
+            lastPosition = position;
+            YoYo.with(Techniques.FadeInUp).duration(350).playOn(holder.cardView);
+        }
     }
 
     @Override
@@ -94,6 +105,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         TextView locationDescription;
         @Bind(R.id.frag_news_item_location_place)
         TextView locationPlace;
+        @Bind(R.id.adp_news_card)
+        CardView cardView;
 
         ViewHolder(View view) {
             super(view);

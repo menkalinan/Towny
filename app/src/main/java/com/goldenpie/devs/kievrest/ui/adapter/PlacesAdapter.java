@@ -1,6 +1,7 @@
 package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.squareup.picasso.Picasso;
@@ -26,6 +29,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     private ArrayList<PlaceModel> models;
     @Getter
     private Context context;
+    private int lastPosition = -1;
 
     public PlacesAdapter(ArrayList<PlaceModel> models, Context context) {
         this.context = context;
@@ -58,6 +62,13 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         holder.date.setText(model.getAddress());
         holder.isOpen.setText(getContext().getString(model.isClosed() ? R.string.closed : R.string.opened));
         holder.isOpen.setBackgroundColor(getContext().getResources().getColor(model.isClosed() ? R.color.red : R.color.green));
+
+        holder.cardView.setVisibility(View.VISIBLE);
+
+        if(lastPosition < position) {
+            lastPosition = position;
+            YoYo.with(Techniques.FadeInUp).duration(300).playOn(holder.cardView);
+        }
     }
 
     @Override
@@ -76,6 +87,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         ImageView preview;
         @Bind(R.id.frag_place_item_is_open)
         TextView isOpen;
+        @Bind(R.id.adp_place_card)
+        CardView cardView;
 
         ViewHolder(View view) {
             super(view);
