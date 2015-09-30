@@ -27,7 +27,7 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.config.RequestScrollToTopEvent;
+import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
@@ -219,19 +219,19 @@ public class MainActivity extends AppCompatActivity {
                     public CharSequence getPageTitle(int position) {
                         switch (position) {
                             case 0:
-                                return "Рестораны и кафе";
+                                return getString(R.string.restaurants_and_cafe);
                             case 1:
-                                return "Бары";
+                                return getString(R.string.bars);
                             case 2:
-                                return "Клубы";
+                                return getString(R.string.clubs);
                             case 3:
-                                return "Музеи";
+                                return getString(R.string.museums);
                             case 4:
-                                return "Достопремечательности";
+                                return getString(R.string.attractions);
                             case 5:
-                                return "Активный отдых";
+                                return getString(R.string.active_rest);
                             case 6:
-                                return "Магазины";
+                                return getString(R.string.shops);
                         }
                         return "";
                     }
@@ -397,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
                     setPlacesViewPager();
                     mViewPager.notifyHeaderChanged();
                 }
-            }, 101);
+            }, Constants.DRAWER_ANIMATION_DURATION);
         }
         mDrawer.closeDrawers();
     }
@@ -418,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
                     setMainViewPager();
                     mViewPager.notifyHeaderChanged();
                 }
-            }, 101);
+            }, Constants.DRAWER_ANIMATION_DURATION);
         }
         mDrawer.closeDrawers();
     }

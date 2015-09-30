@@ -10,4 +10,11 @@
     <string name="closed">Закрыто</string>
     <string name="opened">Открыто</string>
     <string name="places">Места</string>
+    <string name="restaurants_and_cafe">Рестораны и кафе</string>
+    <string name="bars">Бары</string>
+    <string name="clubs">Клубы</string>
+    <string name="museums">Музеи</string>
+    <string name="attractions">Достопремечательности</string>
+    <string name="active_rest">Активный отдых</string>
+    <string name="shops">Магазины</string>
 </resources>

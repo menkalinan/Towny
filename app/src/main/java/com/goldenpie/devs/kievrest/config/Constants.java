@@ -14,6 +14,7 @@ public class Constants {
     public static final String MORE_SELECTIONS_LINK = "/public-api/v1/lists/?location=kev";
     public static final String RESTAURANT_LINK = "/public-api/v1/places/?location=kev&categories=cafe,restaurants&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
     public static final String MORE_RESTAURANTS_LINK = "/public-api/v1/places/?location=kev&categories=cafe,restaurants&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
+    public static final long DRAWER_ANIMATION_DURATION = 400L;
 
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override
