@@ -13,8 +13,10 @@ public class Constants {
     public static final String MORE_NEWS_LINK = "/public-api/v1/news/?location=kev&fields=description,publication_date,title,id,place,images,body_text,site_url&expand=place,images";
     public static final String MORE_SELECTIONS_LINK = "/public-api/v1/lists/?location=kev";
     public static final String RESTAURANT_LINK = "/public-api/v1/places/?location=kev&categories=cafe,restaurants&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
-    public static final String MORE_RESTAURANTS_LINK = "/public-api/v1/places/?location=kev&categories=cafe,restaurants&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
     public static final long DRAWER_ANIMATION_DURATION = 400L;
+    public static final String MUSEUMS_LINK = "/public-api/v1/places/?location=kev&categories=museums&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
+    public static final String CLUBS_LINK = "/public-api/v1/places/?location=kev&categories=clubs&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
+    public static final String BARS_LINK = "/public-api/v1/places/?location=kev&categories=bar&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
 
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override

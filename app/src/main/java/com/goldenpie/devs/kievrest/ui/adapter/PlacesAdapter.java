@@ -48,7 +48,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         PlaceModel model = models.get(position);
 
         holder.title.setText(model.getFinalTitle());
-        holder.description.setText(model.getFinalBody());
+        holder.description.setText(model.getDescription());
 
         if (model.getPhotos() != null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             holder.preview.setVisibility(View.VISIBLE);
@@ -77,17 +77,17 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.frag_news_item_title)
+        @Bind(R.id.adp_place_item_title)
         TextView title;
-        @Bind(R.id.frag_news_item_description)
+        @Bind(R.id.adp_place_item_description)
         TextView description;
-        @Bind(R.id.frag_news_item_date)
+        @Bind(R.id.adp_place_item_date)
         TextView date;
-        @Bind(R.id.frag_news_item_image)
+        @Bind(R.id.adp_place_item_image)
         ImageView preview;
         @Bind(R.id.frag_place_item_is_open)
         TextView isOpen;
-        @Bind(R.id.adp_place_card)
+        @Bind(R.id.adp_place_item_card)
         CardView cardView;
 
         ViewHolder(View view) {

@@ -91,21 +91,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.frag_news_item_title)
+        @Bind(R.id.adp_news_item_title)
         TextView title;
-        @Bind(R.id.frag_news_item_description)
+        @Bind(R.id.adp_news_item_description)
         TextView description;
-        @Bind(R.id.frag_news_item_date)
+        @Bind(R.id.adp_news_item_date)
         TextView date;
-        @Bind(R.id.frag_news_item_image)
+        @Bind(R.id.adp_news_item_image)
         ImageView preview;
-        @Bind(R.id.frag_news_item_location)
+        @Bind(R.id.adp_news_item_location)
         LinearLayout placeLayout;
-        @Bind(R.id.frag_news_item_location_description)
+        @Bind(R.id.adp_news_item_location_description)
         TextView locationDescription;
-        @Bind(R.id.frag_news_item_location_place)
+        @Bind(R.id.adp_news_item_location_place)
         TextView locationPlace;
-        @Bind(R.id.adp_news_card)
+        @Bind(R.id.adp_news_item_card)
         CardView cardView;
 
         ViewHolder(View view) {

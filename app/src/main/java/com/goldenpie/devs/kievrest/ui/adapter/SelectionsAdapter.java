@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
-import com.goldenpie.devs.kievrest.models.ItemModel;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.squareup.picasso.Picasso;
 
@@ -78,7 +78,6 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         if (!TextUtils.isEmpty(model.getType()) && model.getType().equals("list")) {
             if (model.getItems().get(0).getType().equals("place")) {
                 setInnerListLogic(holder, position, model);
-
             }
         }
 
@@ -91,7 +90,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
     }
 
     private void setInnerListLogic(final ViewHolder holder, final int position, final SelectionModel model) {
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.expandLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!placeAdapterHashMap.containsKey(position)) {
@@ -110,12 +109,14 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
                         if (holder.listLayout.getVisibility() == View.GONE) {
                             holder.listLayout.setVisibility(View.VISIBLE);
                             YoYo.with(Techniques.FadeIn).duration(200).playOn(holder.listLayout);
+                            holder.expandArrow.setRotation(0);
                         } else {
                             YoYo.with(Techniques.FadeOut).duration(200).playOn(holder.listLayout);
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     holder.listLayout.setVisibility(View.GONE);
+                                    holder.expandArrow.setRotation(270);
                                 }
                             }, 200);
                         }
@@ -137,20 +138,27 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.frag_listing_item_title)
+        @Bind(R.id.adp_selection_item_title)
         TextView title;
-        @Bind(R.id.frag_listing_item_description)
+        @Bind(R.id.adp_selection_item_description)
         TextView description;
-        @Bind(R.id.frag_listing_item_date)
+        @Bind(R.id.adp_selection_item_date)
         TextView date;
-        @Bind(R.id.frag_listing_item_image)
+        @Bind(R.id.adp_selection_item_image)
         ImageView preview;
-        @Bind(R.id.frag_listing_item_list)
+        @Bind(R.id.adp_selection_item_list)
         RecyclerView list;
-        @Bind(R.id.frag_listing_item_list_layout)
+        @Bind(R.id.adp_selection_item_list_layout)
         LinearLayout listLayout;
-        @Bind(R.id.adp_selection_card)
+        @Bind(R.id.adp_selection_item_card)
         CardView cardView;
+
+
+        @Bind(R.id.adp_selection_expand_arrow)
+        ImageView expandArrow;
+        @Bind(R.id.adp_selection_expand_layout)
+        RelativeLayout expandLayout;
+
 
         ViewHolder(View view) {
             super(view);

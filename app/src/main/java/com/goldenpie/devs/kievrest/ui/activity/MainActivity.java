@@ -29,6 +29,9 @@ import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
+import com.goldenpie.devs.kievrest.ui.fragment.BarsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.ClubsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.MuseumsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
@@ -185,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
     private void setPlacesViewPager() {
         updateDrawerItem(drawerItems.get(1));
         setTitle(getString(R.string.places));
-        final int count = 1;
+        final int count = 4;
         mViewPager.getViewPager().setAdapter(
                 new FragmentStatePagerAdapter(getSupportFragmentManager()) {
                     @Override
@@ -194,11 +197,11 @@ public class MainActivity extends AppCompatActivity {
                             case 0:
                                 return RestaurantsFragment.newInstance();
                             case 1:
-                                return SelectionsFragment.newInstance();
+                                return BarsFragment.newInstance();
                             case 2:
-                                return SelectionsFragment.newInstance();
+                                return ClubsFragment.newInstance();
                             case 3:
-                                return SelectionsFragment.newInstance();
+                                return MuseumsFragment.newInstance();
                             case 4:
                                 return SelectionsFragment.newInstance();
                             case 5:
@@ -385,12 +388,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPlacesClick() {
         if (!currentCat.equals(CategoryTypeEnum.PLACES.name())) {
             currentCat = CategoryTypeEnum.PLACES.name();
-            mViewPager.post(new Runnable() {
+            mViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
                 }
-            });
+            }, Constants.DRAWER_ANIMATION_DURATION - 50L);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -406,12 +409,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onManeClick() {
         if (!currentCat.equals(CategoryTypeEnum.MAIN.name())) {
             currentCat = CategoryTypeEnum.MAIN.name();
-            mViewPager.post(new Runnable() {
+            mViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
                 }
-            });
+            }, Constants.DRAWER_ANIMATION_DURATION - 50L);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

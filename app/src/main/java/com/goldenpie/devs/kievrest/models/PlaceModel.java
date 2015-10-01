@@ -50,4 +50,7 @@ public class PlaceModel {
     public String getFinalBody() {
         return Html.fromHtml(body).toString();
     }
+    public String getDescription() {
+        return getFinalBody().substring(0, getFinalBody().indexOf("\n"));
+    }
 }

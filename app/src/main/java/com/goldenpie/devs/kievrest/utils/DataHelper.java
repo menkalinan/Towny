@@ -22,6 +22,7 @@ public class DataHelper {
     public ArrayList<NewsModel> getNewsList() {
         return (ArrayList<NewsModel>) dataMap.get(ModelTypeEnum.NEWS);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayList<SelectionModel> getSelectionsList() {
         return (ArrayList<SelectionModel>) dataMap.get(ModelTypeEnum.SELECTIONS);
@@ -31,9 +32,25 @@ public class DataHelper {
     public ArrayList<PlaceModel> getRestaurantsList() {
         return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.RESTAURANTS);
     }
-    public int getWeatherImage(){
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlaceModel> getClubsList() {
+        return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.CLUBS);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlaceModel> getMuseumsList() {
+        return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.MUSEUMS);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlaceModel> getBarsList() {
+        return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.BARS);
+    }
+
+    public int getWeatherImage() {
         Calendar calendar = new GregorianCalendar();
-        switch (calendar.get(Calendar.MONTH)){
+        switch (calendar.get(Calendar.MONTH)) {
             case Calendar.JANUARY:
                 return R.drawable.bkg_01_january;
             case Calendar.FEBRUARY:
@@ -62,4 +79,5 @@ public class DataHelper {
                 return 0;
         }
     }
+
 }

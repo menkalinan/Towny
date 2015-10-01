@@ -46,7 +46,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_toStartOf="@+id/frag_news_item_date"
+                android:layout_toStartOf="@+id/adp_news_item_date"
                 android:src="@drawable/ic_action_place"
                 android:tint="@color/secondary_text"/>
 
