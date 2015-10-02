@@ -34,6 +34,11 @@ public class ClubsFragment extends BaseListFragment {
         return R.layout.frag_news;
     }
 
+    @Override
+    protected ModelTypeEnum getFragmentType() {
+        return ModelTypeEnum.CLUBS;
+    }
+
     @OnClick(R.id.no_internet_layout_repaet_button)
     protected void reload() {
         service.loadClubs();
@@ -80,13 +85,7 @@ public class ClubsFragment extends BaseListFragment {
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         }
+        hideError();
         adapter.notifyDataSetChanged();
     }
-
-    @SuppressWarnings("unused")
-    public void onEvent(NetworkErrorEvent errorEvent) {
-        if (!helper.getDataMap().containsKey(ModelTypeEnum.CLUBS))
-            showError();
-    }
-
 }
