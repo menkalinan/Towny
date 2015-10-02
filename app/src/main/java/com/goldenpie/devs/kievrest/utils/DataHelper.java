@@ -48,6 +48,21 @@ public class DataHelper {
         return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.BARS);
     }
 
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlaceModel> getShopsList() {
+        return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.SHOPS);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlaceModel> getRecreationsList() {
+        return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.RECREATIONS);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlaceModel> getAttractionsList() {
+        return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.ATTRACTIONS);
+    }
+
     public int getWeatherImage() {
         Calendar calendar = new GregorianCalendar();
         switch (calendar.get(Calendar.MONTH)) {

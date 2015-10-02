@@ -29,12 +29,15 @@ import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
+import com.goldenpie.devs.kievrest.ui.fragment.AttractionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.BarsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.ClubsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.MuseumsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.RecreationsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.ShopsFragment;
 import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
@@ -188,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
     private void setPlacesViewPager() {
         updateDrawerItem(drawerItems.get(1));
         setTitle(getString(R.string.places));
-        final int count = 4;
+        final int count = 7;
         mViewPager.getViewPager().setAdapter(
                 new FragmentStatePagerAdapter(getSupportFragmentManager()) {
                     @Override
@@ -203,11 +206,11 @@ public class MainActivity extends AppCompatActivity {
                             case 3:
                                 return MuseumsFragment.newInstance();
                             case 4:
-                                return SelectionsFragment.newInstance();
+                                return AttractionsFragment.newInstance();
                             case 5:
-                                return SelectionsFragment.newInstance();
+                                return RecreationsFragment.newInstance();
                             case 6:
-                                return SelectionsFragment.newInstance();
+                                return ShopsFragment.newInstance();
                             default:
                                 return null;
                         }
