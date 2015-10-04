@@ -16,6 +16,7 @@ import com.google.android.gms.wearable.DataMap;
 import com.mariux.teleport.lib.TeleportClient;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -67,12 +68,13 @@ public class DataShareService extends Service implements LocationListener {
         ArrayList<String> address = new ArrayList<>();
         for (int i = 0; i < event.getResults().size(); i++) {
             ids.add(String.valueOf(event.getResults().get(i).getId()));
-            labels.add(event.getResults().get(i).getTitle());
+            labels.add(event.getResults().get(i).getFinalTitle());
             address.add(event.getResults().get(i).getAddress());
         }
         dataMap.putStringArrayList(Constants.ID_LIST, ids);
         dataMap.putStringArrayList(Constants.LABEL_LIST, labels);
         dataMap.putStringArrayList(Constants.ADDRESS_LIST, address);
+        dataMap.putLong("time_stamp", new Date().getTime());
 
         if (mTeleportClient.getGoogleApiClient().isConnected())
             mTeleportClient.syncAll(dataMap);

@@ -14,7 +14,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
-        applicationId "com.goldenpie.devs.kievrest"
+        applicationId "com.goldenpie.devs.kievrest.withwear"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 8

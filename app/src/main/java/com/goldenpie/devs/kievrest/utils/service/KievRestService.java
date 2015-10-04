@@ -80,7 +80,7 @@ public class KievRestService {
     }
     public void loadPlacesNearMe(double longitude, double latitude) {
         kievRestApi.getPlacesNear(longitude, latitude, new BaseCallback<NearPlacesLoadedEvent>());
-
+    }
     public void loadShops() {
         kievRestApi.getShops(new BaseCallback<ShopsLoadedEvent>());
     }
