@@ -7,10 +7,14 @@ import android.os.Handler;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.DelayedConfirmationView;
 import android.support.wearable.view.WatchViewStub;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.goldenpie.devs.constanskeeper.Constants;
+import com.goldenpie.devs.keivrest.utils.ViewUtils;
 import com.goldenpie.devs.kievrest.R;
+import com.mariux.teleport.lib.TeleportClient;
 
 public class OpenActivity extends Activity implements
         DelayedConfirmationView.DelayedConfirmationListener {
@@ -18,12 +22,18 @@ public class OpenActivity extends Activity implements
     public static final String TITLE = "title";
     private TextView title;
     private DelayedConfirmationView mDelayedView;
+    private TeleportClient mTeleportClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmaion);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+
+        mTeleportClient = new TeleportClient(this);
+        mTeleportClient.connect();
+
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
@@ -33,17 +43,25 @@ public class OpenActivity extends Activity implements
                 mDelayedView.setListener(OpenActivity.this);
             }
         });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
                 mDelayedView.setTotalTimeMs(2000);
-                mDelayedView.setStartTimeMs(1000);
                 mDelayedView.start();
+            }
+        }, 1000);
+
     }
 
     @Override
     public void onTimerFinished(View view) {
-        Intent intent = new Intent(this, ConfirmationActivity.class);
-        intent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.OPEN_ON_PHONE_ANIMATION);
-        intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Готово");
-        startActivity(intent);
+        if (mTeleportClient.getGoogleApiClient().isConnected()) {
+            mTeleportClient.sendMessage(Constants.OPEN_ACTIVITY, null);
+            ViewUtils.showSuccsessAnim(this);
+        } else {
+            ViewUtils.showFailureAnim(this, "Осутствует соединение");
+        }
         this.finish();
     }
 
@@ -51,11 +69,7 @@ public class OpenActivity extends Activity implements
     public void onTimerSelected(View view) {
         mDelayedView.reset();
         mDelayedView.setListener(null);
-        Intent intent = new Intent(this, ConfirmationActivity.class);
-        intent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.FAILURE_ANIMATION);
-        intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Отмена");
-        startActivity(intent);
-
+        ViewUtils.showFailureAnim(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -63,5 +77,9 @@ public class OpenActivity extends Activity implements
                 OpenActivity.this.finish();
             }
         }, 1000);
+    }
+
+    private void showSuccsessAnim() {
+
     }
 }

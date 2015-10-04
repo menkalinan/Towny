@@ -7,4 +7,5 @@ public class Constants {
     public static final String ID_LIST = "id";
     public static final String LABEL_LIST = "label";
     public static final String ADDRESS_LIST = "address";
+    public static final String OPEN_ACTIVITY = "open_activity";
 }

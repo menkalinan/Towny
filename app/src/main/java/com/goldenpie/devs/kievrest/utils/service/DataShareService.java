@@ -12,6 +12,7 @@ import android.os.IBinder;
 import com.goldenpie.devs.constanskeeper.Constants;
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
+import com.goldenpie.devs.kievrest.ui.activity.MainActivity;
 import com.google.android.gms.wearable.DataMap;
 import com.mariux.teleport.lib.TeleportClient;
 
@@ -87,9 +88,18 @@ public class DataShareService extends Service implements LocationListener {
                 case Constants.FIND_NEAREST_PLACES:
                     getCurrentLocation();
                     break;
+                case Constants.OPEN_ACTIVITY:
+                    openActivity();
+                    break;
             }
             mTeleportClient.setOnGetMessageTask(new MessageListener());
         }
+    }
+
+    private void openActivity() {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(i);
     }
 
     @SuppressWarnings("ResourceType")
