@@ -18,7 +18,7 @@ public class Constants {
     public static final String CLUBS_LINK = "/public-api/v1/places/?location=kev&categories=clubs&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
     public static final String BARS_LINK = "/public-api/v1/places/?location=kev&categories=bar&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
     public static final String ATTRACTIONS_LINK = "/public-api/v1/places/?location=kev&categories=attract&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
-    public static final String RECREATIONS_LINK = "/public-api/v1/places/?location=kev&categories=recreations&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
+    public static final String RECREATIONS_LINK = "/public-api/v1/places/?location=kev&categories=climbing-walls,diving,fitness,ice-rink,karts,kempingi,paintball,rollerdromes,slope,sport-centers,stable,swimming-pool,water-park,wind-tunnels&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
     public static final String SHOPS_LINK = "/public-api/v1/places/?location=kev&categories=shops&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
 
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
