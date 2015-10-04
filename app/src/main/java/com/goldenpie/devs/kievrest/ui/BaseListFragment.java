@@ -1,9 +1,9 @@
 package com.goldenpie.devs.kievrest.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +13,10 @@ import android.widget.RelativeLayout;
 
 import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.config.RequestScrollToTopEvent;
+import com.goldenpie.devs.kievrest.event.ErrorEvent;
+import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
+import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 
@@ -24,7 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-public abstract class BaseListFragment extends Fragment{
+public abstract class BaseListFragment extends Fragment {
 
     @Inject
     protected DataHelper helper;
@@ -68,18 +70,42 @@ public abstract class BaseListFragment extends Fragment{
     }
 
     protected abstract int getContentView();
-    protected void reload(){
+
+    protected abstract ModelTypeEnum getFragmentType();
+
+    protected void reload() {
         showLoader();
     }
 
-    protected void showError(){
+    protected void showError() {
         noInternetLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
 
-    protected void showLoader(){
+    protected void showLoader() {
         noInternetLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
+    }
+
+    protected void hideError() {
+        if (noInternetLayout.getVisibility() == View.VISIBLE)
+            noInternetLayout.setVisibility(View.GONE);
+    }
+
+    @SuppressWarnings("unused")
+    public void onEvent(NetworkErrorEvent errorEvent) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!helper.getDataMap().containsKey(getFragmentType()))
+                    showError();
+            }
+        }, 3000L);
+    }
+
+    @SuppressWarnings("UnusedParameters")
+    public void onEvent(ErrorEvent errorEvent) {
+        onEvent(new NetworkErrorEvent());
     }
 
 }

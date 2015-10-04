@@ -1,14 +1,17 @@
 package com.goldenpie.devs.kievrest.api;
 
 import com.goldenpie.devs.kievrest.config.Constants;
+import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.MuseumsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.RecreationsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.ShopsLoadedEvent;
 import com.goldenpie.devs.kievrest.utils.BaseCallback;
 
 import retrofit.http.GET;
@@ -59,4 +62,21 @@ public interface KievRestApi {
     void getPlacesNear(@Query("lon") double longitude,
                        @Query("lat") double latitude,
                        BaseCallback<NearPlacesLoadedEvent> callback);
+    @GET(Constants.RECREATIONS_LINK)
+    void getRecreations(@Query("page") String page, BaseCallback<RecreationsLoadedEvent> callback);
+
+    @GET(Constants.ATTRACTIONS_LINK)
+    void getAttractions(@Query("page") String page, BaseCallback<AttractionsLoadedEvent> callback);
+
+    @GET(Constants.SHOPS_LINK)
+    void getShops(@Query("page") String page, BaseCallback<ShopsLoadedEvent> callback);
+
+    @GET(Constants.SHOPS_LINK)
+    void getShops(BaseCallback<ShopsLoadedEvent> callback);
+
+    @GET(Constants.ATTRACTIONS_LINK)
+    void getAttractions(BaseCallback<AttractionsLoadedEvent> callback);
+
+    @GET(Constants.RECREATIONS_LINK)
+    void getRecreations(BaseCallback<RecreationsLoadedEvent> callback);
 }

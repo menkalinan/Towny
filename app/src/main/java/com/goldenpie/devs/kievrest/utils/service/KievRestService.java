@@ -2,14 +2,17 @@ package com.goldenpie.devs.kievrest.utils.service;
 
 import com.goldenpie.devs.kievrest.api.KievRestApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
+import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.MuseumsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.RecreationsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.ShopsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.utils.BaseCallback;
 
@@ -60,12 +63,12 @@ public class KievRestService {
         kievRestApi.getMuseums(String.valueOf(current_page), new BaseCallback<MuseumsLoadedEvent>());
     }
 
-    public void loadMoreClubs(int current_page) {
-        kievRestApi.getClubs(String.valueOf(current_page), new BaseCallback<ClubsLoadedEvent>());
-    }
-
     public void loadClubs() {
         kievRestApi.getClubs(new BaseCallback<ClubsLoadedEvent>());
+    }
+
+    public void loadMoreClubs(int current_page) {
+        kievRestApi.getClubs(String.valueOf(current_page), new BaseCallback<ClubsLoadedEvent>());
     }
 
     public void loadBars() {
@@ -77,5 +80,28 @@ public class KievRestService {
     }
     public void loadPlacesNearMe(double longitude, double latitude) {
         kievRestApi.getPlacesNear(longitude, latitude, new BaseCallback<NearPlacesLoadedEvent>());
+
+    public void loadShops() {
+        kievRestApi.getShops(new BaseCallback<ShopsLoadedEvent>());
+    }
+
+    public void loadMoreShops(int current_page) {
+        kievRestApi.getShops(String.valueOf(current_page), new BaseCallback<ShopsLoadedEvent>());
+    }
+
+    public void loadAttractions() {
+        kievRestApi.getAttractions(new BaseCallback<AttractionsLoadedEvent>());
+    }
+
+    public void loadMoreAttractions(int current_page) {
+        kievRestApi.getAttractions(String.valueOf(current_page), new BaseCallback<AttractionsLoadedEvent>());
+    }
+
+    public void loadRecreations() {
+        kievRestApi.getRecreations(new BaseCallback<RecreationsLoadedEvent>());
+    }
+
+    public void loadMoreRecreations(int current_page) {
+        kievRestApi.getRecreations(String.valueOf(current_page), new BaseCallback<RecreationsLoadedEvent>());
     }
 }

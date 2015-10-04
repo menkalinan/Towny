@@ -43,6 +43,11 @@ public class SelectionsFragment extends BaseListFragment {
         return R.layout.frag_news;
     }
 
+    @Override
+    protected ModelTypeEnum getFragmentType() {
+        return ModelTypeEnum.SELECTIONS;
+    }
+
     @OnClick(R.id.no_internet_layout_repaet_button)
     protected void reload() {
         service.loadSelections();
@@ -53,7 +58,10 @@ public class SelectionsFragment extends BaseListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
-            hardCreateRecycler();
+            if(adapter == null)
+                adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
+            list.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
         } else {
             service.loadSelections();
         }
@@ -97,22 +105,13 @@ public class SelectionsFragment extends BaseListFragment {
         }
         if (helper.getSelectionsList().size() == itemCount) {
             swipeRefreshLayout.setRefreshing(false);
-            if (adapter == null) {
-                hardCreateRecycler();
-            }
+            if(adapter == null)
+                adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
+            list.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
             adapter.notifyDataSetChanged();
+            hideError();
         }
     }
 
-    @SuppressWarnings("unused")
-    public void onEvent(NetworkErrorEvent errorEvent) {
-        if (!helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS))
-            showError();
-    }
-
-    private void hardCreateRecycler() {
-        adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-        list.setAdapter(adapter);
-        progressBar.setVisibility(View.GONE);
-    }
 }
