@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
                                 headerImage.setImageResource(R.drawable.ic_action_local_laundry_service);
                                 break;
                             case 3:
-                                headerLogoBackground.setBackgroundResource(R.drawable.selection_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.museums_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_museum);
                                 break;
                             case 4:
