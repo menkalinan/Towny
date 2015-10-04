@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.read_external_storage" />
     <uses-permission android:name="android.permission.write_external_storage" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".KievRestApplication"
@@ -15,15 +19,23 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
             android:name="com.goldenpie.devs.kievrest.ui.activity.MainActivity"
-            android:label="@string/app_name">
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".utils.service.DataShareService" />
+
+        <receiver android:name=".utils.service.BootComplete">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="d1532bea837e3abf29e92dca516b1c1ab497ea4e" />

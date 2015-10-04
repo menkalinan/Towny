@@ -53,7 +53,7 @@ public class SelectionsFragment extends BaseListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
-           hardCreateRecycler();
+            hardCreateRecycler();
         } else {
             service.loadSelections();
         }
@@ -97,8 +97,8 @@ public class SelectionsFragment extends BaseListFragment {
         }
         if (helper.getSelectionsList().size() == itemCount) {
             swipeRefreshLayout.setRefreshing(false);
-            if(adapter == null) {
-               hardCreateRecycler();
+            if (adapter == null) {
+                hardCreateRecycler();
             }
             adapter.notifyDataSetChanged();
         }
@@ -110,14 +110,9 @@ public class SelectionsFragment extends BaseListFragment {
             showError();
     }
 
-    private void hardCreateRecycler(){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-                list.setAdapter(adapter);
-                progressBar.setVisibility(View.GONE);
-            }
-        }, 300);
+    private void hardCreateRecycler() {
+        adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
+        list.setAdapter(adapter);
+        progressBar.setVisibility(View.GONE);
     }
 }

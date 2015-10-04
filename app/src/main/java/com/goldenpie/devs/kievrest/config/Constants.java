@@ -18,6 +18,8 @@ public class Constants {
     public static final String CLUBS_LINK = "/public-api/v1/places/?location=kev&categories=clubs&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
     public static final String BARS_LINK = "/public-api/v1/places/?location=kev&categories=bar&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
 
+    public static final String PLACES_NEAR_LINK = "/public-api/v1/places/?location=kev&radius=5000";
+
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override
         public String[] getMonths() {

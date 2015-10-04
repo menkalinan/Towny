@@ -1,6 +1,7 @@
 package com.goldenpie.devs.kievrest.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.goldenpie.devs.kievrest.KievRestApplication;
@@ -37,6 +39,7 @@ import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
+import com.goldenpie.devs.kievrest.utils.service.DataShareService;
 import com.goldenpie.devs.kievrest.utils.service.KievRestService;
 
 import java.util.List;
@@ -87,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
         BUS.register(this);
         service.loadCurrentWeather();
 
+        MaterialViewPagerAnimator.ENABLE_LOG = false;
+
+        Intent i = new Intent(this, DataShareService.class);
+        startService(i);
+
         Toolbar toolbar = mViewPager.getToolbar();
 
         if (toolbar != null) {
@@ -105,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
         setMainViewPager();
-
         drawerHeaderImage.setImageResource(helper.getWeatherImage());
     }
 

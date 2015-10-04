@@ -4,26 +4,33 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView">
 
         <ProgressBar
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Поиск мест\nпобизости"
-            android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:textColor="@color/primary_text" />
-    </LinearLayout>
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Поиск мест\nпоблизости"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:background="@color/primary_dark"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp" />
 </RelativeLayout>

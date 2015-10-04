@@ -2,9 +2,9 @@ package com.goldenpie.devs.kievrest.api;
 
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.BaseLoadedEvent;
 import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.MuseumsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
@@ -54,4 +54,9 @@ public interface KievRestApi {
 
     @GET(Constants.BARS_LINK)
     void getBars(BaseCallback<BarsLoadedEvent> callback);
+
+    @GET(Constants.PLACES_NEAR_LINK)
+    void getPlacesNear(@Query("lon") double longitude,
+                       @Query("lat") double latitude,
+                       BaseCallback<NearPlacesLoadedEvent> callback);
 }
