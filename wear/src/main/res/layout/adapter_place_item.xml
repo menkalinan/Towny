@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
+
+        <TextView
+            android:id="@+id/adp_place_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:alpha="0.6"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed-light"
+            android:lineSpacingExtra="-4sp"
+            android:maxLines="2"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp"
+            tools:text="Big text Big text Big text Big text Big text Big text Big text Big text " />
+
+        <TextView
+            android:id="@+id/adp_place_item_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="-8dp"
+            android:alpha="0.6"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed-light"
+            android:lineSpacingExtra="-4sp"
+            android:maxLines="2"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:textColor="@color/secondary_text"
+            android:textSize="14sp"
+            tools:text="Small Text Small Text Small Text Small Text Small Text Small Text Small Text Small Text " />
+    </LinearLayout>
+
+
+</merge>

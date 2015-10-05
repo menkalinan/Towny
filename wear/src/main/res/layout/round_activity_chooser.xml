@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context="com.goldenpie.devs.keivrest.ui.activity.ChooserActivity"
+    tools:deviceIds="wear_square">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/open_on_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_drawable"
+                android:padding="12dp"
+                android:src="@drawable/open_on_phone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-condensed-light"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:text="Открыть"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/primary_text" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/make_call"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/chooser_call_imageview"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_drawable"
+                android:padding="12dp"
+                android:src="@drawable/ic_action_phone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chooser_call_imageview"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-condensed-light"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:text="Позвонить"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/primary_text" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/open_map"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.8">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/circle_drawable"
+            android:padding="12dp"
+            android:src="@drawable/ic_action_place" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView3"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-condensed-light"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:text="Карта"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/primary_text" />
+    </RelativeLayout>
+</LinearLayout>

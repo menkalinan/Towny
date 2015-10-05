@@ -6,6 +6,7 @@ import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.activity.MainActivity;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
+import com.goldenpie.devs.kievrest.utils.service.DataShareService;
 
 import javax.inject.Singleton;
 
@@ -23,4 +24,6 @@ public interface AppComponent {
     void inject(SelectionsFragment selectionsFragment);
 
     void inject(BaseListFragment baseListFragment);
+
+    void inject(DataShareService dataShareService);
 }

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KeivRest Wear</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
+    <string name="title_activity_confirmaion">ConfirmaionActivity</string>
+    <string name="title_activity_chooser">ChooserActivity</string>
+</resources>

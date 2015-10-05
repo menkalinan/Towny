@@ -6,6 +6,7 @@ import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.MuseumsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.RecreationsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
@@ -76,6 +77,10 @@ public class KievRestService {
 
     public void loadMoreBars(int current_page) {
         kievRestApi.getBars(String.valueOf(current_page), new BaseCallback<BarsLoadedEvent>());
+    }
+
+    public void loadPlacesNearMe(double longitude, double latitude) {
+        kievRestApi.getPlacesNear(longitude, latitude, new BaseCallback<NearPlacesLoadedEvent>());
     }
 
     public void loadShops() {

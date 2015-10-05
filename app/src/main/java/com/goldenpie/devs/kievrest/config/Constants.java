@@ -21,6 +21,8 @@ public class Constants {
     public static final String RECREATIONS_LINK = "/public-api/v1/places/?location=kev&categories=climbing-walls,diving,fitness,ice-rink,karts,kempingi,paintball,rollerdromes,slope,sport-centers,stable,swimming-pool,water-park,wind-tunnels&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
     public static final String SHOPS_LINK = "/public-api/v1/places/?location=kev&categories=shops&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
 
+    public static final String PLACES_NEAR_LINK = "/public-api/v1/places/?location=kev&radius=5000&fields=id,title,adress,phone,coords,address";
+
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override
         public String[] getMonths() {
