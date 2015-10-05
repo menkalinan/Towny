@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="72dp"
-    android:orientation="vertical"
-    android:paddingBottom="4dp"
-    android:paddingTop="4dp">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.goldenpie.devs.keivrest.ui.view.WearableListItemLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
 
         <TextView
             android:id="@+id/adp_place_item_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:alpha="0.6"
             android:ellipsize="end"
             android:fontFamily="sans-serif-condensed-light"
             android:lineSpacingExtra="-4sp"
             android:maxLines="2"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:text="Big text Big text Big text Big text Big text Big text Big text Big text "
             android:textColor="@color/primary_text"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="Big text Big text Big text Big text Big text Big text Big text Big text "
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:id="@+id/adp_place_item_address"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-8dp"
+            android:alpha="0.6"
             android:ellipsize="end"
             android:fontFamily="sans-serif-condensed-light"
             android:lineSpacingExtra="-4sp"
             android:maxLines="2"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:text="Small Text Small Text Small Text Small Text Small Text Small Text Small Text Small Text "
             android:textColor="@color/secondary_text"
-            android:textSize="14sp" />
-    </com.goldenpie.devs.keivrest.ui.view.WearableListItemLayout>
+            android:textSize="14sp"
+            tools:text="Small Text Small Text Small Text Small Text Small Text Small Text Small Text Small Text "
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="-8dp" />
+    </LinearLayout>
 
-</RelativeLayout>
+
+</merge>
