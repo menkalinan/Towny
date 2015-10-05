@@ -1,29 +1,21 @@
 package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.event.ErrorEvent;
-import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
-import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
-import com.goldenpie.devs.kievrest.models.NewsModel;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
-import com.goldenpie.devs.kievrest.ui.adapter.NewsAdapter;
 import com.goldenpie.devs.kievrest.ui.adapter.SelectionsAdapter;
 import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
 import butterknife.OnClick;
 
 public class SelectionsFragment extends BaseListFragment {
@@ -58,7 +50,7 @@ public class SelectionsFragment extends BaseListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
-            if(adapter == null)
+            if (adapter == null)
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -105,7 +97,7 @@ public class SelectionsFragment extends BaseListFragment {
         }
         if (helper.getSelectionsList().size() == itemCount) {
             swipeRefreshLayout.setRefreshing(false);
-            if(adapter == null)
+            if (adapter == null)
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);

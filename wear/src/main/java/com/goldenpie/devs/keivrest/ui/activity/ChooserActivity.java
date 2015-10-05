@@ -34,10 +34,10 @@ public class ChooserActivity extends Activity implements View.OnClickListener {
                 openMap.setOnClickListener(ChooserActivity.this);
 
                 //noinspection ConstantConditions
-                if(getIntent().getExtras().getString(Constants.PHONE).equals("0")){
+                if (getIntent().getExtras().getString(Constants.PHONE).equals("0")) {
                     callimageView.setBackgroundResource(R.drawable.grey_circle_draweble);
                     makeCall.setEnabled(false);
-                } else{
+                } else {
                     makeCall.setOnClickListener(ChooserActivity.this);
                 }
             }

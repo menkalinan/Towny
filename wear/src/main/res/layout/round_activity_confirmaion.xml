@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context="com.goldenpie.devs.keivrest.ui.activity.OpenActivity"
-    tools:deviceIds="wear_square"
-    android:background="@android:color/white">
+    tools:deviceIds="wear_square">
+
     <TextView
-        android:fontFamily="sans-serif-condensed-light"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Открываю.."
-        android:id="@+id/title"
-        android:textSize="20sp"
-        android:textColor="@color/primary_text"
+        android:layout_margin="16dp"
+        android:fontFamily="sans-serif-condensed-light"
         android:gravity="center_horizontal"
-        android:layout_margin="16dp" />
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:text="Открываю.."
+        android:textColor="@color/primary_text"
+        android:textSize="20sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,32 +29,31 @@
         android:layout_marginBottom="20dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/delayed_confirm"
             android:fontFamily="sans-serif-condensed-light"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Открываю.."
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/delayed_confirm"
-            android:textSize="18sp"
-            android:textColor="@color/secondary_text" />
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp" />
 
         <android.support.wearable.view.DelayedConfirmationView
             android:id="@+id/delayed_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/cancel_drawable"
-            app:circle_color="@color/primary_dark"
-            app:circle_radius="30dp"
-            app:circle_radius_pressed="22dp"
-            app:circle_padding="4dp"
-            app:circle_border_width="8dp"
             app:circle_border_color="@color/primary"
-            android:layout_margin="16dp">
-        </android.support.wearable.view.DelayedConfirmationView>
+            app:circle_border_width="8dp"
+            app:circle_color="@color/primary_dark"
+            app:circle_padding="4dp"
+            app:circle_radius="30dp"
+            app:circle_radius_pressed="22dp"></android.support.wearable.view.DelayedConfirmationView>
     </RelativeLayout>
 
 </RelativeLayout>

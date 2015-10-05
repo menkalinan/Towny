@@ -55,7 +55,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         getDate(holder, position);
 
-        if (model.getPhotos()!= null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
+        if (model.getPhotos() != null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             holder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
@@ -74,7 +74,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         holder.cardView.setVisibility(View.VISIBLE);
 
-        if(lastPosition < position) {
+        if (lastPosition < position) {
             lastPosition = position;
             YoYo.with(Techniques.FadeInUp).duration(350).playOn(holder.cardView);
         }

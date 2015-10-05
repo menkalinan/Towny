@@ -78,9 +78,11 @@ public class KievRestService {
     public void loadMoreBars(int current_page) {
         kievRestApi.getBars(String.valueOf(current_page), new BaseCallback<BarsLoadedEvent>());
     }
+
     public void loadPlacesNearMe(double longitude, double latitude) {
         kievRestApi.getPlacesNear(longitude, latitude, new BaseCallback<NearPlacesLoadedEvent>());
     }
+
     public void loadShops() {
         kievRestApi.getShops(new BaseCallback<ShopsLoadedEvent>());
     }

@@ -89,10 +89,10 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 ViewUtils.showFailureAnim(this, "Отсутсвует соединение");
                 break;
             case Constants.UNKNOWN_ERROR:
-                ViewUtils.showSuccsessAnim(this, "Ошыбка сервера");
+                ViewUtils.showFailureAnim(this, "Ошыбка сервера");
                 break;
             case Constants.NO_PLACES_ERROR:
-                ViewUtils.showSuccsessAnim(this, "Поблизости нету интересных мест");
+                ViewUtils.showFailureAnim(this, "Поблизости нету интересных мест");
                 break;
         }
 

@@ -1,13 +1,10 @@
 package com.goldenpie.devs.keivrest.ui.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.DelayedConfirmationView;
 import android.support.wearable.view.WatchViewStub;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 

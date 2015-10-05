@@ -14,6 +14,8 @@
             android:id="@+id/adp_place_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:alpha="0.6"
             android:ellipsize="end"
             android:fontFamily="sans-serif-condensed-light"
@@ -23,14 +25,15 @@
             android:scaleY="0.8"
             android:textColor="@color/primary_text"
             android:textSize="18sp"
-            tools:text="Big text Big text Big text Big text Big text Big text Big text Big text "
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
+            tools:text="Big text Big text Big text Big text Big text Big text Big text Big text " />
 
         <TextView
             android:id="@+id/adp_place_item_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="-8dp"
             android:alpha="0.6"
             android:ellipsize="end"
             android:fontFamily="sans-serif-condensed-light"
@@ -40,10 +43,7 @@
             android:scaleY="0.8"
             android:textColor="@color/secondary_text"
             android:textSize="14sp"
-            tools:text="Small Text Small Text Small Text Small Text Small Text Small Text Small Text Small Text "
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="-8dp" />
+            tools:text="Small Text Small Text Small Text Small Text Small Text Small Text Small Text Small Text " />
     </LinearLayout>
 
 

@@ -57,11 +57,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
+    @Bind(R.id.materialViewPager)
+    public MaterialViewPager mViewPager;
     @Bind({R.id.nav_drawer_main_layout
             , R.id.nav_drawer_places_layout})
     protected List<View> drawerItems;
-    @Bind(R.id.materialViewPager)
-    public MaterialViewPager mViewPager;
     @Bind(R.id.drawer_layout)
     protected DrawerLayout mDrawer;
     @Bind(R.id.header_logo_background)
@@ -72,16 +72,13 @@ public class MainActivity extends AppCompatActivity {
     protected TextView currentWeather;
     @Bind(R.id.nav_drawer_header_image)
     protected ImageView drawerHeaderImage;
-
-    private String currentCat = CategoryTypeEnum.MAIN.name();
-
     @Inject
     protected KievRestService service;
     @Inject
     protected EventBus BUS;
     @Inject
     protected DataHelper helper;
-
+    private String currentCat = CategoryTypeEnum.MAIN.name();
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override

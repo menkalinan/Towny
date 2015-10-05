@@ -132,33 +132,6 @@ public class DataShareService extends Service implements LocationListener {
             mTeleportClient.syncAll(dataMap);
     }
 
-    public class DataListener extends TeleportClient.OnSyncDataItemTask {
-
-        @Override
-        protected void onPostExecute(DataMap result) {
-            if (result.containsKey(Constants.PATH)) {
-                switch (result.getString(Constants.PATH)) {
-                    case Constants.FIND_NEAREST_PLACES:
-                        getCurrentLocation();
-                        break;
-                    case Constants.OPEN_ACTIVITY:
-                        openActivity(result.getString(Constants.ID));
-                        break;
-                    case Constants.MAKE_CALL:
-                        makeCall(result.getString(Constants.PHONE));
-                        break;
-                    case Constants.OPEN_MAP:
-                        openMap(result.getFloat(Constants.LONGITUDE),
-                                result.getFloat(Constants.LATITUDE),
-                                result.getString(Constants.TITLE));
-                        break;
-                }
-            }
-
-            mTeleportClient.setOnSyncDataItemTask(new DataListener());
-        }
-    }
-
     private void openMap(float longitude, float latitude, String label) {
         String uri = String.format(Locale.ENGLISH, "geo:%s,%s?q=%s,%s (%s)",
                 String.valueOf(latitude).replace(",", "."),
@@ -171,6 +144,7 @@ public class DataShareService extends Service implements LocationListener {
         getApplicationContext().startActivity(intent);
     }
 
+    @SuppressWarnings("ResourceType")
     private void makeCall(String string) {
         string = string.replaceAll("\\D", "");
         Intent intent = new Intent(Intent.ACTION_CALL);
@@ -200,7 +174,6 @@ public class DataShareService extends Service implements LocationListener {
 
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
         service.loadPlacesNearMe(location.getLongitude(), location.getLatitude());
@@ -219,5 +192,32 @@ public class DataShareService extends Service implements LocationListener {
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+    public class DataListener extends TeleportClient.OnSyncDataItemTask {
+
+        @Override
+        protected void onPostExecute(DataMap result) {
+            if (result.containsKey(Constants.PATH)) {
+                switch (result.getString(Constants.PATH)) {
+                    case Constants.FIND_NEAREST_PLACES:
+                        getCurrentLocation();
+                        break;
+                    case Constants.OPEN_ACTIVITY:
+                        openActivity(result.getString(Constants.ID));
+                        break;
+                    case Constants.MAKE_CALL:
+                        makeCall(result.getString(Constants.PHONE));
+                        break;
+                    case Constants.OPEN_MAP:
+                        openMap(result.getFloat(Constants.LONGITUDE),
+                                result.getFloat(Constants.LATITUDE),
+                                result.getString(Constants.TITLE));
+                        break;
+                }
+            }
+
+            mTeleportClient.setOnSyncDataItemTask(new DataListener());
+        }
     }
 }
