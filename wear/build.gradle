@@ -3,14 +3,14 @@ apply plugin: 'com.jakewharton.hugo'
 
 
 android {
-    signingConfigs {
-        release {
-            keyAlias 'sign'
-            keyPassword '2462789'
-            storeFile file('C:/psl')
-            storePassword '2462789'
-        }
-    }
+//    signingConfigs {
+//        release {
+//            keyAlias 'sign'
+//            keyPassword '2462789'
+//            storeFile file('C:/psl')
+//            storePassword '2462789'
+//        }
+//    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
@@ -19,7 +19,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        signingConfig signingConfigs.release
+//        signingConfig signingConfigs.release
     }
     buildTypes {
         release {

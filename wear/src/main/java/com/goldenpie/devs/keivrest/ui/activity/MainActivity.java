@@ -18,7 +18,10 @@ import com.goldenpie.devs.keivrest.ui.adapter.PlacesAdapter;
 import com.goldenpie.devs.keivrest.utils.PlacesSyncHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.DataMap;
 import com.mariux.teleport.lib.TeleportClient;
+
+import java.util.Date;
 
 import de.greenrobot.event.EventBus;
 
@@ -57,7 +60,10 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     @Override
     public void onConnected(Bundle bundle) {
         mTeleportClient.setOnSyncDataItemTask(new PlacesSyncHelper(mTeleportClient));
-        mTeleportClient.sendMessage(Constants.FIND_NEAREST_PLACES, null);
+        DataMap dataMap = new DataMap();
+        dataMap.putString(Constants.PATH, Constants.FIND_NEAREST_PLACES);
+        dataMap.putLong("time_stamp", new Date().getTime());
+        mTeleportClient.syncAll(dataMap);
     }
 
     @Override
@@ -107,8 +113,11 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     @Override
     public void onClick(WearableListView.ViewHolder v) {
         Integer position = (Integer) v.itemView.getTag();
-        Intent intent = new Intent(MainActivity.this, OpenActivity.class);
-        intent.putExtra(OpenActivity.TITLE, adapter.getModels().getLabels().get(position));
+        Intent intent = new Intent(MainActivity.this, ChooserActivity.class);
+        intent.putExtra(Constants.TITLE, adapter.getModels().getLabels().get(position));
+        intent.putExtra(Constants.LONGITUDE, adapter.getModels().getLongitudes()[position]);
+        intent.putExtra(Constants.LATITUDE, adapter.getModels().getLatitudes()[position]);
+        intent.putExtra(Constants.PHONE, adapter.getModels().getPhones().get(position));
         startActivity(intent);
     }
 

@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.text.TextUtils;
 
 import com.goldenpie.devs.constanskeeper.Constants;
 import com.goldenpie.devs.kievrest.KievRestApplication;
@@ -18,6 +21,7 @@ import com.mariux.teleport.lib.TeleportClient;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -44,7 +48,7 @@ public class DataShareService extends Service implements LocationListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mTeleportClient.setOnGetMessageTask(new MessageListener());
+        mTeleportClient.setOnSyncDataItemTask(new DataListener());
         if (!mTeleportClient.getGoogleApiClient().isConnected())
             mTeleportClient.connect();
 
@@ -67,36 +71,95 @@ public class DataShareService extends Service implements LocationListener {
         ArrayList<String> ids = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         ArrayList<String> address = new ArrayList<>();
+        ArrayList<String> phones = new ArrayList<>();
+
+        float[] longitudes = new float[event.getResults().size()];
+        float[] latitude = new float[event.getResults().size()];
+
         for (int i = 0; i < event.getResults().size(); i++) {
             ids.add(String.valueOf(event.getResults().get(i).getId()));
             labels.add(event.getResults().get(i).getFinalTitle());
             address.add(event.getResults().get(i).getAddress());
+
+            String phone = event.getResults().get(i).getPhone();
+            if (!TextUtils.isEmpty(phone)) {
+                if (phone.contains(","))
+                    phones.add(phone.substring(0, phone.indexOf(",")));
+                else phones.add(phone);
+            } else
+                phones.add("0");
+
+            longitudes[i] = event.getResults().get(i).getCoordinates().getLongitude();
+            latitude[i] = event.getResults().get(i).getCoordinates().getLatitude();
         }
+
         dataMap.putStringArrayList(Constants.ID_LIST, ids);
         dataMap.putStringArrayList(Constants.LABEL_LIST, labels);
         dataMap.putStringArrayList(Constants.ADDRESS_LIST, address);
+        dataMap.putStringArrayList(Constants.PHONE, phones);
+        dataMap.putFloatArray(Constants.LONGITUDE, longitudes);
+        dataMap.putFloatArray(Constants.LATITUDE, latitude);
         dataMap.putLong("time_stamp", new Date().getTime());
 
         if (mTeleportClient.getGoogleApiClient().isConnected())
             mTeleportClient.syncAll(dataMap);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mTeleportClient.setOnSyncDataItemTask(new DataListener());
+            }
+        }, 1000);
     }
 
-    public class MessageListener extends TeleportClient.OnGetMessageTask {
+    public class DataListener extends TeleportClient.OnSyncDataItemTask {
+
         @Override
-        protected void onPostExecute(String path) {
-            switch (path) {
-                case Constants.FIND_NEAREST_PLACES:
-                    getCurrentLocation();
-                    break;
-                case Constants.OPEN_ACTIVITY:
-                    openActivity();
-                    break;
+        protected void onPostExecute(DataMap result) {
+            if (result.containsKey(Constants.PATH)) {
+                switch (result.getString(Constants.PATH)) {
+                    case Constants.FIND_NEAREST_PLACES:
+                        getCurrentLocation();
+                        break;
+                    case Constants.OPEN_ACTIVITY:
+                        openActivity(result.getString(Constants.ID));
+                        break;
+                    case Constants.MAKE_CALL:
+                        makeCall(result.getString(Constants.PHONE));
+                        break;
+                    case Constants.OPEN_MAP:
+                        openMap(result.getFloat(Constants.LONGITUDE),
+                                result.getFloat(Constants.LATITUDE),
+                                result.getString(Constants.TITLE));
+                        break;
+                }
             }
-            mTeleportClient.setOnGetMessageTask(new MessageListener());
+
+            mTeleportClient.setOnSyncDataItemTask(new DataListener());
         }
     }
 
-    private void openActivity() {
+    private void openMap(float longitude, float latitude, String label) {
+        String uri = String.format(Locale.ENGLISH, "geo:%s,%s?q=%s,%s (%s)",
+                String.valueOf(latitude).replace(",", "."),
+                String.valueOf(longitude).replace(",", "."),
+                String.valueOf(latitude).replace(",", "."),
+                String.valueOf(longitude).replace(",", "."),
+                label);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(intent);
+    }
+
+    private void makeCall(String string) {
+        string = string.replaceAll("\\D", "");
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + string));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(intent);
+    }
+
+    private void openActivity(String string) {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getApplicationContext().startActivity(i);

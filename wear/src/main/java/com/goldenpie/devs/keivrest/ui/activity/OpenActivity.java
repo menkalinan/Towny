@@ -14,12 +14,13 @@ import android.widget.TextView;
 import com.goldenpie.devs.constanskeeper.Constants;
 import com.goldenpie.devs.keivrest.utils.ViewUtils;
 import com.goldenpie.devs.kievrest.R;
+import com.google.android.gms.wearable.DataMap;
 import com.mariux.teleport.lib.TeleportClient;
 
 public class OpenActivity extends Activity implements
         DelayedConfirmationView.DelayedConfirmationListener {
 
-    public static final String TITLE = "title";
+    public static final String TASK_TYPE = "task_type";
     private TextView title;
     private DelayedConfirmationView mDelayedView;
     private TeleportClient mTeleportClient;
@@ -39,7 +40,7 @@ public class OpenActivity extends Activity implements
             public void onLayoutInflated(WatchViewStub stub) {
                 mDelayedView = (DelayedConfirmationView) findViewById(R.id.delayed_confirm);
                 title = (TextView) findViewById(R.id.title);
-                title.setText(getIntent().getExtras().getString(TITLE));
+                title.setText(getIntent().getExtras().getString(Constants.TITLE));
                 mDelayedView.setListener(OpenActivity.this);
             }
         });
@@ -54,10 +55,34 @@ public class OpenActivity extends Activity implements
 
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onTimerFinished(View view) {
         if (mTeleportClient.getGoogleApiClient().isConnected()) {
-            mTeleportClient.sendMessage(Constants.OPEN_ACTIVITY, null);
+
+            DataMap dataMap = new DataMap();
+
+            dataMap.putString(Constants.PATH, getIntent().getExtras().getString(TASK_TYPE));
+
+            switch (getIntent().getExtras().getString(TASK_TYPE)) {
+                case Constants.OPEN_ACTIVITY:
+                    dataMap.putString(Constants.ID,
+                            getIntent().getExtras().getString(Constants.ID));
+                    break;
+                case Constants.MAKE_CALL:
+                    dataMap.putString(Constants.PHONE,
+                            getIntent().getExtras().getString(Constants.TITLE));
+                    break;
+                case Constants.OPEN_MAP:
+                    dataMap.putFloat(Constants.LONGITUDE,
+                            getIntent().getExtras().getFloat(Constants.LONGITUDE));
+                    dataMap.putFloat(Constants.LATITUDE,
+                            getIntent().getExtras().getFloat(Constants.LATITUDE));
+                    dataMap.putString(Constants.TITLE,
+                            getIntent().getExtras().getString(Constants.TITLE));
+                    break;
+            }
+            mTeleportClient.syncAll(dataMap);
             ViewUtils.showSuccsessAnim(this);
         } else {
             ViewUtils.showFailureAnim(this, "Осутствует соединение");

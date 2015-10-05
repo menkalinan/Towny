@@ -21,19 +21,17 @@
         </activity>
         <activity android:name="android.support.wearable.activity.ConfirmationActivity" />
 
+        <activity
+            android:name="com.goldenpie.devs.keivrest.ui.activity.OpenActivity"
+            android:label="@string/title_activity_confirmaion"/>
+        <activity
+            android:name="com.goldenpie.devs.keivrest.ui.activity.ChooserActivity"
+            android:label="@string/title_activity_chooser" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name="com.goldenpie.devs.keivrest.ui.activity.OpenActivity"
-            android:label="@string/title_activity_confirmaion" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

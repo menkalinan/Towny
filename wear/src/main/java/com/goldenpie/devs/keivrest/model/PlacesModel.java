@@ -9,4 +9,7 @@ public class PlacesModel {
     private ArrayList<String> ids;
     private ArrayList<String> labels;
     private ArrayList<String> address;
+    private ArrayList<String> phones;
+    private float[] longitudes;
+    private float[] latitudes;
 }

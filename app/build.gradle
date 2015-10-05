@@ -3,14 +3,14 @@ apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    signingConfigs {
-        releasr {
-            keyAlias 'sign'
-            keyPassword '2462789'
-            storeFile file('C:/psl')
-            storePassword '2462789'
-        }
-    }
+//    signingConfigs {
+//        releasr {
+//            keyAlias 'sign'
+//            keyPassword '2462789'
+//            storeFile file('C:/psl')
+//            storePassword '2462789'
+//        }
+//    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
@@ -19,7 +19,6 @@ android {
         targetSdkVersion 23
         versionCode 8
         versionName "0.8"
-        signingConfig signingConfigs.releasr
     }
     buildTypes {
         release {

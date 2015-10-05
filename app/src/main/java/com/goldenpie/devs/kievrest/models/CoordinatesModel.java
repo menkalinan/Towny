@@ -8,16 +8,16 @@ import lombok.Data;
 @Data
 public class CoordinatesModel {
     @SerializedName("lat")
-    private double latitude;
-    @SerializedName("long")
-    private double longitude;
+    private float latitude;
     @SerializedName("lon")
-    private double weatherLongitude;
+    private float longitude;
+//    @SerializedName("lon")
+//    private double weatherLongitude;
 
     public LatLng getCoordinates() {
         return new LatLng(latitude, longitude);
     }
     public LatLng getWeatherCoordinates() {
-        return new LatLng(latitude, weatherLongitude);
+        return new LatLng(latitude, longitude);
     }
 }

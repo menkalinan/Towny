@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical"
+    tools:context="com.goldenpie.devs.keivrest.ui.activity.ChooserActivity"
+    tools:deviceIds="wear_square"
+    android:background="@color/white"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/open_on_phone">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_drawable"
+                android:src="@drawable/open_on_phone"
+                android:padding="12dp"
+                android:id="@+id/imageView" />
+
+            <TextView
+                android:fontFamily="sans-serif-condensed-light"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Открыть"
+                android:layout_below="@+id/imageView"
+                android:textColor="@color/primary_text"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/make_call">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_drawable"
+                android:padding="12dp"
+                android:src="@drawable/ic_action_phone"
+                android:id="@+id/imageView2" />
+
+            <TextView
+                android:fontFamily="sans-serif-condensed-light"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Позвонить"
+                android:textColor="@color/primary_text"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/imageView2" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/open_map">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/circle_drawable"
+            android:src="@drawable/ic_action_place"
+            android:padding="12dp"
+            android:id="@+id/imageView3" />
+
+        <TextView
+            android:fontFamily="sans-serif-condensed-light"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Карта"
+            android:textColor="@color/primary_text"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/imageView3" />
+    </RelativeLayout>
+</LinearLayout>

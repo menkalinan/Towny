@@ -23,13 +23,18 @@ public class PlacesSyncHelper extends TeleportClient.OnSyncDataItemTask {
     @DebugLog
     @Override
     protected void onPostExecute(DataMap result) {
+        if (!result.containsKey(Constants.PATH)) {
+            PlacesLoadedEvent placesLoadedEvent = new PlacesLoadedEvent();
+            placesLoadedEvent.setIds(result.getStringArrayList(Constants.ID_LIST));
+            placesLoadedEvent.setLabels(result.getStringArrayList(Constants.LABEL_LIST));
+            placesLoadedEvent.setAddress(result.getStringArrayList(Constants.ADDRESS_LIST));
+            placesLoadedEvent.setPhones(result.getStringArrayList(Constants.PHONE));
+            placesLoadedEvent.setLatitudes(result.getFloatArray(Constants.LATITUDE));
+            placesLoadedEvent.setLongitudes(result.getFloatArray(Constants.LONGITUDE));
+
+            EventBus.getDefault().post(placesLoadedEvent);
+        }
+
         getTeleportClient().setOnSyncDataItemTask(new PlacesSyncHelper(getTeleportClient()));
-
-        PlacesLoadedEvent placesLoadedEvent = new PlacesLoadedEvent();
-        placesLoadedEvent.setIds(result.getStringArrayList(Constants.ID_LIST));
-        placesLoadedEvent.setLabels(result.getStringArrayList(Constants.LABEL_LIST));
-        placesLoadedEvent.setAddress(result.getStringArrayList(Constants.ADDRESS_LIST));
-
-        EventBus.getDefault().post(placesLoadedEvent);
     }
 }
