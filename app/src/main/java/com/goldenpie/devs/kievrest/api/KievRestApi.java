@@ -3,7 +3,6 @@ package com.goldenpie.devs.kievrest.api;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.BaseLoadedEvent;
 import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.MuseumsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;

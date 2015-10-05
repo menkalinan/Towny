@@ -33,9 +33,11 @@ public class WeatherModel {
         public String getCurrentTemperature() {
             return String.valueOf(Math.round(Double.parseDouble(getTemperature()) - 273.0));
         }
+
         public String getCelsiusMaxTemperature() {
             return String.valueOf(Double.parseDouble(getMaxTemperature()) - 273.0);
         }
+
         public String getCelsiusMinTemperature() {
             return String.valueOf(Double.parseDouble(getMinTemperature()) - 273.0);
         }

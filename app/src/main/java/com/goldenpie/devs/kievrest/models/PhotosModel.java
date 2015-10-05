@@ -14,7 +14,7 @@ public class PhotosModel {
     private Thumbnails thumbnails;
 
     @Data
-    public class Thumbnails{
+    public class Thumbnails {
         @SerializedName("640x384")
         private String largeThumbnail;
         @SerializedName("144x96")

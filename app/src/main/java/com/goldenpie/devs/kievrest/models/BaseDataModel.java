@@ -29,7 +29,7 @@ public class BaseDataModel {
     @SerializedName("comments_count")
     protected int commentsCount;
 
-    public String getClearBody(){
+    public String getClearBody() {
         return Html.fromHtml(getBody()).toString();
     }
 

@@ -7,13 +7,13 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/adp_news_item_card"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:focusable="true"
         android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="gone"
         card:cardElevation="2dp">
 
         <RelativeLayout
@@ -89,25 +89,25 @@
                     android:visibility="visible">
 
                     <LinearLayout
-                        android:orientation="vertical"
+                        android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingRight="16dp"
+                        android:orientation="vertical"
                         android:paddingBottom="8dp"
-                        android:id="@+id/linearLayout">
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="8dp">
 
                         <TextView
+                            android:id="@+id/adp_news_item_location_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Medium Text"
-                            android:id="@+id/adp_news_item_location_description"
-                            android:textColor="@color/secondary_text"
-                            android:textSize="14sp"
+                            android:ellipsize="end"
                             android:maxLines="2"
-                            android:ellipsize="end" />
+                            android:text="Medium Text"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="14sp" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -119,19 +119,19 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_action_place"
-                                android:tint="@color/secondary_text"/>
+                                android:tint="@color/secondary_text" />
 
                             <TextView
+                                android:id="@+id/adp_news_item_location_place"
                                 fontPath="fonts/PTSansItalic.ttf"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="Small Text"
-                                android:id="@+id/adp_news_item_location_place"
-                                android:textSize="12sp"
                                 android:layout_centerVertical="true"
-                                android:layout_toRightOf="@+id/imageView1"
                                 android:layout_toEndOf="@+id/imageView1"
+                                android:layout_toRightOf="@+id/imageView1"
+                                android:text="Small Text"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textSize="12sp"
                                 tools:ignore="MissingPrefix" />
                         </RelativeLayout>
 
@@ -150,6 +150,7 @@
 
                     <TextView
                         android:id="@+id/adp_news_item_date"
+                        fontPath="fonts/PTSansItalic.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -162,9 +163,8 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/secondary_text"
                         android:textSize="12sp"
-                        fontPath="fonts/PTSansItalic.ttf"
-                        tools:text="10 сентября, 16:30"
-                        tools:ignore="MissingPrefix" />
+                        tools:ignore="MissingPrefix"
+                        tools:text="10 сентября, 16:30" />
 
                     <android.support.v7.internal.widget.TintImageView
                         android:id="@+id/imageView"
@@ -175,7 +175,7 @@
                         android:layout_toLeftOf="@+id/adp_news_item_date"
                         android:layout_toStartOf="@+id/adp_news_item_date"
                         android:src="@drawable/ic_action_calendar"
-                        android:tint="@color/secondary_text"/>
+                        android:tint="@color/secondary_text" />
                 </RelativeLayout>
 
             </RelativeLayout>

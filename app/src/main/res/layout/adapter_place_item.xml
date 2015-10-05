@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:focusable="true"
         android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         card:cardElevation="2dp">
 
         <RelativeLayout
@@ -65,14 +65,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/adp_place_item_title"
                 android:ellipsize="end"
+                android:maxLines="8"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
                 android:textColor="@color/secondary_text"
                 android:textSize="14sp"
-                tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой."
-                android:maxLines="8" />
+                tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой." />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -87,49 +87,49 @@
 
                     <TextView
                         android:id="@+id/adp_place_item_date"
+                        fontPath="fonts/PTSansItalic.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/imageView"
+                        android:layout_toRightOf="@+id/imageView"
                         android:paddingBottom="8dp"
                         android:paddingRight="16dp"
                         android:paddingTop="8dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/secondary_text"
                         android:textSize="14sp"
-                        fontPath="fonts/PTSansItalic.ttf"
-                        tools:text="10 сентября, 16:30"
                         tools:ignore="MissingPrefix"
-                        android:layout_toRightOf="@+id/imageView"
-                        android:layout_toEndOf="@+id/imageView"
-                        android:layout_centerVertical="true" />
+                        tools:text="10 сентября, 16:30" />
 
                     <android.support.v7.internal.widget.TintImageView
                         android:id="@+id/imageView"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_action_place"
-                        android:tint="@color/secondary_text"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_marginLeft="16dp" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_action_place"
+                        android:tint="@color/secondary_text" />
                 </RelativeLayout>
 
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/frag_place_item_is_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Открыто"
-                android:id="@+id/frag_place_item_is_open"
-                android:background="@color/green"
-                android:textColor="@android:color/white"
-                android:layout_alignParentStart="false"
                 android:layout_alignParentEnd="true"
-                android:padding="4dp" />
+                android:layout_alignParentStart="false"
+                android:background="@color/green"
+                android:padding="4dp"
+                android:text="Открыто"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

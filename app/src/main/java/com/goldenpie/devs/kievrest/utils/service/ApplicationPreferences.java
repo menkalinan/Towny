@@ -15,13 +15,13 @@ public class ApplicationPreferences {
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public void setTotalRestauratsDataSize(int size){
+    public int getTotalRestauratsDataSize() {
+        return preferences.getInt(RESTAURANTS_PAGE, 0);
+    }
+
+    public void setTotalRestauratsDataSize(int size) {
         preferences.edit()
                 .putInt(RESTAURANTS_PAGE, size)
                 .apply();
-    }
-
-    public int getTotalRestauratsDataSize(){
-        return preferences.getInt(RESTAURANTS_PAGE, 0);
     }
 }

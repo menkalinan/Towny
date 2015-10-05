@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAdapter.ViewHolder>  {
+public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
     private List<ItemModel> models;
@@ -47,7 +47,7 @@ public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAd
         return models.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.place_lisitng_adapter_item_location)
         TextView location;
         @Bind(R.id.place_lisitng_adapter_item_description)
@@ -55,7 +55,7 @@ public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAd
         @Bind(R.id.place_lisitng_adapter_item_title)
         TextView title;
 
-        ViewHolder(View view){
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

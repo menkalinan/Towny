@@ -171,7 +171,7 @@ public class CollapsibleLayout extends FrameLayout {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                if(listener != null){
+                if (listener != null) {
                     listener.onAnimationEnd();
                 }
                 isAnimating = false;

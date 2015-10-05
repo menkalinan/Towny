@@ -81,11 +81,11 @@
 
                 <RelativeLayout
                     android:id="@+id/adp_selection_expand_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
+                    android:focusable="true">
 
                     <ImageView
                         android:id="@+id/adp_selection_expand_arrow"

@@ -17,6 +17,7 @@ public class CoordinatesModel {
     public LatLng getCoordinates() {
         return new LatLng(latitude, longitude);
     }
+
     public LatLng getWeatherCoordinates() {
         return new LatLng(latitude, weatherLongitude);
     }

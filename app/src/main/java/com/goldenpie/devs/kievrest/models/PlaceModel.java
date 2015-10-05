@@ -44,12 +44,15 @@ public class PlaceModel {
     public boolean isClosed() {
         return getIsClosed().equals("true");
     }
+
     public String getFinalTitle() {
         return title.substring(0, 1).toUpperCase() + title.substring(1);
     }
+
     public String getFinalBody() {
         return Html.fromHtml(body).toString();
     }
+
     public String getDescription() {
         return getFinalBody().substring(0, getFinalBody().indexOf("\n"));
     }

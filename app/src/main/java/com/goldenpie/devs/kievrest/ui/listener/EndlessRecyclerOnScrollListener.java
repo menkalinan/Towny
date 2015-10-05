@@ -5,13 +5,10 @@ import android.support.v7.widget.RecyclerView;
 
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
     public static String TAG = EndlessRecyclerOnScrollListener.class.getSimpleName();
-
+    private final int visibleThreshold = 5;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
     private int previousTotal = 0;
     private boolean loading = true;
-    private final int visibleThreshold = 5;
-
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-
     private int current_page = 1;
 
     private LinearLayoutManager mLinearLayoutManager;

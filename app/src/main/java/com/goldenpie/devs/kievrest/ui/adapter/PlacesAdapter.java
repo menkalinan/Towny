@@ -65,7 +65,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
         holder.cardView.setVisibility(View.VISIBLE);
 
-        if(lastPosition < position) {
+        if (lastPosition < position) {
             lastPosition = position;
             YoYo.with(Techniques.FadeInUp).duration(300).playOn(holder.cardView);
         }
