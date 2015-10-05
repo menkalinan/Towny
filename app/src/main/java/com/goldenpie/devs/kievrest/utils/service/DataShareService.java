@@ -8,13 +8,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
 
 import com.goldenpie.devs.constanskeeper.Constants;
 import com.goldenpie.devs.kievrest.KievRestApplication;
+import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
+import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.ui.activity.MainActivity;
 import com.google.android.gms.wearable.DataMap;
 import com.mariux.teleport.lib.TeleportClient;
@@ -65,51 +66,70 @@ public class DataShareService extends Service implements LocationListener {
         super.onDestroy();
     }
 
-    @SuppressWarnings("unused")
-    public void onEvent(NearPlacesLoadedEvent event) {
+    @SuppressWarnings("UnusedParameters")
+    public void onEvent(NetworkErrorEvent errorEvent) {
         DataMap dataMap = new DataMap();
-        ArrayList<String> ids = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
-        ArrayList<String> address = new ArrayList<>();
-        ArrayList<String> phones = new ArrayList<>();
+        dataMap.putString(Constants.ERROR, Constants.NETWORK_ERROR);
+        dataMap.putLong("time_stamp", new Date().getTime());
 
-        float[] longitudes = new float[event.getResults().size()];
-        float[] latitude = new float[event.getResults().size()];
+        if (mTeleportClient.getGoogleApiClient().isConnected())
+            mTeleportClient.syncAll(dataMap);
+    }
 
-        for (int i = 0; i < event.getResults().size(); i++) {
-            ids.add(String.valueOf(event.getResults().get(i).getId()));
-            labels.add(event.getResults().get(i).getFinalTitle());
-            address.add(event.getResults().get(i).getAddress());
-
-            String phone = event.getResults().get(i).getPhone();
-            if (!TextUtils.isEmpty(phone)) {
-                if (phone.contains(","))
-                    phones.add(phone.substring(0, phone.indexOf(",")));
-                else phones.add(phone);
-            } else
-                phones.add("0");
-
-            longitudes[i] = event.getResults().get(i).getCoordinates().getLongitude();
-            latitude[i] = event.getResults().get(i).getCoordinates().getLatitude();
-        }
-
-        dataMap.putStringArrayList(Constants.ID_LIST, ids);
-        dataMap.putStringArrayList(Constants.LABEL_LIST, labels);
-        dataMap.putStringArrayList(Constants.ADDRESS_LIST, address);
-        dataMap.putStringArrayList(Constants.PHONE, phones);
-        dataMap.putFloatArray(Constants.LONGITUDE, longitudes);
-        dataMap.putFloatArray(Constants.LATITUDE, latitude);
+    @SuppressWarnings("UnusedParameters")
+    public void onEvent(ErrorEvent errorEvent) {
+        DataMap dataMap = new DataMap();
+        dataMap.putString(Constants.ERROR, Constants.UNKNOWN_ERROR);
         dataMap.putLong("time_stamp", new Date().getTime());
 
         if (mTeleportClient.getGoogleApiClient().isConnected())
             mTeleportClient.syncAll(dataMap);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mTeleportClient.setOnSyncDataItemTask(new DataListener());
+    }
+
+    @SuppressWarnings("unused")
+    public void onEvent(NearPlacesLoadedEvent event) {
+        DataMap dataMap = new DataMap();
+        if (event.getResults() != null && !event.getResults().isEmpty()) {
+            ArrayList<String> ids = new ArrayList<>();
+            ArrayList<String> labels = new ArrayList<>();
+            ArrayList<String> address = new ArrayList<>();
+            ArrayList<String> phones = new ArrayList<>();
+
+            float[] longitudes = new float[event.getResults().size()];
+            float[] latitude = new float[event.getResults().size()];
+
+            for (int i = 0; i < event.getResults().size(); i++) {
+                ids.add(String.valueOf(event.getResults().get(i).getId()));
+                labels.add(event.getResults().get(i).getFinalTitle());
+                address.add(event.getResults().get(i).getAddress());
+
+                String phone = event.getResults().get(i).getPhone();
+                if (!TextUtils.isEmpty(phone)) {
+                    if (phone.contains(","))
+                        phones.add(phone.substring(0, phone.indexOf(",")));
+                    else phones.add(phone);
+                } else
+                    phones.add("0");
+
+                longitudes[i] = event.getResults().get(i).getCoordinates().getLongitude();
+                latitude[i] = event.getResults().get(i).getCoordinates().getLatitude();
             }
-        }, 1000);
+
+            dataMap.putStringArrayList(Constants.ID_LIST, ids);
+            dataMap.putStringArrayList(Constants.LABEL_LIST, labels);
+            dataMap.putStringArrayList(Constants.ADDRESS_LIST, address);
+            dataMap.putStringArrayList(Constants.PHONE, phones);
+            dataMap.putFloatArray(Constants.LONGITUDE, longitudes);
+            dataMap.putFloatArray(Constants.LATITUDE, latitude);
+        } else {
+            dataMap.putString(Constants.ERROR, Constants.NO_PLACES_ERROR);
+        }
+
+        dataMap.putLong("time_stamp", new Date().getTime());
+
+        if (mTeleportClient.getGoogleApiClient().isConnected())
+            mTeleportClient.syncAll(dataMap);
     }
 
     public class DataListener extends TeleportClient.OnSyncDataItemTask {

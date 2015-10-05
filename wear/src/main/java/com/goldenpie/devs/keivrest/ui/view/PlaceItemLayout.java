@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import com.goldenpie.devs.kievrest.R;
 
-public class WearableListItemLayout extends FrameLayout
+public class PlaceItemLayout extends FrameLayout
              implements WearableListView.OnCenterProximityListener {
 
     private TextView title;
     private TextView descriprion;
 
-    public WearableListItemLayout(Context context) {
+    public PlaceItemLayout(Context context) {
         super(context);
         init(context);
     } 

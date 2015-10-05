@@ -59,7 +59,7 @@
                 android:background="@drawable/circle_drawable"
                 android:padding="12dp"
                 android:src="@drawable/ic_action_phone"
-                android:id="@+id/imageView2"
+                android:id="@+id/chooser_call_imageview"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp" />
@@ -74,7 +74,7 @@
                 android:text="Позвонить"
                 android:textColor="@color/primary_text"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/imageView2" />
+                android:layout_below="@+id/chooser_call_imageview" />
         </RelativeLayout>
     </LinearLayout>
 

@@ -4,18 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.support.wearable.view.WearableListView;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.constanskeeper.Constants;
+import com.goldenpie.devs.keivrest.event.ErrorEvent;
 import com.goldenpie.devs.keivrest.event.PlacesLoadedEvent;
 import com.goldenpie.devs.keivrest.ui.adapter.PlacesAdapter;
 import com.goldenpie.devs.keivrest.utils.PlacesSyncHelper;
+import com.goldenpie.devs.keivrest.utils.ViewUtils;
 import com.goldenpie.devs.kievrest.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataMap;
@@ -84,21 +83,47 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     }
 
     @SuppressWarnings("unused")
-    public void onEvent(PlacesLoadedEvent event) {
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        populateData(event);
+    public void onEvent(ErrorEvent errorEvent) {
+        switch (errorEvent.getError()) {
+            case Constants.NETWORK_ERROR:
+                ViewUtils.showFailureAnim(this, "Отсутсвует соединение");
+                break;
+            case Constants.UNKNOWN_ERROR:
+                ViewUtils.showSuccsessAnim(this, "Ошыбка сервера");
+                break;
+            case Constants.NO_PLACES_ERROR:
+                ViewUtils.showSuccsessAnim(this, "Поблизости нету интересных мест");
+                break;
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingView.setVisibility(View.GONE);
+                MainActivity.this.finish();
             }
         }, 1000);
+    }
 
-        Intent intent = new Intent(MainActivity.this, ConfirmationActivity.class);
-        intent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.SUCCESS_ANIMATION);
-        intent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Места загружены");
-        startActivity(intent);
+    @SuppressWarnings("unused")
+    public void onEvent(PlacesLoadedEvent event) {
+        if (adapter == null) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            populateData(event);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingView.setVisibility(View.GONE);
+                        }
+                    }, 1000);
+
+                    ViewUtils.showSuccsessAnim(MainActivity.this, "Места загружены");
+                }
+            }, 1000);
+        }
     }
 
     private void populateData(PlacesLoadedEvent event) {
@@ -106,7 +131,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             adapter = new PlacesAdapter(event, getApplicationContext());
 
         listView.setAdapter(adapter);
-
         listView.setClickListener(this);
     }
 

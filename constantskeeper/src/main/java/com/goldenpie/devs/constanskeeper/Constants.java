@@ -16,4 +16,8 @@ public class Constants {
     public static final String MAKE_CALL = "make_call";
     public static final String PATH = "path";
     public static final String ID = "id";
+    public static final String NO_PLACES_ERROR = "no_places";
+    public static final String ERROR = "error";
+    public static final String UNKNOWN_ERROR = "unknown_error";
+    public static final String NETWORK_ERROR = "network_error";
 }

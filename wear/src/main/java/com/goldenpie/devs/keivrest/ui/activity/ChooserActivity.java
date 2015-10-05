@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.goldenpie.devs.constanskeeper.Constants;
 import com.goldenpie.devs.kievrest.R;
@@ -15,6 +16,7 @@ public class ChooserActivity extends Activity implements View.OnClickListener {
     private View openPhone;
     private View openMap;
     private View makeCall;
+    private ImageView callimageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +29,17 @@ public class ChooserActivity extends Activity implements View.OnClickListener {
                 openMap = stub.findViewById(R.id.open_map);
                 makeCall = stub.findViewById(R.id.make_call);
                 openPhone = stub.findViewById(R.id.open_on_phone);
+                callimageView = (ImageView) stub.findViewById(R.id.chooser_call_imageview);
                 openPhone.setOnClickListener(ChooserActivity.this);
-                makeCall.setOnClickListener(ChooserActivity.this);
                 openMap.setOnClickListener(ChooserActivity.this);
+
+                //noinspection ConstantConditions
+                if(getIntent().getExtras().getString(Constants.PHONE).equals("0")){
+                    callimageView.setBackgroundResource(R.drawable.grey_circle_draweble);
+                    makeCall.setEnabled(false);
+                } else{
+                    makeCall.setOnClickListener(ChooserActivity.this);
+                }
             }
         });
     }

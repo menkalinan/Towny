@@ -3,12 +3,11 @@ package com.goldenpie.devs.keivrest.ui.adapter;
 import android.content.Context;
 import android.support.wearable.view.WearableListView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.goldenpie.devs.keivrest.model.PlacesModel;
-import com.goldenpie.devs.keivrest.ui.view.WearableListItemLayout;
+import com.goldenpie.devs.keivrest.ui.view.PlaceItemLayout;
 import com.goldenpie.devs.kievrest.R;
 
 import lombok.Getter;
@@ -30,12 +29,12 @@ public class PlacesAdapter extends WearableListView.Adapter {
 
     @Override
     public WearableListView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new WearableListView.ViewHolder(new WearableListItemLayout(getContext()));
+        return new WearableListView.ViewHolder(new PlaceItemLayout(getContext()));
     }
 
     @Override
     public void onBindViewHolder(WearableListView.ViewHolder holder, int position) {
-        WearableListItemLayout view = (WearableListItemLayout) holder.itemView;
+        PlaceItemLayout view = (PlaceItemLayout) holder.itemView;
 
         TextView label = (TextView) view.findViewById(R.id.adp_place_item_title);
         TextView address = (TextView) view.findViewById(R.id.adp_place_item_address);
