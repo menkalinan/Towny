@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
 
-
 android {
 //    signingConfigs {
 //        release {
@@ -14,7 +13,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
-        applicationId "com.goldenpie.devs.kievrest.withwear"
+        applicationId "com.goldenpie.devs.towny"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1

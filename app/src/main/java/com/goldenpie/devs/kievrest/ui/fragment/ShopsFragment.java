@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -70,7 +71,6 @@ public class ShopsFragment extends BaseListFragment {
     @SuppressWarnings("unused")
     public void onEvent(ShopsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
-
         if (helper.getDataMap().containsKey(ModelTypeEnum.SHOPS)) {
             ArrayList<PlaceModel> tempList = helper.getShopsList();
             tempList.addAll(event.getResults());
@@ -86,5 +86,7 @@ public class ShopsFragment extends BaseListFragment {
         }
         hideError();
         adapter.notifyDataSetChanged();
+
+        adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
     }
 }

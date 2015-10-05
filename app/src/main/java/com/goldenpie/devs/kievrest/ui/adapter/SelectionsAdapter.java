@@ -29,6 +29,7 @@ import java.util.HashMap;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lombok.Getter;
+import lombok.Setter;
 
 public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.ViewHolder> {
 
@@ -38,6 +39,10 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
     @Getter
     private Context context;
     private int lastPosition = -1;
+
+    @Getter
+    @Setter
+    private boolean hasNextPage = true;
 
     private HashMap<Integer, SelectionPlaceAdapter> placeAdapterHashMap = new HashMap<>();
 

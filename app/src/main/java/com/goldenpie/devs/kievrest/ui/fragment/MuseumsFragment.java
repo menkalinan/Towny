@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -61,8 +62,10 @@ public class MuseumsFragment extends BaseListFragment {
         list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreMuseums((adapter.getItemCount() / 20) + 1);
+                if (adapter.isHasNextPage()) {
+                    swipeRefreshLayout.setRefreshing(true);
+                    service.loadMoreMuseums((adapter.getItemCount() / 20) + 1);
+                }
             }
         });
     }
@@ -86,5 +89,7 @@ public class MuseumsFragment extends BaseListFragment {
         }
         hideError();
         adapter.notifyDataSetChanged();
+
+        adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
     }
 }

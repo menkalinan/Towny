@@ -24,6 +24,7 @@ import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lombok.Getter;
+import lombok.Setter;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
@@ -33,6 +34,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Getter
     private Context context;
     private int lastPosition = -1;
+
+    @Getter
+    @Setter
+    private boolean hasNextPage = true;
 
     public NewsAdapter(ArrayList<NewsModel> models, Context context) {
         this.context = context;

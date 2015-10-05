@@ -62,6 +62,7 @@ public interface KievRestApi {
     void getPlacesNear(@Query("lon") double longitude,
                        @Query("lat") double latitude,
                        BaseCallback<NearPlacesLoadedEvent> callback);
+
     @GET(Constants.RECREATIONS_LINK)
     void getRecreations(@Query("page") String page, BaseCallback<RecreationsLoadedEvent> callback);
 

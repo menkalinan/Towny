@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -14,6 +15,8 @@ import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import butterknife.OnClick;
 
@@ -62,8 +65,10 @@ public class RecreationsFragment extends BaseListFragment {
         list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreBars((adapter.getItemCount() / 20) + 1);
+                if (adapter.isHasNextPage()) {
+                    swipeRefreshLayout.setRefreshing(true);
+                    service.loadMoreRecreations((preferences.getTotalRecreationsDataSize() / 20) + 1);
+                }
             }
         });
     }
@@ -72,11 +77,21 @@ public class RecreationsFragment extends BaseListFragment {
     public void onEvent(RecreationsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
+        int size = event.getResults().size();
+
+        Set<PlaceModel> uniqueItems = new HashSet<>();
+        uniqueItems.addAll(event.getResults());
+
+        event.getResults().clear();
+        event.getResults().addAll(uniqueItems);
+
         if (helper.getDataMap().containsKey(ModelTypeEnum.RECREATIONS)) {
+            preferences.setTotalRecreationsDataSize(preferences.getTotalRecreationsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getRecreationsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.RECREATIONS, tempList);
         } else {
+            preferences.setTotalRecreationsDataSize(size);
             helper.getDataMap().put(ModelTypeEnum.RECREATIONS, event.getResults());
         }
 
@@ -87,5 +102,7 @@ public class RecreationsFragment extends BaseListFragment {
         }
         hideError();
         adapter.notifyDataSetChanged();
+
+        adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
     }
 }

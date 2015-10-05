@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -14,6 +15,8 @@ import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import butterknife.OnClick;
 
@@ -61,8 +64,10 @@ public class RestaurantsFragment extends BaseListFragment {
         list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreRestaurants((preferences.getTotalRestauratsDataSize() / 20) + 1);
+                if (adapter.isHasNextPage()) {
+                    swipeRefreshLayout.setRefreshing(true);
+                    service.loadMoreRestaurants((preferences.getTotalRestauratsDataSize() / 20) + 1);
+                }
             }
         });
     }
@@ -72,16 +77,12 @@ public class RestaurantsFragment extends BaseListFragment {
         swipeRefreshLayout.setRefreshing(false);
 
         int size = event.getResults().size();
-        ArrayList<PlaceModel> modelToDelete = new ArrayList<>();
-        for (int i = 0; i < event.getResults().size(); i++) {
-            if (i < event.getResults().size() - 1) {
-                if (event.getResults().get(i).getId() == (event.getResults().get(i + 1).getId())) {
-                    modelToDelete.add(event.getResults().get(i + 1));
-                }
-            }
-        }
 
-        event.getResults().removeAll(modelToDelete);
+        Set<PlaceModel> uniqueItems = new HashSet<>();
+        uniqueItems.addAll(event.getResults());
+
+        event.getResults().clear();
+        event.getResults().addAll(uniqueItems);
 
         if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
             preferences.setTotalRestauratsDataSize(preferences.getTotalRestauratsDataSize() + size);
@@ -100,5 +101,8 @@ public class RestaurantsFragment extends BaseListFragment {
         }
         hideError();
         adapter.notifyDataSetChanged();
+
+        adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
+
     }
 }

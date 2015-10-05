@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lombok.Getter;
+import lombok.Setter;
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder> {
 
@@ -30,6 +31,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     @Getter
     private Context context;
     private int lastPosition = -1;
+    @Getter
+    @Setter
+    private boolean hasNextPage = true;
 
     public PlacesAdapter(ArrayList<PlaceModel> models, Context context) {
         this.context = context;

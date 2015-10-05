@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -61,8 +62,10 @@ public class ClubsFragment extends BaseListFragment {
         list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreClubs((adapter.getItemCount() / 20) + 1);
+                if (adapter.isHasNextPage()) {
+                    swipeRefreshLayout.setRefreshing(true);
+                    service.loadMoreClubs((adapter.getItemCount() / 20) + 1);
+                }
             }
         });
     }
@@ -70,6 +73,7 @@ public class ClubsFragment extends BaseListFragment {
     @SuppressWarnings("unused")
     public void onEvent(ClubsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
+
         if (helper.getDataMap().containsKey(ModelTypeEnum.CLUBS)) {
             ArrayList<PlaceModel> tempList = helper.getClubsList();
             tempList.addAll(event.getResults());
@@ -85,5 +89,7 @@ public class ClubsFragment extends BaseListFragment {
         }
         hideError();
         adapter.notifyDataSetChanged();
+
+        adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
     }
 }
