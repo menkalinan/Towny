@@ -68,7 +68,7 @@ public class ShopsFragment extends BaseListFragment {
                 }
             }
         });
-        
+
     }
 
     @SuppressWarnings("unused")

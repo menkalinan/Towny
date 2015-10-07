@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.utils.DataHelper;

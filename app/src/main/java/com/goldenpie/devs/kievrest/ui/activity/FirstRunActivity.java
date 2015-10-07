@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,10 +18,9 @@ import android.widget.RelativeLayout;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.TownyApplication;
+import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
-import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
-import com.goldenpie.devs.kievrest.utils.service.TownyService;
+import com.goldenpie.devs.kievrest.ui.BaseActivity;
 import com.nineoldandroids.animation.Animator;
 
 import java.io.IOException;
@@ -30,15 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 import fr.ganfra.materialspinner.MaterialSpinner;
 
-public class FirstRunActivity extends AppCompatActivity {
+public class FirstRunActivity extends BaseActivity {
 
     @Bind(R.id.act_first_run_city_spinner)
     protected MaterialSpinner spinner;
@@ -48,24 +42,20 @@ public class FirstRunActivity extends AppCompatActivity {
     protected RelativeLayout loadingLayout;
     @Bind(R.id.act_first_run_sucsess_layout)
     protected RelativeLayout successLayout;
+    @Bind(R.id.act_first_run_no_internet_layout)
+    protected RelativeLayout noInternetLayout;
     @Bind(R.id.act_first_run_go)
     protected ImageView goView;
-    @Inject
-    protected TownyService service;
-    @Inject
-    protected EventBus BUS;
-    @Inject
-    protected ApplicationPreferences preferences;
     private LocationManager locationManager;
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_first_run;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_run);
-        TownyApplication.appComponent().inject(this);
-        ButterKnife.bind(this);
-        BUS.register(this);
-
         service.loadCites(getLang());
     }
 
@@ -137,9 +127,33 @@ public class FirstRunActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("unused")
-    @OnClick({R.id.act_first_run_go, R.id.act_first_run_second_go})
-    protected void onGoClick() {
-        startApplication(false);
+    @OnClick({R.id.act_first_run_no_internet_image, R.id.act_first_run_no_internet_text})
+    protected void onRepeatClick() {
+        YoYo.with(Techniques.FadeOut).withListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                noInternetLayout.setVisibility(View.GONE);
+                YoYo.with(Techniques.FadeIn).duration(300).playOn(loadingLayout);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        }).duration(300L).playOn(noInternetLayout);
+
+        loadingLayout.setVisibility(View.VISIBLE);
+        service.loadCites(getLang());
     }
 
     private void startApplication(boolean needDelay) {
@@ -182,6 +196,18 @@ public class FirstRunActivity extends AppCompatActivity {
             }
         }, 1500L);
 
+    }
+
+    @SuppressWarnings("unused")
+    public void onEvent(NetworkErrorEvent errorEvent) {
+        delayedAnimation(noInternetLayout);
+    }
+
+
+    @SuppressWarnings("unused")
+    @OnClick({R.id.act_first_run_go, R.id.act_first_run_second_go})
+    protected void onGoClick() {
+        startApplication(false);
     }
 
     @SuppressWarnings("ResourceType")

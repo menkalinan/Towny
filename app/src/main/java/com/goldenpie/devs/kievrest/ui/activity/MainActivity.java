@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.internal.widget.TintImageView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -28,10 +27,10 @@ import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
+import com.goldenpie.devs.kievrest.ui.BaseActivity;
 import com.goldenpie.devs.kievrest.ui.fragment.AttractionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.BarsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.ClubsFragment;
@@ -42,24 +41,17 @@ import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.ShopsFragment;
 import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
-import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
-import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.DataShareService;
-import com.goldenpie.devs.kievrest.utils.service.TownyService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.materialViewPager)
     public MaterialViewPager mViewPager;
@@ -76,24 +68,17 @@ public class MainActivity extends AppCompatActivity {
     protected TextView currentWeather;
     @Bind(R.id.nav_drawer_header_image)
     protected ImageView drawerHeaderImage;
-    @Inject
-    protected TownyService service;
-    @Inject
-    protected EventBus BUS;
-    @Inject
-    protected DataHelper helper;
-    @Inject
-    protected ApplicationPreferences preferences;
     private String currentCat = CategoryTypeEnum.MAIN.name();
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_main);
-        TownyApplication.appComponent().inject(this);
-        ButterKnife.bind(this);
-        BUS.register(this);
         service.loadCurrentWeather();
         service.loadCites(preferences.getLang());
 

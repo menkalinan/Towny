@@ -7,6 +7,6 @@ import java.util.ArrayList;
 import lombok.Data;
 
 @Data
-public class CitesLoadedEvent{
+public class CitesLoadedEvent {
     private ArrayList<CityModel> models;
 }

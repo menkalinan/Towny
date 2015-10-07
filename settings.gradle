@@ -1,1 +1,1 @@
-include ':app', ':wear', ':constantskeeper'
+include ':app', ':wear', ':constantskeeper', ':teleportlib'

@@ -18,7 +18,7 @@ public class ApplicationPreferences {
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public boolean isFirstLaunch(){
+    public boolean isFirstLaunch() {
         return !preferences.contains(CITY);
     }
 
@@ -52,14 +52,14 @@ public class ApplicationPreferences {
                 .apply();
     }
 
+    public String getLang() {
+        return preferences.getString(APP_LANGUAGE, "");
+    }
+
     public void setLang(String lang) {
         preferences.edit()
                 .putString(APP_LANGUAGE, lang)
                 .apply();
-    }
-
-    public String getLang() {
-        return preferences.getString(APP_LANGUAGE, "");
     }
 
     public String getCurrentCityName() {

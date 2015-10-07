@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
 
 android {
-//    signingConfigs {
-//        release {
-//            keyAlias 'sign'
-//            keyPassword '2462789'
-//            storeFile file('C:/psl')
-//            storePassword '2462789'
-//        }
-//    }
+    signingConfigs {
+        release {
+            keyAlias 'sign'
+            keyPassword '2462789'
+            storeFile file('C:/psl')
+            storePassword '2462789'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
@@ -19,6 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
 //        signingConfig signingConfigs.release
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
@@ -33,8 +34,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.android.support:wearable:1.3.0'
-    compile 'com.google.android.gms:play-services-wearable:7.8.0'
-    compile 'Teleport:teleportlib:0.1.4'
+    compile 'com.google.android.gms:play-services-wearable:8.1.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     provided 'org.projectlombok:lombok:1.16.6'
     compile 'de.greenrobot:eventbus:2.4.0'
@@ -42,4 +42,5 @@ dependencies {
     compile 'com.daimajia.easing:library:1.0.1@aar'
     compile 'com.daimajia.androidanimations:library:1.1.3@aar'
     compile project(':constantskeeper')
+    compile project(':teleportlib')
 }

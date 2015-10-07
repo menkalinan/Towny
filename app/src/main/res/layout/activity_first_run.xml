@@ -142,6 +142,52 @@
 
         </RelativeLayout>
 
+
+        <RelativeLayout
+            android:id="@+id/act_first_run_no_internet_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/act_first_run_info"
+            android:layout_below="@+id/act_first_run_logo"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/act_first_run_no_internet_image"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="64dp"
+                android:src="@drawable/ic_action_close" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/act_first_run_no_internet_image"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="Отсутсвует соединение"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/act_first_run_no_internet_text"
+                fontPath="fonts/PTSansBold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView5"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="16dp"
+                android:text="Попробовать еще раз?"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/act_first_run_info"
             android:layout_width="wrap_content"

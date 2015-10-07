@@ -142,7 +142,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text" />
         </RelativeLayout>
-        <include layout="@layout/divider"/>
+
+        <include layout="@layout/divider" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -165,13 +166,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="72dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/settings"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/primary_text"
-                android:layout_marginLeft="72dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp" />
+                android:textColor="@color/primary_text" />
         </RelativeLayout>
     </LinearLayout>
 
