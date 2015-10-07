@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.goldenpie.devs.kievrest.KievRestApplication;
+import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
-import com.goldenpie.devs.kievrest.utils.service.KievRestService;
+import com.goldenpie.devs.kievrest.utils.service.TownyService;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,7 @@ public abstract class BaseListFragment extends Fragment {
     @Inject
     protected DataHelper helper;
     @Inject
-    protected KievRestService service;
+    protected TownyService service;
     @Inject
     protected ApplicationPreferences preferences;
     @Inject
@@ -49,7 +49,7 @@ public abstract class BaseListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        KievRestApplication.appComponent().inject(this);
+        TownyApplication.appComponent().inject(this);
         BUS.register(this);
     }
 

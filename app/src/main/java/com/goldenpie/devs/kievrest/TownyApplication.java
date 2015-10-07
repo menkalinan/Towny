@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class KievRestApplication extends android.app.Application {
+public class TownyApplication extends android.app.Application {
 
     @Getter
     @Setter
@@ -20,7 +20,7 @@ public class KievRestApplication extends android.app.Application {
     private AppComponent appComponent;
 
     public static AppComponent appComponent() {
-        return ((KievRestApplication) getContext().getApplicationContext()).appComponent;
+        return ((TownyApplication) getContext().getApplicationContext()).appComponent;
     }
 
     @Override

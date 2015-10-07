@@ -27,10 +27,11 @@ import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerAnimator;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.goldenpie.devs.kievrest.KievRestApplication;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
+import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.ui.fragment.AttractionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.BarsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.ClubsFragment;
@@ -42,9 +43,12 @@ import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.ShopsFragment;
 import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
+import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
+import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.DataShareService;
-import com.goldenpie.devs.kievrest.utils.service.KievRestService;
+import com.goldenpie.devs.kievrest.utils.service.TownyService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -73,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.nav_drawer_header_image)
     protected ImageView drawerHeaderImage;
     @Inject
-    protected KievRestService service;
+    protected TownyService service;
     @Inject
     protected EventBus BUS;
     @Inject
     protected DataHelper helper;
+    @Inject
+    protected ApplicationPreferences preferences;
     private String currentCat = CategoryTypeEnum.MAIN.name();
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -85,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
-        KievRestApplication.appComponent().inject(this);
+        TownyApplication.appComponent().inject(this);
         ButterKnife.bind(this);
         BUS.register(this);
         service.loadCurrentWeather();
+        service.loadCites(preferences.getLang());
 
         MaterialViewPagerAnimator.ENABLE_LOG = false;
 
@@ -114,6 +121,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.setDrawerListener(mDrawerToggle);
         setMainViewPager();
         drawerHeaderImage.setImageResource(helper.getWeatherImage());
+    }
+
+    @SuppressWarnings("unused")
+    private void onEvent(ArrayList<CityModel> event) { //TODO: Handle data for spinner
+        helper.getDataMap().put(ModelTypeEnum.CITES, event);
     }
 
     private void setMainViewPager() {
@@ -332,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(WeatherLoadedEvent event) {
         if (!TextUtils.isEmpty(event.getWeatherData().getTemperature())) {
             currentWeather.setText(String.format(getString(R.string.current_weather),
+                    preferences.getCurrentCityName(),
                     event.getWeatherData().getCurrentTemperature()));
 
         }

@@ -62,10 +62,13 @@ public class ShopsFragment extends BaseListFragment {
         list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                swipeRefreshLayout.setRefreshing(true);
-                service.loadMoreShops((adapter.getItemCount() / 20) + 1);
+                if (adapter.isHasNextPage()) {
+                    swipeRefreshLayout.setRefreshing(true);
+                    service.loadMoreShops((adapter.getItemCount() / 20) + 1);
+                }
             }
         });
+        
     }
 
     @SuppressWarnings("unused")

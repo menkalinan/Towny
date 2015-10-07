@@ -138,9 +138,40 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="72dp"
                 android:layout_marginTop="8dp"
-                android:text="Кино"
+                android:text="@string/cinema"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text" />
+        </RelativeLayout>
+        <include layout="@layout/divider"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+
+            <android.support.v7.internal.widget.TintImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_action_settings"
+                android:tint="@color/secondary_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/settings"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/primary_text"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp" />
         </RelativeLayout>
     </LinearLayout>
 

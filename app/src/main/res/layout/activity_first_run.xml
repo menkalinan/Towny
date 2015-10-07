@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.goldenpie.devs.kievrest.ui.activity.FirstRunActivity">
+
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/first_run_background" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#7f000000">
+
+        <ImageView
+            android:id="@+id/act_first_run_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="110dp"
+            android:alpha="0.8"
+            android:src="@drawable/logo" />
+
+        <RelativeLayout
+            android:id="@+id/act_first_run_sucsess_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/act_first_run_info"
+            android:layout_below="@+id/act_first_run_logo"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/act_first_run_second_go"
+                android:layout_centerHorizontal="true"
+                android:padding="8dp"
+                android:text="Все готово!"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/act_first_run_second_go"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_arrow_forward" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/act_first_run_error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/act_first_run_info"
+            android:layout_below="@+id/act_first_run_logo"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/act_first_run_city_spinner"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
+                app:ms_alignLabels="false"
+                app:ms_arrowColor="@color/white"
+                app:ms_arrowSize="16dp"
+                app:ms_baseColor="@android:color/transparent"
+                app:ms_highlightColor="@android:color/transparent"
+                app:ms_multiline="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/act_first_run_city_spinner"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="Информацию о вашем городе не найдено.\nВыберете один из поддерживаемых городов:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/act_first_run_go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/act_first_run_city_spinner"
+                android:layout_centerHorizontal="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_action_arrow_forward"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/act_first_run_loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/act_first_run_info"
+            android:layout_below="@+id/act_first_run_logo"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible">
+
+            <com.github.rahatarmanahmed.cpv.CircularProgressView
+                android:id="@+id/progress_view"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_centerInParent="true"
+                app:cpv_animAutostart="true"
+                app:cpv_color="@color/white"
+                app:cpv_indeterminate="true" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/progress_view"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="Загружаем информацию о вашем городе"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/act_first_run_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            android:text="Данные предосталяет KudaGo.com"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

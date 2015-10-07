@@ -66,7 +66,7 @@ public class RestaurantsFragment extends BaseListFragment {
             public void onLoadMore(int current_page) {
                 if (adapter.isHasNextPage()) {
                     swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreRestaurants((preferences.getTotalRestauratsDataSize() / 20) + 1);
+                    service.loadMoreRestaurants((preferences.getTotalRestaurantsDataSize() / 20) + 1);
                 }
             }
         });
@@ -85,12 +85,12 @@ public class RestaurantsFragment extends BaseListFragment {
         event.getResults().addAll(uniqueItems);
 
         if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
-            preferences.setTotalRestauratsDataSize(preferences.getTotalRestauratsDataSize() + size);
+            preferences.setTotalRestaurantsDataSize(preferences.getTotalRestaurantsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getRestaurantsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, tempList);
         } else {
-            preferences.setTotalRestauratsDataSize(size);
+            preferences.setTotalRestaurantsDataSize(size);
             helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, event.getResults());
         }
 

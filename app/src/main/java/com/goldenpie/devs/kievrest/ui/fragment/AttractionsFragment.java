@@ -64,7 +64,7 @@ public class AttractionsFragment extends BaseListFragment {
             public void onLoadMore(int current_page) {
                 if (adapter.isHasNextPage()) {
                     swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreBars((adapter.getItemCount() / 20) + 1);
+                    service.loadMoreAttractions((adapter.getItemCount() / 20) + 1);
                 }
             }
         });

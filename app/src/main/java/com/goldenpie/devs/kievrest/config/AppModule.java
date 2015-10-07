@@ -3,11 +3,11 @@ package com.goldenpie.devs.kievrest.config;
 import android.app.Application;
 import android.content.Context;
 
-import com.goldenpie.devs.kievrest.api.KievRestApi;
+import com.goldenpie.devs.kievrest.api.TownyApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
-import com.goldenpie.devs.kievrest.utils.service.KievRestService;
+import com.goldenpie.devs.kievrest.utils.service.TownyService;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,8 +49,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public KievRestService provideKievRestService(KievRestApi kievRestApi, WeatherApi weatherApi) {
-        return new KievRestService(kievRestApi, weatherApi);
+    public TownyService provideKievRestService(TownyApi townyApi, WeatherApi weatherApi) {
+        return new TownyService(townyApi, weatherApi);
     }
 
     @Provides
@@ -61,7 +61,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public KievRestApi provideRestService() {
+    public TownyApi provideRestService() {
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .disableHtmlEscaping()
@@ -73,7 +73,7 @@ public class AppModule {
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
-        return restAdapter.create(KievRestApi.class);
+        return restAdapter.create(TownyApi.class);
     }
 
     @Provides

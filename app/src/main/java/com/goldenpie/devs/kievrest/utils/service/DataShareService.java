@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.text.TextUtils;
 
 import com.goldenpie.devs.constanskeeper.Constants;
-import com.goldenpie.devs.kievrest.KievRestApplication;
+import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
@@ -32,7 +32,7 @@ import de.greenrobot.event.EventBus;
 public class DataShareService extends Service implements LocationListener {
 
     @Inject
-    protected KievRestService service;
+    protected TownyService service;
     @Inject
     protected EventBus BUS;
 
@@ -42,7 +42,7 @@ public class DataShareService extends Service implements LocationListener {
     @Override
     public void onCreate() {
         super.onCreate();
-        KievRestApplication.appComponent().inject(this);
+        TownyApplication.appComponent().inject(this);
         BUS.register(this);
         mTeleportClient = new TeleportClient(this);
     }
