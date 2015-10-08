@@ -20,4 +20,5 @@
     <string name="title_activity_first_run_activty">" "</string>
     <string name="cinema">Кино</string>
     <string name="settings">Настройки</string>
+    <string name="ok">Ок</string>
 </resources>

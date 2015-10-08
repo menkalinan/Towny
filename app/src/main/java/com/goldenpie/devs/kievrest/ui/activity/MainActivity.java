@@ -410,6 +410,7 @@ public class MainActivity extends BaseActivity {
         mDrawer.closeDrawers();
     }
 
+    @SuppressWarnings("unused")
     @OnClick(R.id.nav_drawer_main_layout)
     protected void onManeClick() {
         if (!currentCat.equals(CategoryTypeEnum.MAIN.name())) {
@@ -430,4 +431,25 @@ public class MainActivity extends BaseActivity {
         }
         mDrawer.closeDrawers();
     }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.nav_drawer_settings_layout)
+    protected void oSettingsClick() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        }, Constants.DRAWER_ANIMATION_DURATION);
+        mDrawer.closeDrawers();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        service.loadCurrentWeather();
+    }
+
+
 }

@@ -33,4 +33,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         BUS.register(this);
         ButterKnife.bind(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        BUS.unregister(this);
+        super.onDestroy();
+    }
 }

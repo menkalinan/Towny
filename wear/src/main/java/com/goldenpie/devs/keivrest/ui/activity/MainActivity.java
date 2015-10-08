@@ -82,6 +82,13 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         mTeleportClient.disconnect();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
     @SuppressWarnings("unused")
     public void onEvent(ErrorEvent errorEvent) {
         switch (errorEvent.getError()) {

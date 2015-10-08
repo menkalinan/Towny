@@ -1,6 +1,7 @@
 package com.goldenpie.devs.kievrest.utils;
 
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.models.NewsModel;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
@@ -61,6 +62,10 @@ public class DataHelper {
     @SuppressWarnings("unchecked")
     public ArrayList<PlaceModel> getAttractionsList() {
         return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.ATTRACTIONS);
+    }
+    @SuppressWarnings("unchecked")
+    public ArrayList<CityModel> getCitesList() {
+        return (ArrayList<CityModel>) dataMap.get(ModelTypeEnum.CITES);
     }
 
     public int getWeatherImage() {

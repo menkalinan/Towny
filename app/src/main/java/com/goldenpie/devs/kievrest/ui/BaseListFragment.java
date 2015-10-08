@@ -108,4 +108,9 @@ public abstract class BaseListFragment extends Fragment {
         onEvent(new NetworkErrorEvent());
     }
 
+    @Override
+    public void onDetach() {
+        BUS.unregister(this);
+        super.onDetach();
+    }
 }
