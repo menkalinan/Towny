@@ -8,8 +8,8 @@ import android.preference.PreferenceManager;
 public class ApplicationPreferences {
     private static final String RESTAURANTS_PAGE = "total_restaurants_data_size";
     private static final String RECREATIONS_PAGE = "total_recreations_data_size";
+    private static final String SHOPS_PAGE = "total_shops_data_size";
     private static final String CITY = "city";
-    private static final String APPLICATION_FIRST_LUNCH = "first_launch";
     private static final String APP_LANGUAGE = "app_lang";
     private static final String CITY_NAME = "city_name";
     private SharedPreferences preferences;
@@ -70,6 +70,16 @@ public class ApplicationPreferences {
     public void setCurrentCityName(String name) {
         preferences.edit()
                 .putString(CITY_NAME, name)
+                .apply();
+    }
+
+    public int getTotalShopsDataSize() {
+        return preferences.getInt(SHOPS_PAGE, 0);
+    }
+
+    public void setTotalShopsDataSize(int totalShopsDataSize) {
+        preferences.edit()
+                .putInt(SHOPS_PAGE, totalShopsDataSize)
                 .apply();
     }
 }

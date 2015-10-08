@@ -116,14 +116,16 @@ public class MainActivity extends BaseActivity {
     private void setMainViewPager() {
         updateDrawerItem(drawerItems.get(0));
         setTitle(getString(R.string.main));
-        final int count = 2;
+        final boolean isNewYork = preferences.getCurrentCity().equals("new-york");
+        final int count = !isNewYork ? 2 : 1;
         mViewPager.getViewPager().setAdapter(
                 new FragmentStatePagerAdapter(getSupportFragmentManager()) {
                     @Override
                     public Fragment getItem(int position) {
                         switch (position) {
                             case 0:
-                                return NewsFragment.newInstance();
+                                return !isNewYork ? NewsFragment.newInstance()
+                                        : SelectionsFragment.newInstance();
                             case 1:
                                 return SelectionsFragment.newInstance();
                             default:
@@ -140,7 +142,8 @@ public class MainActivity extends BaseActivity {
                     public CharSequence getPageTitle(int position) {
                         switch (position) {
                             case 0:
-                                return getString(R.string.news);
+                                return !isNewYork ? getString(R.string.news)
+                                        : getString(R.string.interesting);
                             case 1:
                                 return getString(R.string.interesting);
                         }
@@ -159,7 +162,7 @@ public class MainActivity extends BaseActivity {
                         switch (page) {
                             case 0:
                                 headerLogoBackground.setBackgroundResource(R.drawable.news_circle_drawable);
-                                headerImage.setImageResource(R.drawable.news_icon);
+                                headerImage.setImageResource(!isNewYork ? R.drawable.news_icon : R.drawable.ic_action_whatshot);
                                 break;
                             case 1:
                                 headerLogoBackground.setBackgroundResource(R.drawable.selection_circle_drawable);
@@ -174,11 +177,11 @@ public class MainActivity extends BaseActivity {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_indigo,
-                                "http://static.vueling.com/cms/media/1216777/kiev.jpg");
+                                "http://cdn01.wallconvert.com/_media/wallpapers_1920x1200/1/2/blurry-city-lights-14941.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_purple,
-                                "http://relax.com.ua/wp-content/media/kiew/2012/09/kiev-at-night.jpg");
+                                "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
                 }
 
                 return null;
@@ -212,6 +215,8 @@ public class MainActivity extends BaseActivity {
                                 return RecreationsFragment.newInstance();
                             case 6:
                                 return ShopsFragment.newInstance();
+                            case 7:
+                                return ShopsFragment.newInstance();
                             default:
                                 return null;
                         }
@@ -239,6 +244,8 @@ public class MainActivity extends BaseActivity {
                                 return getString(R.string.active_rest);
                             case 6:
                                 return getString(R.string.shops);
+                            case 7:
+                                return getString(R.string.hostels_and_hotels);
                         }
                         return "";
                     }
@@ -281,6 +288,10 @@ public class MainActivity extends BaseActivity {
                                 headerLogoBackground.setBackgroundResource(R.drawable.shops_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_store_mall_directory);
                                 break;
+                            case 7:
+                                headerLogoBackground.setBackgroundResource(R.drawable.shops_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_store_mall_directory);
+                                break;
                         }
                         YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
                     }
@@ -290,7 +301,7 @@ public class MainActivity extends BaseActivity {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_green,
-                                "http://www.omilos.com.gr/img/header5.jpg");
+                                "http://www.maisonduloup.com/wp-content/uploads/2013/05/cafe-restaurant-amsterdam.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_teal,
@@ -312,6 +323,10 @@ public class MainActivity extends BaseActivity {
                                 R.color.dark_purple,
                                 "http://relax.com.ua/wp-content/media/kiew/2012/09/kiev-at-night.jpg");
                     case 6:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_lime,
+                                "http://static.vueling.com/cms/media/1216777/kiev.jpg");
+                    case 7:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_lime,
                                 "http://static.vueling.com/cms/media/1216777/kiev.jpg");

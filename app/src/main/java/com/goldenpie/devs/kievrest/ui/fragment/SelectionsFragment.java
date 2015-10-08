@@ -52,9 +52,10 @@ public class SelectionsFragment extends BaseListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
-            if (adapter == null)
+            if (adapter == null) {
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-            list.setAdapter(adapter);
+                list.setAdapter(adapter);
+            }
             progressBar.setVisibility(View.GONE);
         } else {
             service.loadSelections();
@@ -103,9 +104,10 @@ public class SelectionsFragment extends BaseListFragment {
         }
         if (helper.getSelectionsList().size() == itemCount) {
             swipeRefreshLayout.setRefreshing(false);
-            if (adapter == null)
+            if (adapter == null) {
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
-            list.setAdapter(adapter);
+                list.setAdapter(adapter);
+            }
             progressBar.setVisibility(View.GONE);
             adapter.notifyDataSetChanged();
             hideError();

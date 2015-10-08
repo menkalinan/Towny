@@ -32,6 +32,11 @@ public class BaseDataModel {
     public String getClearBody() {
         return Html.fromHtml(getBody()).toString();
     }
+    public String getClearDescription() {
+        description = description.replaceAll("(\\(.*?\\))", "");
+        description = description.replaceAll("\\[|\\]", "");
+        return description;
+    }
 
     public String getFinalTitle() {
         return title.substring(0, 1).toUpperCase() + title.substring(1);

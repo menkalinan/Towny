@@ -15,6 +15,8 @@ import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import butterknife.OnClick;
 
@@ -64,7 +66,7 @@ public class ShopsFragment extends BaseListFragment {
             public void onLoadMore(int current_page) {
                 if (adapter.isHasNextPage()) {
                     swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreShops((adapter.getItemCount() / 20) + 1);
+                    service.loadMoreShops((preferences.getTotalShopsDataSize() / 20) + 1);
                 }
             }
         });
@@ -74,11 +76,22 @@ public class ShopsFragment extends BaseListFragment {
     @SuppressWarnings("unused")
     public void onEvent(ShopsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
+
+        int size = event.getResults().size();
+
+        Set<PlaceModel> uniqueItems = new HashSet<>();
+        uniqueItems.addAll(event.getResults());
+
+        event.getResults().clear();
+        event.getResults().addAll(uniqueItems);
+
         if (helper.getDataMap().containsKey(ModelTypeEnum.SHOPS)) {
+            preferences.setTotalShopsDataSize(preferences.getTotalShopsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getShopsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.SHOPS, tempList);
         } else {
+            preferences.setTotalShopsDataSize(size);
             helper.getDataMap().put(ModelTypeEnum.SHOPS, event.getResults());
         }
 

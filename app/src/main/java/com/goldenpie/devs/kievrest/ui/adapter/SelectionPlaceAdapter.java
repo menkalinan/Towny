@@ -39,8 +39,8 @@ public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAd
             holder.location.setText(getItem(position).getAddress());
         else holder.locationLayout.setVisibility(View.INVISIBLE);
 
-        holder.description.setText(getItem(position).getDescription());
-        holder.title.setText(getItem(position).getFinalTitle());
+        holder.description.setText(getItem(position).getFinalDescription());
+        holder.title.setText(String.format("#%d. %s", position + 1, getItem(position).getFinalTitle()));
     }
 
     private ItemModel getItem(int position) {

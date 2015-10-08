@@ -24,6 +24,10 @@ public class ItemModel {
     private String address;
 
     public String getFinalTitle() {
+        title = title.replaceAll("\\#\\d. ", "");
         return title.substring(0, 1).toUpperCase() + title.substring(1);
+    }
+    public String getFinalDescription() {
+        return description = description.replaceAll("_", "");
     }
 }
