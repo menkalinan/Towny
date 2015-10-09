@@ -34,8 +34,7 @@
                 android:layout_alignParentRight="true"
                 android:padding="16dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textColor="@android:color/white" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -63,7 +62,7 @@
                 android:text="Главная"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -91,7 +90,7 @@
                 android:text="Места"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -118,7 +117,7 @@
                 android:text="События"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -145,7 +144,7 @@
                 android:text="@string/cinema"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <include layout="@layout/divider" />
@@ -178,7 +177,7 @@
                 android:text="@string/settings"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 

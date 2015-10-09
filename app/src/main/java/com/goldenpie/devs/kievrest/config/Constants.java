@@ -22,6 +22,7 @@ public class Constants {
     public static final String SHOPS_LINK = "/public-api/v1/places/?categories=shops,books,clothing,confectioneries,farmer-shops,flea-market,gifts,handmade,health-food,online-shopping,perfume-stores,shopping-mall,tea,toys&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
 
     public static final String PLACES_NEAR_LINK = "/public-api/v1/places/?radius=5000&fields=id,title,adress,phone,coords,address";
+    public static final String OPENWEATHERMAP_API_KEY = "ddd1ba0b2cf758da5561f7e418a26926";
 
     public static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols() {
         @Override

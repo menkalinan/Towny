@@ -3,6 +3,7 @@ package com.goldenpie.devs.kievrest.utils.service;
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.api.TownyApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
+import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
@@ -36,7 +37,10 @@ public class TownyService {
     }
 
     public void loadCurrentWeather() {
-        weatherApi.getCurrentWeather(preferences.getCurrentCityName(), preferences.getLang(), new BaseCallback<WeatherLoadedEvent>());
+        weatherApi.getCurrentWeather(preferences.getCurrentCityName(),
+                preferences.getLang(),
+                Constants.OPENWEATHERMAP_API_KEY,
+                new BaseCallback<WeatherLoadedEvent>());
     }
 
     public void loadCites(String lang) {

@@ -2,7 +2,7 @@
     <string name="app_name">Towny</string>
     <string name="adult_label">18+</string>
 
-    <string name="current_weather">%1$s - %2$S℃</string>
+    <string name="current_weather">%1$s: %2$S℃</string>
     <string name="current_weather_with_status">Киев - %1$S℃, %2$S</string>
     <string name="news">Новости</string>
     <string name="interesting">Интересное</string>
@@ -17,7 +17,6 @@
     <string name="attractions">Достопремечательности</string>
     <string name="active_rest">Активный отдых</string>
     <string name="shops">Магазины</string>
-    <string name="title_activity_first_run_activty">" "</string>
     <string name="cinema">Кино</string>
     <string name="settings">Настройки</string>
     <string name="ok">Ок</string>

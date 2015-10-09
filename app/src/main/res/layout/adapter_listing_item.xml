@@ -20,8 +20,7 @@
                 android:id="@+id/adp_selection_item_image"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/no_preview_available" />
+                android:scaleType="centerCrop" />
 
             <RelativeLayout
                 android:id="@+id/frag_listing_item_adult_layout"
@@ -82,12 +81,12 @@
                 <RelativeLayout
                     android:id="@+id/adp_selection_expand_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="56dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true">
 
-                    <ImageView
+                    <android.support.v7.internal.widget.TintImageView
                         android:id="@+id/adp_selection_expand_arrow"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
@@ -106,14 +105,11 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="8dp"
+                        android:textSize="16sp"
                         android:text="Развернуть"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/primary_text" />
 
-                    <include
-                        layout="@layout/divider"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -188,9 +184,9 @@
                     android:layout_alignParentLeft="false"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentStart="false"
-                    android:paddingBottom="8dp"
+                    android:paddingBottom="16dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="8dp"
+                    android:paddingTop="16dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/secondary_text"
                     android:textSize="12sp"

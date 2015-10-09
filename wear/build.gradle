@@ -4,12 +4,9 @@ apply plugin: 'com.jakewharton.hugo'
 android {
     signingConfigs {
         release {
-            File f = new File("C:/psl")
+            File f = new File("C:\\psl")
             if (f.exists()) {
-                Properties p = new Properties()
-                p.load(new FileInputStream(f))
-
-                storeFile new File(p.file.toString())
+                storeFile file('C:/psl')
                 keyAlias 'sign'
                 keyPassword '2462789'
                 storePassword '2462789'

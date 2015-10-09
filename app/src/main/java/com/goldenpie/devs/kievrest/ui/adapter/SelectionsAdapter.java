@@ -65,7 +65,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
 //        holder.itemView.setVisibility(View.VISIBLE);
         holder.title.setText(model.getTitle());
-        holder.description.setText(model.getClearDescription());
+        if(!TextUtils.isEmpty(model.getDescription()))
+            holder.description.setText(model.getClearDescription());
 
         getDate(holder, position);
 

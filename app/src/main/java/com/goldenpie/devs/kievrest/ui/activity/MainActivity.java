@@ -458,13 +458,4 @@ public class MainActivity extends BaseActivity {
         }, Constants.DRAWER_ANIMATION_DURATION);
         mDrawer.closeDrawers();
     }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        service.loadCurrentWeather();
-    }
-
-
 }

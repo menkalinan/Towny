@@ -11,5 +11,6 @@ public interface WeatherApi {
     @GET(Constants.CURRENT_WEATHER)
     void getCurrentWeather(@Query("q") String city,
                            @Query("lang") String lang,
+                           @Query("APPID") String apiKey,
                            BaseCallback<WeatherLoadedEvent> callback);
 }
