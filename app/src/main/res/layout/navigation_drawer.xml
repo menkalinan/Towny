@@ -34,7 +34,8 @@
                 android:layout_alignParentRight="true"
                 android:padding="16dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -61,7 +62,8 @@
                 android:layout_marginTop="8dp"
                 android:text="Главная"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -88,7 +90,8 @@
                 android:layout_marginTop="8dp"
                 android:text="Места"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -114,7 +117,8 @@
                 android:layout_marginTop="8dp"
                 android:text="События"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -140,7 +144,8 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/cinema"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <include layout="@layout/divider" />
@@ -172,7 +177,8 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/settings"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
 

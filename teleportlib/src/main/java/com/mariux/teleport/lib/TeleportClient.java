@@ -96,33 +96,29 @@ public class TeleportClient implements DataApi.DataListener,
 
         final List<DataEvent> events = FreezableUtils.freezeIterable(dataEvents);
 
-        try {
-            for (DataEvent event : events) {
-                if (event.getType() == DataEvent.TYPE_CHANGED) {
+        for (DataEvent event : events) {
+            if (event.getType() == DataEvent.TYPE_CHANGED) {
 
-                    DataMapItem dataMapItem = DataMapItem.fromDataItem(event.getDataItem());
-                    DataMap dataMap = dataMapItem.getDataMap();
+                DataMapItem dataMapItem = DataMapItem.fromDataItem(event.getDataItem());
+                DataMap dataMap = dataMapItem.getDataMap();
 
-                    boolean flagHandled = false;
-                    if (onSyncDataItemTaskBuilder != null) {
-                        onSyncDataItemTaskBuilder.build().execute(dataMap);
-                        flagHandled = true;
-                    }
-                    if (!flagHandled && onSyncDataItemCallback != null) {
-                        onSyncDataItemCallback.onDataSync(dataMap);
-                        flagHandled = true;
-                    }
-                    if (!flagHandled && onSyncDataItemTask != null) {
-                        onSyncDataItemTask.execute(dataMap);
-                        flagHandled = true;
-                    }
-
-                } else if (event.getType() == DataEvent.TYPE_DELETED) {
-                    Log.d("DataItem Deleted", event.getDataItem().toString());
+                boolean flagHandled = false;
+                if (onSyncDataItemTaskBuilder != null) {
+                    onSyncDataItemTaskBuilder.build().execute(dataMap);
+                    flagHandled = true;
                 }
+                if (!flagHandled && onSyncDataItemCallback != null) {
+                    onSyncDataItemCallback.onDataSync(dataMap);
+                    flagHandled = true;
+                }
+                if (!flagHandled && onSyncDataItemTask != null) {
+                    onSyncDataItemTask.execute(dataMap);
+                    flagHandled = true;
+                }
+
+            } else if (event.getType() == DataEvent.TYPE_DELETED) {
+                Log.d("DataItem Deleted", event.getDataItem().toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

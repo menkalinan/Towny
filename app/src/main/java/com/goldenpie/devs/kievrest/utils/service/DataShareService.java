@@ -13,7 +13,6 @@ import android.text.TextUtils;
 
 import com.goldenpie.devs.constanskeeper.Constants;
 import com.goldenpie.devs.kievrest.TownyApplication;
-import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.ui.activity.MainActivity;
@@ -74,17 +73,6 @@ public class DataShareService extends Service implements LocationListener {
 
         if (mTeleportClient.getGoogleApiClient().isConnected())
             mTeleportClient.syncAll(dataMap);
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    public void onEvent(ErrorEvent errorEvent) {
-        DataMap dataMap = new DataMap();
-        dataMap.putString(Constants.ERROR, Constants.UNKNOWN_ERROR);
-        dataMap.putLong("time_stamp", new Date().getTime());
-
-        if (mTeleportClient.getGoogleApiClient().isConnected())
-            mTeleportClient.syncAll(dataMap);
-
     }
 
     @SuppressWarnings("unused")
@@ -169,9 +157,6 @@ public class DataShareService extends Service implements LocationListener {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             service.loadPlacesNearMe(location.getLongitude(), location.getLatitude());
         }
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
     }
 
     @Override
