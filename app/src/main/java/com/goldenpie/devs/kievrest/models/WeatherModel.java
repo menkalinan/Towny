@@ -47,9 +47,17 @@ public class WeatherModel {
     public class WeatherInfoModel {
         @SerializedName("description")
         private String description;
+        @SerializedName("id")
+        private int id;
+        @SerializedName("icon")
+        private String icon;
 
         public String getFinalDescription() {
             return description.substring(0, 1).toUpperCase() + description.substring(1);
+        }
+
+        public String getIcon() {
+            return String.format("{wi_owm_%s_%d}", icon.contains("d") ? "day" : "night", id);
         }
     }
 }

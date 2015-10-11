@@ -3,15 +3,16 @@ package com.goldenpie.devs.kievrest.api;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.MuseumsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.ClubsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.MuseumsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.RecreationsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.RecreationsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.RestaurantsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.ShopsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.ShopsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.utils.BaseCallback;
 
@@ -91,6 +92,11 @@ public interface TownyApi {
                         @Query("location") String currentCity,
                         BaseCallback<RecreationsLoadedEvent> callback);
 
+    @GET(Constants.HOTELS_LINK)
+    void getHotels(@Query("page") String page,
+                        @Query("location") String currentCity,
+                        BaseCallback<HotelsLoadedEvent> callback);
+
     @GET(Constants.ATTRACTIONS_LINK)
     void getAttractions(@Query("page") String page,
                         @Query("location") String currentCity,
@@ -112,6 +118,10 @@ public interface TownyApi {
     @GET(Constants.RECREATIONS_LINK)
     void getRecreations(@Query("location") String currentCity,
                         BaseCallback<RecreationsLoadedEvent> callback);
+
+    @GET(Constants.HOTELS_LINK)
+    void getHotels(@Query("location") String currentCity,
+                        BaseCallback<HotelsLoadedEvent> callback);
 
     @GET("/public-api/v1/locations/")
     void getSupportCites(@Query("lang") String lang,

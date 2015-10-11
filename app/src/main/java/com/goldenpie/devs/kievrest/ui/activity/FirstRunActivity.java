@@ -210,7 +210,6 @@ public class FirstRunActivity extends BaseActivity {
         startApplication(false);
     }
 
-    @SuppressWarnings("ResourceType")
     private String getLocation() {
         if (locationManager == null)
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

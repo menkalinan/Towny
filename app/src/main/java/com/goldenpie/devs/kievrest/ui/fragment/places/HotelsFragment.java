@@ -1,4 +1,4 @@
-package com.goldenpie.devs.kievrest.ui.fragment;
+package com.goldenpie.devs.kievrest.ui.fragment.places;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
@@ -20,14 +20,14 @@ import java.util.Set;
 
 import butterknife.OnClick;
 
-public class RestaurantsFragment extends BaseListFragment {
+public class HotelsFragment extends BaseListFragment {
     private PlacesAdapter adapter;
 
-    public RestaurantsFragment() {
+    public HotelsFragment() {
     }
 
-    public static RestaurantsFragment newInstance() {
-        return new RestaurantsFragment();
+    public static HotelsFragment newInstance() {
+        return new HotelsFragment();
     }
 
     @Override
@@ -37,24 +37,24 @@ public class RestaurantsFragment extends BaseListFragment {
 
     @Override
     protected ModelTypeEnum getFragmentType() {
-        return ModelTypeEnum.RESTAURANTS;
+        return ModelTypeEnum.SHOPS;
     }
 
     @OnClick(R.id.no_internet_layout_repaet_button)
     protected void reload() {
-        service.loadRestaurants();
+        service.loadHotels();
         super.reload();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
-            adapter = new PlacesAdapter(helper.getRestaurantsList(), getActivity());
+        if (helper.getDataMap().containsKey(ModelTypeEnum.HOTELS)) {
+            adapter = new PlacesAdapter(helper.getHotelsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         } else {
-            service.loadRestaurants();
+            service.loadHotels();
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -66,14 +66,14 @@ public class RestaurantsFragment extends BaseListFragment {
             public void onLoadMore(int current_page) {
                 if (adapter.isHasNextPage()) {
                     swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreRestaurants((preferences.getTotalRestaurantsDataSize() / 20) + 1);
+                    service.loadMoreHotels((preferences.getTotalHotelsDataSize() / 20) + 1);
                 }
             }
         });
     }
 
     @SuppressWarnings("unused")
-    public void onEvent(RestaurantsLoadedEvent event) {
+    public void onEvent(HotelsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
         int size = event.getResults().size();
@@ -84,18 +84,18 @@ public class RestaurantsFragment extends BaseListFragment {
         event.getResults().clear();
         event.getResults().addAll(uniqueItems);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
-            preferences.setTotalRestaurantsDataSize(preferences.getTotalRestaurantsDataSize() + size);
-            ArrayList<PlaceModel> tempList = helper.getRestaurantsList();
+        if (helper.getDataMap().containsKey(ModelTypeEnum.HOTELS)) {
+            preferences.setTotalShopsDataSize(preferences.getTotalHotelsDataSize() + size);
+            ArrayList<PlaceModel> tempList = helper.getHotelsList();
             tempList.addAll(event.getResults());
-            helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, tempList);
+            helper.getDataMap().put(ModelTypeEnum.HOTELS, tempList);
         } else {
-            preferences.setTotalRestaurantsDataSize(size);
-            helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, event.getResults());
+            preferences.setTotalShopsDataSize(size);
+            helper.getDataMap().put(ModelTypeEnum.HOTELS, event.getResults());
         }
 
         if (adapter == null) {
-            adapter = new PlacesAdapter(helper.getRestaurantsList(), getActivity());
+            adapter = new PlacesAdapter(helper.getHotelsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         }
@@ -103,6 +103,5 @@ public class RestaurantsFragment extends BaseListFragment {
         adapter.notifyDataSetChanged();
 
         adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
-
     }
 }

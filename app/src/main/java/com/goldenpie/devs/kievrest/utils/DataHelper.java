@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class DataHelper {
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Getter
     @Setter
     private HashMap<ModelTypeEnum, ArrayList<?>> dataMap = new HashMap<>();
@@ -66,6 +67,11 @@ public class DataHelper {
     @SuppressWarnings("unchecked")
     public ArrayList<CityModel> getCitesList() {
         return (ArrayList<CityModel>) dataMap.get(ModelTypeEnum.CITES);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<PlaceModel> getHotelsList() {
+        return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.HOTELS);
     }
 
     public int getWeatherImage() {

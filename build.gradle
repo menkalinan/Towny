@@ -2,6 +2,7 @@ buildscript {
     repositories {
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://clojars.org/repo/" }
     }
     dependencies {
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
@@ -14,5 +15,6 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://clojars.org/repo/" }
     }
 }

@@ -12,6 +12,7 @@ public class ApplicationPreferences {
     private static final String CITY = "city";
     private static final String APP_LANGUAGE = "app_lang";
     private static final String CITY_NAME = "city_name";
+    private static final String HOTELS_PAGE = "total_hotels_data_size";
     private SharedPreferences preferences;
 
     public ApplicationPreferences(Context context) {
@@ -80,6 +81,16 @@ public class ApplicationPreferences {
     public void setTotalShopsDataSize(int totalShopsDataSize) {
         preferences.edit()
                 .putInt(SHOPS_PAGE, totalShopsDataSize)
+                .apply();
+    }
+
+    public int getTotalHotelsDataSize() {
+        return preferences.getInt(HOTELS_PAGE, 0);
+    }
+
+    public void setTotalHotelsDataSize(int totalHotelsDataSize) {
+        preferences.edit()
+                .putInt(HOTELS_PAGE, totalHotelsDataSize)
                 .apply();
     }
 }

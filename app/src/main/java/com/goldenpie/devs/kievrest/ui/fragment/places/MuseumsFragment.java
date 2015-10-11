@@ -1,4 +1,4 @@
-package com.goldenpie.devs.kievrest.ui.fragment;
+package com.goldenpie.devs.kievrest.ui.fragment.places;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.MuseumsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
@@ -18,14 +18,14 @@ import java.util.ArrayList;
 
 import butterknife.OnClick;
 
-public class BarsFragment extends BaseListFragment {
+public class MuseumsFragment extends BaseListFragment {
     private PlacesAdapter adapter;
 
-    public BarsFragment() {
+    public MuseumsFragment() {
     }
 
-    public static BarsFragment newInstance() {
-        return new BarsFragment();
+    public static MuseumsFragment newInstance() {
+        return new MuseumsFragment();
     }
 
     @Override
@@ -35,24 +35,24 @@ public class BarsFragment extends BaseListFragment {
 
     @Override
     protected ModelTypeEnum getFragmentType() {
-        return ModelTypeEnum.BARS;
+        return ModelTypeEnum.MUSEUMS;
     }
 
     @OnClick(R.id.no_internet_layout_repaet_button)
     protected void reload() {
-        service.loadBars();
+        service.loadMuseums();
         super.reload();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.BARS)) {
-            adapter = new PlacesAdapter(helper.getBarsList(), getActivity());
+        if (helper.getDataMap().containsKey(ModelTypeEnum.MUSEUMS)) {
+            adapter = new PlacesAdapter(helper.getMuseumsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         } else {
-            service.loadBars();
+            service.loadMuseums();
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -64,26 +64,26 @@ public class BarsFragment extends BaseListFragment {
             public void onLoadMore(int current_page) {
                 if (adapter.isHasNextPage()) {
                     swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreBars((adapter.getItemCount() / 20) + 1);
+                    service.loadMoreMuseums((adapter.getItemCount() / 20) + 1);
                 }
             }
         });
     }
 
     @SuppressWarnings("unused")
-    public void onEvent(BarsLoadedEvent event) {
+    public void onEvent(MuseumsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.BARS)) {
-            ArrayList<PlaceModel> tempList = helper.getBarsList();
+        if (helper.getDataMap().containsKey(ModelTypeEnum.MUSEUMS)) {
+            ArrayList<PlaceModel> tempList = helper.getMuseumsList();
             tempList.addAll(event.getResults());
-            helper.getDataMap().put(ModelTypeEnum.BARS, tempList);
+            helper.getDataMap().put(ModelTypeEnum.MUSEUMS, tempList);
         } else {
-            helper.getDataMap().put(ModelTypeEnum.BARS, event.getResults());
+            helper.getDataMap().put(ModelTypeEnum.MUSEUMS, event.getResults());
         }
 
         if (adapter == null) {
-            adapter = new PlacesAdapter(helper.getBarsList(), getActivity());
+            adapter = new PlacesAdapter(helper.getMuseumsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         }

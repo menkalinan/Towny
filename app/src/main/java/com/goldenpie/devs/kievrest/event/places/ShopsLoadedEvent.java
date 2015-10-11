@@ -1,5 +1,6 @@
-package com.goldenpie.devs.kievrest.event;
+package com.goldenpie.devs.kievrest.event.places;
 
+import com.goldenpie.devs.kievrest.event.BaseLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.google.gson.annotations.SerializedName;
 

@@ -6,6 +6,8 @@ import com.crashlytics.android.Crashlytics;
 import com.goldenpie.devs.kievrest.config.AppComponent;
 import com.goldenpie.devs.kievrest.config.AppModule;
 import com.goldenpie.devs.kievrest.config.DaggerAppComponent;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.WeathericonsModule;
 
 import io.fabric.sdk.android.Fabric;
 import lombok.Getter;
@@ -30,6 +32,7 @@ public class TownyApplication extends android.app.Application {
                 .setDefaultFontPath("fonts/PTSansRegular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
+        Iconify.with(new WeathericonsModule());
         setContext(this);
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))

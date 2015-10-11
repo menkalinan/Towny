@@ -1,1 +1,1 @@
-include ':app', ':wear', ':constantskeeper', ':teleportlib'
+include ':app', ':wear', ':constantskeeper', ':teleportlib', ':materialviewpager'

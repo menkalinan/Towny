@@ -1,4 +1,4 @@
-package com.goldenpie.devs.kievrest.ui.fragment;
+package com.goldenpie.devs.kievrest.ui.fragment.places;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.event.RecreationsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.RestaurantsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
@@ -20,14 +20,14 @@ import java.util.Set;
 
 import butterknife.OnClick;
 
-public class RecreationsFragment extends BaseListFragment {
+public class RestaurantsFragment extends BaseListFragment {
     private PlacesAdapter adapter;
 
-    public RecreationsFragment() {
+    public RestaurantsFragment() {
     }
 
-    public static RecreationsFragment newInstance() {
-        return new RecreationsFragment();
+    public static RestaurantsFragment newInstance() {
+        return new RestaurantsFragment();
     }
 
     @Override
@@ -37,25 +37,24 @@ public class RecreationsFragment extends BaseListFragment {
 
     @Override
     protected ModelTypeEnum getFragmentType() {
-        return ModelTypeEnum.RECREATIONS;
+        return ModelTypeEnum.RESTAURANTS;
     }
-
 
     @OnClick(R.id.no_internet_layout_repaet_button)
     protected void reload() {
-        service.loadRecreations();
+        service.loadRestaurants();
         super.reload();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.RECREATIONS)) {
-            adapter = new PlacesAdapter(helper.getRecreationsList(), getActivity());
+        if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
+            adapter = new PlacesAdapter(helper.getRestaurantsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         } else {
-            service.loadRecreations();
+            service.loadRestaurants();
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -67,14 +66,14 @@ public class RecreationsFragment extends BaseListFragment {
             public void onLoadMore(int current_page) {
                 if (adapter.isHasNextPage()) {
                     swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreRecreations((preferences.getTotalRecreationsDataSize() / 20) + 1);
+                    service.loadMoreRestaurants((preferences.getTotalRestaurantsDataSize() / 20) + 1);
                 }
             }
         });
     }
 
     @SuppressWarnings("unused")
-    public void onEvent(RecreationsLoadedEvent event) {
+    public void onEvent(RestaurantsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
         int size = event.getResults().size();
@@ -85,18 +84,18 @@ public class RecreationsFragment extends BaseListFragment {
         event.getResults().clear();
         event.getResults().addAll(uniqueItems);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.RECREATIONS)) {
-            preferences.setTotalRecreationsDataSize(preferences.getTotalRecreationsDataSize() + size);
-            ArrayList<PlaceModel> tempList = helper.getRecreationsList();
+        if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
+            preferences.setTotalRestaurantsDataSize(preferences.getTotalRestaurantsDataSize() + size);
+            ArrayList<PlaceModel> tempList = helper.getRestaurantsList();
             tempList.addAll(event.getResults());
-            helper.getDataMap().put(ModelTypeEnum.RECREATIONS, tempList);
+            helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, tempList);
         } else {
-            preferences.setTotalRecreationsDataSize(size);
-            helper.getDataMap().put(ModelTypeEnum.RECREATIONS, event.getResults());
+            preferences.setTotalRestaurantsDataSize(size);
+            helper.getDataMap().put(ModelTypeEnum.RESTAURANTS, event.getResults());
         }
 
         if (adapter == null) {
-            adapter = new PlacesAdapter(helper.getRecreationsList(), getActivity());
+            adapter = new PlacesAdapter(helper.getRestaurantsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         }
@@ -104,5 +103,6 @@ public class RecreationsFragment extends BaseListFragment {
         adapter.notifyDataSetChanged();
 
         adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
+
     }
 }

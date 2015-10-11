@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
@@ -31,27 +32,39 @@ import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
-import com.goldenpie.devs.kievrest.ui.fragment.AttractionsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.BarsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.ClubsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.MuseumsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.AttractionsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.BarsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.ClubsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.HotelsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.MuseumsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.RecreationsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.RestaurantsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.RecreationsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.RestaurantsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.ShopsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.places.ShopsFragment;
 import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 import com.goldenpie.devs.kievrest.utils.service.DataShareService;
+import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import icepick.Icepick;
+import icepick.State;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity {
+    @State
+    Integer currentScreen;
+    @State
+    Integer currentPage;
+    @State
+    Parcelable viewPagerSate;
+    @State
+    Parcelable pagerSate;
 
     @Bind(R.id.materialViewPager)
     public MaterialViewPager mViewPager;
@@ -65,7 +78,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.header_logo_image)
     protected ImageView headerImage;
     @Bind(R.id.nav_drawer_current_weather)
-    protected TextView currentWeather;
+    protected IconTextView currentWeather;
     @Bind(R.id.nav_drawer_header_image)
     protected ImageView drawerHeaderImage;
     private String currentCat = CategoryTypeEnum.MAIN.name();
@@ -79,6 +92,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         service.loadCurrentWeather();
         service.loadCites(preferences.getLang());
 
@@ -104,7 +118,17 @@ public class MainActivity extends BaseActivity {
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
-        setMainViewPager();
+
+        if (currentScreen == null || currentScreen == 0)
+            setMainViewPager();
+        else if (currentScreen == 1)
+            setPlacesViewPager();
+
+        if (viewPagerSate != null) {
+            mViewPager.getViewPager().onRestoreInstanceState(pagerSate);
+            mViewPager.onRestoreInstanceState(viewPagerSate);
+        }
+
         drawerHeaderImage.setImageResource(helper.getWeatherImage());
     }
 
@@ -114,6 +138,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setMainViewPager() {
+        currentScreen = 0;
         updateDrawerItem(drawerItems.get(0));
         setTitle(getString(R.string.main));
         final boolean isNewYork = preferences.getCurrentCity().equals("new-york");
@@ -154,6 +179,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(final int page) {
+                currentPage = page;
                 YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -161,11 +187,11 @@ public class MainActivity extends BaseActivity {
                     public void run() {
                         switch (page) {
                             case 0:
-                                headerLogoBackground.setBackgroundResource(R.drawable.news_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.blue_circle_drawable);
                                 headerImage.setImageResource(!isNewYork ? R.drawable.news_icon : R.drawable.ic_action_whatshot);
                                 break;
                             case 1:
-                                headerLogoBackground.setBackgroundResource(R.drawable.selection_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.purple_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_whatshot);
                                 break;
                         }
@@ -193,9 +219,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setPlacesViewPager() {
+        currentScreen = 1;
         updateDrawerItem(drawerItems.get(1));
         setTitle(getString(R.string.places));
-        final int count = 7;
+        final int count = 8;
         mViewPager.getViewPager().setAdapter(
                 new FragmentStatePagerAdapter(getSupportFragmentManager()) {
                     @Override
@@ -216,7 +243,7 @@ public class MainActivity extends BaseActivity {
                             case 6:
                                 return ShopsFragment.newInstance();
                             case 7:
-                                return ShopsFragment.newInstance();
+                                return HotelsFragment.newInstance();
                             default:
                                 return null;
                         }
@@ -254,6 +281,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(final int page) {
+                currentPage = page;
                 YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -261,36 +289,36 @@ public class MainActivity extends BaseActivity {
                     public void run() {
                         switch (page) {
                             case 0:
-                                headerLogoBackground.setBackgroundResource(R.drawable.restuarants_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.green_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_local_dining);
                                 break;
                             case 1:
-                                headerLogoBackground.setBackgroundResource(R.drawable.bars_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.teal_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_local_bar);
                                 break;
                             case 2:
-                                headerLogoBackground.setBackgroundResource(R.drawable.clubs_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.light_blue_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_local_laundry_service);
                                 break;
                             case 3:
-                                headerLogoBackground.setBackgroundResource(R.drawable.museums_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.orange_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_museum);
                                 break;
                             case 4:
-                                headerLogoBackground.setBackgroundResource(R.drawable.news_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.blue_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_attraction);
                                 break;
                             case 5:
-                                headerLogoBackground.setBackgroundResource(R.drawable.selection_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.purple_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_directions_bike);
                                 break;
                             case 6:
-                                headerLogoBackground.setBackgroundResource(R.drawable.shops_circle_drawable);
+                                headerLogoBackground.setBackgroundResource(R.drawable.lime_circle_drawable);
                                 headerImage.setImageResource(R.drawable.ic_action_store_mall_directory);
                                 break;
                             case 7:
-                                headerLogoBackground.setBackgroundResource(R.drawable.shops_circle_drawable);
-                                headerImage.setImageResource(R.drawable.ic_action_store_mall_directory);
+                                headerLogoBackground.setBackgroundResource(R.drawable.red_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_hotel);
                                 break;
                         }
                         YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
@@ -305,31 +333,31 @@ public class MainActivity extends BaseActivity {
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_teal,
-                                "http://relax.com.ua/wp-content/media/kiew/2012/09/kiev-at-night.jpg");
+                                "https://venueviking.blob.core.windows.net/venueimagescontainer/7d26d06e-36c0-40e7-ba69-f59515b4d2a1.jpg");
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.dark_orange,
-                                "http://static.vueling.com/cms/media/1216777/kiev.jpg");
+                                R.color.dark_light_blue,
+                                "http://mistoclub.com/wp-content/uploads/2014/03/bg_1.jpg");
                     case 3:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.dark_light_blue,
-                                "http://relax.com.ua/wp-content/media/kiew/2012/09/kiev-at-night.jpg");
+                                R.color.dark_orange,
+                                "https://kidsfuninseoul.files.wordpress.com/2011/06/img_1172.jpg");
                     case 4:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_indigo,
-                                "http://static.vueling.com/cms/media/1216777/kiev.jpg");
+                                "http://www.orangesmile.com/common/img_fotogallery/paris--1456928-0.jpg");
                     case 5:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_purple,
-                                "http://relax.com.ua/wp-content/media/kiew/2012/09/kiev-at-night.jpg");
+                                "http://www.friendsoftunisia.org/wp-content/uploads/2014/05/central-park-wallpaper-new-york-central-park-hd-wallpaper-desktop-xgurpvbs.jpg");
                     case 6:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_lime,
-                                "http://static.vueling.com/cms/media/1216777/kiev.jpg");
+                                "http://i.toau-media.com/contentFiles/image/sydney/venues/shopping/doug-up-on-bourke.jpg");
                     case 7:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.dark_lime,
-                                "http://static.vueling.com/cms/media/1216777/kiev.jpg");
+                                R.color.dark_red,
+                                "http://cdn.decordsgn.com/design/zeospot.com/wp-content/uploads/2010/11/luxury-hotel-interior-design.jpg");
                 }
 
                 return null;
@@ -345,8 +373,8 @@ public class MainActivity extends BaseActivity {
         if (!TextUtils.isEmpty(event.getWeatherData().getTemperature())) {
             currentWeather.setText(String.format(getString(R.string.current_weather),
                     preferences.getCurrentCityName(),
+                    event.getWeatherInfo().get(0).getIcon(),
                     event.getWeatherData().getCurrentTemperature()));
-
         }
     }
 
@@ -457,5 +485,13 @@ public class MainActivity extends BaseActivity {
             }
         }, Constants.DRAWER_ANIMATION_DURATION);
         mDrawer.closeDrawers();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        viewPagerSate = mViewPager.onSaveInstanceState();
+        pagerSate = mViewPager.getViewPager().onSaveInstanceState();
+        Icepick.saveInstanceState(this, outState);
     }
 }

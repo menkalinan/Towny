@@ -132,7 +132,6 @@ public class DataShareService extends Service implements LocationListener {
         getApplicationContext().startActivity(intent);
     }
 
-    @SuppressWarnings("ResourceType")
     private void makeCall(String string) {
         string = string.replaceAll("\\D", "");
         Intent intent = new Intent(Intent.ACTION_CALL);
@@ -147,7 +146,6 @@ public class DataShareService extends Service implements LocationListener {
         getApplicationContext().startActivity(i);
     }
 
-    @SuppressWarnings("ResourceType")
     private void getCurrentLocation() {
         if (locationManager == null)
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

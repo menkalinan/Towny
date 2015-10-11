@@ -31,8 +31,7 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            android:label="@string/app_name"/>
 
         <service android:name=".utils.service.DataShareService" />
 
@@ -52,9 +51,9 @@
         <activity
             android:name=".ui.activity.FirstRunActivity"
             android:configChanges="orientation"
-            android:label="LocationTest"
-            android:screenOrientation="portrait" />
+            android:label="LocationTest" />
         <activity
+            android:configChanges="orientation"
             android:theme="@style/SettingsTheme"
             android:name=".ui.activity.SettingsActivity"
             android:label="@string/settings"

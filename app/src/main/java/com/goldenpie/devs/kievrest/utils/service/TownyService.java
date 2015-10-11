@@ -6,15 +6,16 @@ import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.ClubsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.MuseumsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.ClubsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.MuseumsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.RecreationsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.RestaurantsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.RecreationsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.RestaurantsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.ShopsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.ShopsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.utils.BaseCallback;
@@ -125,5 +126,13 @@ public class TownyService {
 
     public void loadMoreRecreations(int current_page) {
         townyApi.getRecreations(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<RecreationsLoadedEvent>());
+    }
+
+    public void loadHotels() {
+        townyApi.getHotels(preferences.getCurrentCity(), new BaseCallback<HotelsLoadedEvent>());
+    }
+
+    public void loadMoreHotels(int current_page) {
+        townyApi.getHotels(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<HotelsLoadedEvent>());
     }
 }
