@@ -69,7 +69,7 @@ public class AppModule {
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setConverter(new GsonConverter(gson))
-                .setEndpoint(Constants.BASE_ENDPOINT)
+                .setEndpoint(Constants.DATA_ENDPOINT)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 

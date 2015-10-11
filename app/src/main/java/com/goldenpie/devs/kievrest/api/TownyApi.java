@@ -27,7 +27,7 @@ public interface TownyApi {
     void getNews(@Query("location") String currentCity,
                  BaseCallback<NewsLoadedEvent> callback);
 
-    @GET(Constants.MORE_NEWS_LINK)
+    @GET(Constants.NEWS_LINK)
     void getNews(@Query("page") String page,
                  @Query("location") String currentCity,
                  BaseCallback<NewsLoadedEvent> callback);
