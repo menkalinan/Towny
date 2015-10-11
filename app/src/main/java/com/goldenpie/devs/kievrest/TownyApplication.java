@@ -15,18 +15,10 @@ import lombok.Setter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class TownyApplication extends android.app.Application {
-
-    public static Context getContext() {
-        return context;
-    }
-
-    public static void setContext(Context context) {
-        TownyApplication.context = context;
-    }
-
     @Getter
     @Setter
     private static Context context;
+
     private AppComponent appComponent;
 
     public static AppComponent appComponent() {
