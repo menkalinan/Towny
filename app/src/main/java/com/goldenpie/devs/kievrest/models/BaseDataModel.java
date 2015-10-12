@@ -32,7 +32,10 @@ public class BaseDataModel {
     public String getClearBody() {
         return Html.fromHtml(getBody()).toString();
     }
+
     public String getClearDescription() {
+        description = Html.fromHtml(description).toString();
+        description = description.replaceAll("\n", "");
         description = description.replaceAll("(\\(.*?\\))", "");
         description = description.replaceAll("\\[|\\]", "");
         return description;

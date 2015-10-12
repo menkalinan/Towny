@@ -33,55 +33,45 @@ import com.nineoldandroids.view.ViewHelper;
 public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageChangeListener {
 
     /**
+     * Contains all references to MatervialViewPager's header views
+     */
+    protected MaterialViewPagerHeader materialViewPagerHeader;
+    //the child toolbar
+    protected Toolbar mToolbar;
+    //the child viewpager
+    protected ViewPager mViewPager;
+    //a view used to add placeholder color below the header
+    protected View headerBackground;
+    //a view used to add fading color over the headerBackgroundContainer
+    protected View toolbarLayoutBackground;
+    //Class containing the configuration of the MaterialViewPager
+    protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
+    protected MaterialViewPager.Listener listener;
+    int lastPosition = -1;
+    /**
      * the layout containing the header
      * default : add @layout/material_view_pager_default_header
      * with viewpager_header you can set your own layout
      */
     private ViewGroup headerBackgroundContainer;
-
     /**
      * the layout containing tabs
      * default : add @layout/material_view_pager_pagertitlestrip_standard
      * with viewpager_pagerTitleStrip you can set your own layout
      */
     private ViewGroup pagerTitleStripContainer;
-
-
     /**
      * the layout containing the viewpager, can be replaced to add your own implementation of viewpager
      */
     private ViewGroup viewpagerContainer;
 
+    //region construct
     /**
      * the layout containing logo
      * default : empty
      * with viewpager_logo you can set your own layout
      */
     private ViewGroup logoContainer;
-
-    /**
-     * Contains all references to MatervialViewPager's header views
-     */
-    protected MaterialViewPagerHeader materialViewPagerHeader;
-
-    //the child toolbar
-    protected Toolbar mToolbar;
-
-    //the child viewpager
-    protected ViewPager mViewPager;
-
-    //a view used to add placeholder color below the header
-    protected View headerBackground;
-
-    //a view used to add fading color over the headerBackgroundContainer
-    protected View toolbarLayoutBackground;
-
-    //Class containing the configuration of the MaterialViewPager
-    protected MaterialViewPagerSettings settings = new MaterialViewPagerSettings();
-
-    protected MaterialViewPager.Listener listener;
-
-    //region construct
 
     public MaterialViewPager(Context context) {
         super(context);
@@ -97,14 +87,14 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         settings.handleAttributes(context, attrs);
     }
 
+    //endregion
+
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MaterialViewPager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         settings.handleAttributes(context, attrs);
     }
-
-    //endregion
-
 
     @Override
     protected void onDetachedFromWindow() {
@@ -247,18 +237,18 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
     /**
      * Retrieve the displayed toolbar
-     */
-    public void setToolbar(Toolbar toolbar) {
-        mToolbar = toolbar;
-    }
-
-    /**
-     * Retrieve the displayed toolbar
      *
      * @return the displayed toolbar
      */
     public Toolbar getToolbar() {
         return mToolbar;
+    }
+
+    /**
+     * Retrieve the displayed toolbar
+     */
+    public void setToolbar(Toolbar toolbar) {
+        mToolbar = toolbar;
     }
 
     /**
@@ -286,7 +276,6 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
             MaterialViewPagerImageHelper.setImageLoadListener(imageLoadListener);
         setImageUrl(imageUrl, fadeDuration);
     }
-
 
     /**
      * change the header displayed image with a fade
@@ -352,13 +341,11 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
         MaterialViewPagerHelper.register(getContext(), animator);
     }
 
+    //region ViewPagerOnPageListener
+
     public ViewGroup getHeaderBackgroundContainer() {
         return headerBackgroundContainer;
     }
-
-    //region ViewPagerOnPageListener
-
-    int lastPosition = -1;
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -412,7 +399,30 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
 
     //endregion
 
+    public void setMaterialViewPagerListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public interface Listener {
+        HeaderDesign getHeaderDesign(int page);
+    }
+
+    public interface OnImageLoadListener {
+        void OnImageLoad(ImageView imageView, Bitmap bitmap);
+    }
+
     static class SavedState extends BaseSavedState {
+        //required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
         public MaterialViewPagerSettings settings;
         public float yOffset;
 
@@ -432,30 +442,6 @@ public class MaterialViewPager extends FrameLayout implements ViewPager.OnPageCh
             out.writeParcelable(this.settings, flags);
             out.writeFloat(this.yOffset);
         }
-
-        //required field that makes Parcelables from a Parcel
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
-
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
-    }
-
-    public void setMaterialViewPagerListener(Listener listener) {
-        this.listener = listener;
-    }
-
-    public interface Listener {
-        HeaderDesign getHeaderDesign(int page);
-    }
-
-    public interface OnImageLoadListener {
-        void OnImageLoad(ImageView imageView, Bitmap bitmap);
     }
 
 }

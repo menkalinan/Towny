@@ -13,7 +13,7 @@ public class Constants {
 
     public static final String PUBLIC_API = "/public-api/v1/";
     public static final String EXTRA_FIELDS = "&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images,place";
-    public static final String EXTRA_EVENT_FIELDS = "&fields=age_restriction,is_free,dates,id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images,place";
+    public static final String EXTRA_EVENT_FIELDS = "&order_by=-publication_date&fields=age_restriction,description,is_free,dates,id,title,slug,images,body_text,site_url,foreign_url,publication_date,place&expand=images,place";
 
     public static final String SELECTION_LINK = PUBLIC_API + "lists/";
     public static final String MORE_SELECTIONS_LINK = PUBLIC_API + "lists/";

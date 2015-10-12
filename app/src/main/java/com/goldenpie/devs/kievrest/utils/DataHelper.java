@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.utils;
 
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.models.CityModel;
+import com.goldenpie.devs.kievrest.models.EventModel;
 import com.goldenpie.devs.kievrest.models.NewsModel;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
@@ -74,6 +75,15 @@ public class DataHelper {
         return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.HOTELS);
     }
 
+    @SuppressWarnings("unchecked")
+    public ArrayList<EventModel> getExhibitionsList() {
+        return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.EXHIBITIONS);
+    }
+    @SuppressWarnings("unchecked")
+    public ArrayList<EventModel> getConcertsList() {
+        return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.CONCERTS);
+    }
+
     public int getWeatherImage() {
         Calendar calendar = new GregorianCalendar();
         switch (calendar.get(Calendar.MONTH)) {
@@ -105,5 +115,4 @@ public class DataHelper {
                 return 0;
         }
     }
-
 }

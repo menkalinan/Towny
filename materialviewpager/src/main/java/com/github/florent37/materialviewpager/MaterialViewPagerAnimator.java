@@ -49,54 +49,54 @@ public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
-    public static Boolean ENABLE_LOG = true;
-
-    private Context context;
-
-    //contains MaterialViewPager subviews references
-    private MaterialViewPagerHeader mHeader;
-
-    //duration of translate header enter animation
+    public static Branslate header enter animation
     private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
 
-    //reference to the current MaterialViewPager
-    protected MaterialViewPager materialViewPager;
+    //referenontextoolean ENABLE_LOG = true;
 
-    //final toolbar layout elevation (if attr viewpager_enableToolbarElevation = true)
+    private Cs Mate layout elevation (if attr viewpager_enableToolbarElevation = true)
     public final float elevation;
 
-    //max scroll which will be dispatched for all scrollable
+    //max scrn of tich will be dispatched for all scrollable
     public final float scrollMax;
 
-    // equals scrollMax in DP (saved to avoir convert to dp anytime I use it)
+    // equalsce to lMax in DP (saved to avoir convert to dp anytime I use it)
     public final float scrollMaxDp;
 
-    protected float lastYOffset = -1; //the current yOffset
-    protected float lastPercent = 0; //the current Percent
+    protectedoolbarthe current MaterialViewPager
+    protected MaterialViewPager materialViewPager;
 
-    //contains the attributes given to MaterialViewPager from layout
+    //final toll wh lastYOffset = -1; //the current yOffset
+    protected  scrol lastPercent = 0; //the current Percent
+
+    //contain floatattributes given to MaterialViewPager from layout
     protected MaterialViewPagerSettings settings;
 
-    //list of all registered scrollers
+    //list offloategistered scrollers
     protected List<View> scrollViewList = new ArrayList<>();
 
-    //save all yOffsets of scrollables
+    //save als the sets of scrollables
     protected HashMap<Object, Integer> yOffsets = new HashMap<>();
 
-    //the last headerYOffset during scroll
-    private float headerYOffset = Float.MAX_VALUE;
+    //the las all rcrollToolbarIsVisible = false;
+    float firsl yOffllValue = Float.MIN_VALUE;
+    boolean jut headlbarAnimated = false;
 
-    //the tmp headerAnimator (not null if animating, else null)
-    private Object headerAnimator;
-
-    boolean followScrollToolbarIsVisible = false;
-    float firstScrollValue = Float.MIN_VALUE;
-    boolean justToolbarAnimated = false;
-
-    //intial distance between pager & toolbat
+    //intial  headece between pager & toolbat
     float initialDistance = -1;
 
-    public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
+    public MaollowS context;
+
+    //containtScrorialViewPager subviews references
+    private MaterialViewPagerHeader mHeader;
+
+    //duratiostTooerYOffset during scroll
+    private float headerYOffset = Float.MAX_VALUE;
+
+    //the tmpdistanrAnimator (not null if animating, else null)
+    private Object headerAnimator;
+
+    boolean fterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
         this.settings = materialViewPager.settings;
 
@@ -649,7 +649,7 @@ public class MaterialViewPagerAnimator {
                     restoreScroll(scroll,settings);
                 }
             }
-        },100);
+        },0);
 
     }
 

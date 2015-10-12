@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?android:attr/selectableItemBackground"
     android:id="@android:id/text1"
-    android:singleLine="true"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:background="?android:attr/selectableItemBackground"
     android:ellipsize="marquee"
-    tools:text="Some text"
-    android:textSize="16sp"
-    android:textColor="@color/primary_text"
+    android:gravity="center_vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:gravity="center_vertical"/>
+    android:singleLine="true"
+    android:textColor="@color/primary_text"
+    android:textSize="16sp"
+    tools:text="Some text" />

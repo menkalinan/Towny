@@ -4,10 +4,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/tools_list_item_card_big"/>
-    <include layout="@layout/tools_list_item_card_small"/>
-    <include layout="@layout/tools_list_item_card_small"/>
-    <include layout="@layout/tools_list_item_card_small"/>
-    <include layout="@layout/tools_list_item_card_small"/>
+    <include layout="@layout/tools_list_item_card_big" />
+
+    <include layout="@layout/tools_list_item_card_small" />
+
+    <include layout="@layout/tools_list_item_card_small" />
+
+    <include layout="@layout/tools_list_item_card_small" />
+
+    <include layout="@layout/tools_list_item_card_small" />
 
 </LinearLayout>

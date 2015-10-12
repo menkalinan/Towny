@@ -3,6 +3,8 @@ package com.goldenpie.devs.kievrest.api;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.ConcertsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.ExhibitionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.MuseumsLoadedEvent;
@@ -126,4 +128,24 @@ public interface TownyApi {
     @GET("/public-api/v1/locations/")
     void getSupportCites(@Query("lang") String lang,
                          BaseCallback<ArrayList<CityModel>> citesLoadedEventBaseCallback);
+
+
+    @GET(Constants.EXHEBITIONS_LINK)
+    void getExhibitions(@Query("page") String page,
+                        @Query("location") String currentCity,
+                        BaseCallback<ExhibitionsLoadedEvent> callback);
+
+    @GET(Constants.EXHEBITIONS_LINK)
+    void getExhibitions(@Query("location") String currentCity,
+                        BaseCallback<ExhibitionsLoadedEvent> callback);
+
+    @GET(Constants.CONCERTS_LINK)
+    void getConcerts(@Query("page") String page,
+                 @Query("location") String currentCity,
+                 BaseCallback<ConcertsLoadedEvent> callback);
+
+    @GET(Constants.CONCERTS_LINK)
+    void getConcerts(@Query("location") String currentCity,
+                    BaseCallback<ConcertsLoadedEvent> callback);
+
 }

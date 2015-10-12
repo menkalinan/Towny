@@ -6,6 +6,8 @@ import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.ConcertsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.ExhibitionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.MuseumsLoadedEvent;
@@ -134,5 +136,21 @@ public class TownyService {
 
     public void loadMoreHotels(int current_page) {
         townyApi.getHotels(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<HotelsLoadedEvent>());
+    }
+
+    public void loadConcerts() {
+        townyApi.getConcerts(preferences.getCurrentCity(), new BaseCallback<ConcertsLoadedEvent>());
+    }
+
+    public void loadMoreConcerts(int current_page) {
+        townyApi.getConcerts(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<ConcertsLoadedEvent>());
+    }
+
+    public void loadExhibitions() {
+        townyApi.getExhibitions(preferences.getCurrentCity(), new BaseCallback<ExhibitionsLoadedEvent>());
+    }
+
+    public void loadMoreExhibitions(int current_page) {
+        townyApi.getExhibitions(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<ExhibitionsLoadedEvent>());
     }
 }

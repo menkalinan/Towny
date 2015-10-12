@@ -34,6 +34,8 @@ import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.events.ConcertsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.events.ExhibitionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.AttractionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.BarsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.ClubsFragment;
@@ -70,8 +72,9 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.materialViewPager)
     protected MaterialViewPager mViewPager;
-    @Bind({R.id.nav_drawer_main_layout
-            , R.id.nav_drawer_places_layout})
+    @Bind({R.id.nav_drawer_main_layout,
+            R.id.nav_drawer_places_layout,
+            R.id.nav_drawer_event_layout})
     protected List<View> drawerItems;
     @Bind(R.id.drawer_layout)
     protected DrawerLayout mDrawer;
@@ -121,10 +124,18 @@ public class MainActivity extends BaseActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
 
-        if (currentScreen == null || currentScreen == 0) {
+        restoreState();
+
+        drawerHeaderImage.setImageResource(helper.getWeatherImage());
+    }
+
+    private void restoreState() {
+        if (currentScreen == null || currentScreen == 0)
             setMainViewPager();
-        } else if (currentScreen == 1)
+        else if (currentScreen == 1)
             setPlacesViewPager();
+        else if (currentScreen == 2)
+            setEventViewPager();
 
         if (currentCat == null)
             currentCat = CategoryTypeEnum.MAIN.name();
@@ -133,8 +144,6 @@ public class MainActivity extends BaseActivity {
             mViewPager.getViewPager().onRestoreInstanceState(pagerSate);
             mViewPager.onRestoreInstanceState(viewPagerSate);
         }
-
-        drawerHeaderImage.setImageResource(helper.getWeatherImage());
     }
 
     @SuppressWarnings("unused")
@@ -373,6 +382,85 @@ public class MainActivity extends BaseActivity {
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
     }
 
+    private void setEventViewPager() {
+        currentScreen = 2;
+        updateDrawerItem(drawerItems.get(2));
+        setTitle("События");
+        final int count = 2;
+        mViewPager.getViewPager().setAdapter(
+                new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+                    @Override
+                    public Fragment getItem(int position) {
+                        switch (position) {
+                            case 0:
+                                return ConcertsFragment.newInstance();
+                            case 1:
+                                return ExhibitionsFragment.newInstance();
+                            default:
+                                return null;
+                        }
+                    }
+
+                    @Override
+                    public int getCount() {
+                        return count;
+                    }
+
+                    @Override
+                    public CharSequence getPageTitle(int position) {
+                        switch (position) {
+                            case 0:
+                                return "Концерты";
+                            case 1:
+                                return "Выставки";
+                        }
+                        return "";
+                    }
+                });
+
+        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
+            @Override
+            public HeaderDesign getHeaderDesign(final int page) {
+                currentPage = page;
+                YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (page) {
+                            case 0:
+                                headerLogoBackground.setBackgroundResource(R.drawable.blue_circle_drawable);
+                                headerImage.setImageResource(R.drawable.news_icon);
+                                break;
+                            case 1:
+                                headerLogoBackground.setBackgroundResource(R.drawable.purple_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_whatshot);
+                                break;
+                        }
+                        YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
+                    }
+                }, 200);
+
+                switch (page) {
+                    case 0:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_indigo,
+                                "http://cdn01.wallconvert.com/_media/wallpapers_1920x1200/1/2/blurry-city-lights-14941.jpg");
+                    case 1:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_purple,
+                                "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
+                }
+
+                return null;
+            }
+        });
+
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+    }
+
+
     @SuppressWarnings("unused")
     public void onEvent(WeatherLoadedEvent event) {
         if (!TextUtils.isEmpty(event.getWeatherData().getTemperature())) {
@@ -437,6 +525,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @SuppressWarnings("unused")
     @OnClick(R.id.nav_drawer_places_layout)
     protected void onPlacesClick() {
         if (!currentCat.equals(CategoryTypeEnum.PLACES.name())) {
@@ -473,6 +562,28 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void run() {
                     setMainViewPager();
+                    mViewPager.notifyHeaderChanged();
+                }
+            }, Constants.DRAWER_ANIMATION_DURATION);
+        }
+        mDrawer.closeDrawers();
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.nav_drawer_event_layout)
+    protected void onEventsClick() {
+        if (!currentCat.equals(CategoryTypeEnum.EVENTS.name())) {
+            currentCat = CategoryTypeEnum.EVENTS.name();
+            mViewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
+                }
+            }, Constants.DRAWER_ANIMATION_DURATION - 50L);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setEventViewPager();
                     mViewPager.notifyHeaderChanged();
                 }
             }, Constants.DRAWER_ANIMATION_DURATION);

@@ -89,6 +89,8 @@ dependencies {
     compile 'com.github.rahatarmanahmed:circularprogressview:2.4.0'
     compile 'com.joanzapata.iconify:android-iconify-weathericons:2.1.0'
 
-    compile 'frankiesardo:icepick:+'
-    provided 'frankiesardo:icepick-processor:+'
+    compile 'com.prolificinteractive:material-calendarview:1.0.1'
+
+    compile 'frankiesardo:icepick:3.1.1-SNAPSHOT'
+    provided 'frankiesardo:icepick-processor:3.1.1-SNAPSHOT'
 }

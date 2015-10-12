@@ -5,26 +5,30 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = false)
 @Data
 public class EventModel extends BaseDataModel {
 
     @SerializedName("age_restriction")
-    private String ageRestriction;
+    private Integer ageRestriction;
     @SerializedName("is_free")
     private String isFree;
     @SerializedName("dates")
     private ArrayList<Dates> dates;
+    @SerializedName("place")
+    private PlaceModel place;
+
+    public boolean isFree() {
+        return !isFree.equals("false");
+    }
 
     @Data
     public class Dates {
         @SerializedName("start")
-        private long startDate;
+        private String startDate;
         @SerializedName("end")
-        private long endDate;
-    }
-
-    public boolean isFree() {
-        return !isFree.equals("false");
+        private String endDate;
     }
 }

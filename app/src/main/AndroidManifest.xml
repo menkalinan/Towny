@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.goldenpie.devs.kievrest" >
+    package="com.goldenpie.devs.kievrest">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.read_external_storage" />
@@ -18,10 +18,10 @@
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activity.InitActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,11 +31,11 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
 
         <service android:name=".utils.service.DataShareService" />
 
-        <receiver android:name=".utils.service.BootComplete" >
+        <receiver android:name=".utils.service.BootComplete">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -53,12 +53,11 @@
             android:configChanges="orientation"
             android:label="LocationTest" />
         <activity
-            android:configChanges="orientation"
-            android:theme="@style/SettingsTheme"
             android:name=".ui.activity.SettingsActivity"
+            android:configChanges="orientation"
             android:label="@string/settings"
-            android:parentActivityName=".ui.activity.MainActivity" >
-        </activity>
+            android:parentActivityName=".ui.activity.MainActivity"
+            android:theme="@style/SettingsTheme"></activity>
     </application>
 
 </manifest>

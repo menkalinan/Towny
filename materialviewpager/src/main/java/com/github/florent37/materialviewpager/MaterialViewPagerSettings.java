@@ -18,33 +18,69 @@ public class MaterialViewPagerSettings implements Parcelable {
     //attributes are protected and can be used by class from the same package
     //com.github.florent37.materialviewpager
 
-    protected int headerLayoutId;
-    protected int pagerTitleStripId;
-    protected int viewpagerId;
+    protec final Parcelable.Creator<MaterialViewPagerSettings> CREATOR = new Parcelable.Creator<MaterialViewPagerSettings>() {
+        public MaterialViewPagerSettings createFromParcel(Parcel source) {
+            return new MaterialViewPagerSettings(source);
+        }
 
-    protected int logoLayoutId;
-    protected int logoMarginTop;
+        public MaterialViewPagerSettings[] newArray(int size) {
+            return new MaterialViewPagerSettings[size];
+        }
+    };
+
+    //endrprotected int headerLayoutId;
+    protected int pagerTitleStripId;
+     protected int viewpagerId;
+
+   protected int logoLayoutId;
+     protected int logoMarginTop;
 
     protected int headerAdditionalHeight;
 
-    protected int headerHeight;
+   protected int headerHeight;
     protected int headerHeightPx;
-    protected int color;
+     protected int color;
 
-    protected float headerAlpha;
+   protected float headerAlpha;
     protected float parallaxHeaderFactor;
-    protected float imageHeaderDarkLayerAlpha;
+     protected float imageHeaderDarkLayerAlpha;
 
-    protected boolean hideToolbarAndTitle;
+   protected boolean hideToolbarAndTitle;
     protected boolean hideLogoWithFade;
     protected boolean enableToolbarElevation;
     protected boolean displayToolbarWhenSwipe;
     protected boolean toolbarTransparent;
     protected boolean animatedHeaderImage;
-    protected boolean disableToolbar;
+     /**
+ cted boolean disableToolbar;
 
-    /**
-     * Retrieve attributes from the MaterialViewPager
+   on parcelable
+
+    @Override
+  ialViewPagerSettings() {
+    }
+
+    privatide
+  rialViewPagerSettings(Parcel in) {
+        this.headerLayoutId = in.readInt();
+        this.pagerTitleStripId = in.readInt();
+        this.viewpagerId = in.readInt();
+        this.logoLayoutId = in.readInt();
+        this.logoMarginTop = in.readInt();
+        this.headerAdditionalHeight = in.readInt();
+        this.headerHeight = in.readInt();
+        this.headerHeightPx = in.readInt();
+        this.color = in.readInt();
+        this.headerAlpha = in.readFloat();
+        this.imageHeaderDarkLayerAlpha = in.readFloat();
+        this.parallaxHeaderFactor = in.readFloat();
+        this.hideToolbarAndTitle = in.readByte() != 0;
+        this.hideLogoWithFade = in.readByte() != 0;
+        this.enableToolbarElevation = in.readByte() != 0;
+    }
+
+    public Mater
+    * Retrieve attributes from the MaterialViewPager
      * @param context
      * @param attrs
      */
@@ -111,15 +147,13 @@ public class MaterialViewPagerSettings implements Parcelable {
         }
     }
 
-    //region parcelable
-
-    @Override
-    public int describeContents() {
+    //regie Mate
+  public int describeContents() {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    @Overr stati
+  public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.headerLayoutId);
         dest.writeInt(this.pagerTitleStripId);
         dest.writeInt(this.viewpagerId);
@@ -137,36 +171,5 @@ public class MaterialViewPagerSettings implements Parcelable {
         dest.writeByte(enableToolbarElevation ? (byte) 1 : (byte) 0);
     }
 
-    public MaterialViewPagerSettings() {
-    }
-
-    private MaterialViewPagerSettings(Parcel in) {
-        this.headerLayoutId = in.readInt();
-        this.pagerTitleStripId = in.readInt();
-        this.viewpagerId = in.readInt();
-        this.logoLayoutId = in.readInt();
-        this.logoMarginTop = in.readInt();
-        this.headerAdditionalHeight = in.readInt();
-        this.headerHeight = in.readInt();
-        this.headerHeightPx = in.readInt();
-        this.color = in.readInt();
-        this.headerAlpha = in.readFloat();
-        this.imageHeaderDarkLayerAlpha = in.readFloat();
-        this.parallaxHeaderFactor = in.readFloat();
-        this.hideToolbarAndTitle = in.readByte() != 0;
-        this.hideLogoWithFade = in.readByte() != 0;
-        this.enableToolbarElevation = in.readByte() != 0;
-    }
-
-    public static final Parcelable.Creator<MaterialViewPagerSettings> CREATOR = new Parcelable.Creator<MaterialViewPagerSettings>() {
-        public MaterialViewPagerSettings createFromParcel(Parcel source) {
-            return new MaterialViewPagerSettings(source);
-        }
-
-        public MaterialViewPagerSettings[] newArray(int size) {
-            return new MaterialViewPagerSettings[size];
-        }
-    };
-
-    //endregion
+    publicegion
 }

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/adp_place_item_card"
+        android:id="@+id/adp_event_item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -20,36 +20,62 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/adp_place_item_image"
+                android:id="@+id/adp_event_item_image"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/no_preview_available" />
 
-            <RelativeLayout
-                android:id="@+id/frag_news_item_adult_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_margin="16dp"
-                android:background="@drawable/circle_drawable"
-                android:padding="4dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:gravity="center"
-                    android:text="@string/adult_label"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/adp_place_item_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/adp_place_item_image"
+                android:layout_alignBottom="@+id/adp_event_item_image"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp"
+                android:paddingRight="16dp">
+
+                <RelativeLayout
+                    android:id="@+id/adp_event_item_adult_layout"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/circle_drawable"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/adp_event_item_adult_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/adult_label"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/adp_event_item_is_free"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/green_circle_drawable"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Free"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/adp_event_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/adp_event_item_image"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingLeft="16dp"
@@ -60,10 +86,10 @@
                 tools:text="«ВКонтакте» запускает фильтр нежелательных комментариев" />
 
             <TextView
-                android:id="@+id/adp_place_item_description"
+                android:id="@+id/adp_event_item_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/adp_place_item_title"
+                android:layout_below="@+id/adp_event_item_title"
                 android:ellipsize="end"
                 android:maxLines="8"
                 android:paddingBottom="8dp"
@@ -75,9 +101,33 @@
                 tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой." />
 
             <RelativeLayout
+                android:id="@+id/adp_event_expand_layout"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_below="@+id/adp_event_item_description"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Когда?"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/primary"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/adp_event_item_date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/adp_place_item_description">
+                android:layout_below="@+id/adp_event_expand_layout">
 
                 <include layout="@layout/divider" />
 
@@ -86,7 +136,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/adp_place_item_date"
+                        android:id="@+id/adp_event_item_date"
                         fontPath="fonts/PTSansItalic.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,17 +170,6 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/frag_place_item_is_open"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="false"
-                android:background="@color/green"
-                android:padding="4dp"
-                android:text="Открыто"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.astuetz.PagerSlidingTabStrip
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.astuetz.PagerSlidingTabStrip xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/materialviewpager_pagerTitleStrip"
@@ -12,5 +11,4 @@
     app:pstsShouldExpand="true"
     app:pstsTabPaddingLeftRight="10dp"
     app:pstsTabTextAllCaps="true"
-    tools:background="#A333"
-    />
+    tools:background="#A333" />

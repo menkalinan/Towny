@@ -15,29 +15,24 @@ import static com.github.florent37.materialviewpager.Utils.dpToPx;
  */
 public class MaterialViewPagerHeader {
 
-    protected Context context;
-
-    protected View toolbarLayout;
-    protected Toolbar toolbar;
-    protected View mPagerSlidingTabStrip;
-
-    protected View toolbarLayoutBackground;
-    protected View headerBackground;
-    protected View statusBackground;
-    protected View mLogo;
-
-    //positions used to animate views during scroll
-
     public float finalTabsY;
-
     public float finalTitleY;
     public float finalTitleHeight;
     public float finalTitleX;
-
     public float originalTitleY;
     public float originalTitleHeight;
     public float originalTitleX;
     public float finalScale;
+
+    //positions used to animate views during scroll
+    protected Context context;
+    protected View toolbarLayout;
+    protected Toolbar toolbar;
+    protected View mPagerSlidingTabStrip;
+    protected View toolbarLayoutBackground;
+    protected View headerBackground;
+    protected View statusBackground;
+    protected View mLogo;
 
     private MaterialViewPagerHeader(Toolbar toolbar) {
         this.toolbar = toolbar;
