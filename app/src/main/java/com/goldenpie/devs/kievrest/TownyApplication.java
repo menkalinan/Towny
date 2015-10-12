@@ -33,13 +33,14 @@ public class TownyApplication extends android.app.Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build());
         Iconify.with(new WeathericonsModule());
-        setContext(this);
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
         appComponent.inject(this);
 
         Fabric.with(this, new Crashlytics());
+
+        setContext(this);
     }
 
 }

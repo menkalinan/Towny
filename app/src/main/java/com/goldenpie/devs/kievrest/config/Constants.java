@@ -12,8 +12,8 @@ public class Constants {
     public static final String CURRENT_WEATHER = "/data/2.5/weather";
 
     public static final String PUBLIC_API = "/public-api/v1/";
-    public static final String EXTRA_FIELDS = "&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
-    public static final String EXTRA_EVENT_FIELDS = "age_restriction,is_free,dates,id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images";
+    public static final String EXTRA_FIELDS = "&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images,place";
+    public static final String EXTRA_EVENT_FIELDS = "&fields=age_restriction,is_free,dates,id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images,place";
 
     public static final String SELECTION_LINK = PUBLIC_API + "lists/";
     public static final String MORE_SELECTIONS_LINK = PUBLIC_API + "lists/";
@@ -30,12 +30,12 @@ public class Constants {
     public static final String SHOPS_LINK = PUBLIC_API + "places/?categories=shops,books,clothing,confectioneries,farmer-shops,flea-market,gifts,handmade,health-food,online-shopping,perfume-stores,shopping-mall,tea,toys" + EXTRA_FIELDS;
     public static final String HOTELS_LINK = PUBLIC_API + "places/?categories=hostels,hotels,inn" + EXTRA_FIELDS;
 
-    public static final String EXHEBITIONS_LINK = PUBLIC_API + "events/?categories=exhibition" + EXTRA_FIELDS;
-    public static final String CONCERTS_LINK = PUBLIC_API + "events/?categories=concert" + EXTRA_FIELDS;
-    public static final String THEATERS_LINK = PUBLIC_API + "events/?categories=theater" + EXTRA_FIELDS;
-    public static final String FESTIVLS_LINK = PUBLIC_API + "events/?categories=festival" + EXTRA_FIELDS;
-    public static final String ENTERTAIMENT_LINK = PUBLIC_API + "events/?categories=circus,comedy-club,flashmob,games,kvn,magic,masquerade,quest,romance,show,speed-dating,stand-up" + EXTRA_FIELDS;
-    public static final String YARMARKI_LINK = PUBLIC_API + "events/?categories=yarmarki-razvlecheniya-yarmarki" + EXTRA_FIELDS;
+    public static final String EXHEBITIONS_LINK = PUBLIC_API + "events/?categories=exhibition" + EXTRA_EVENT_FIELDS;
+    public static final String CONCERTS_LINK = PUBLIC_API + "events/?categories=concert" + EXTRA_EVENT_FIELDS;
+    public static final String THEATERS_LINK = PUBLIC_API + "events/?categories=theater" + EXTRA_EVENT_FIELDS;
+    public static final String FESTIVLS_LINK = PUBLIC_API + "events/?categories=festival" + EXTRA_EVENT_FIELDS;
+    public static final String ENTERTAIMENT_LINK = PUBLIC_API + "events/?categories=circus,comedy-club,flashmob,games,kvn,magic,masquerade,quest,romance,show,speed-dating,stand-up" + EXTRA_EVENT_FIELDS;
+    public static final String YARMARKI_LINK = PUBLIC_API + "events/?categories=yarmarki-razvlecheniya-yarmarki" + EXTRA_EVENT_FIELDS;
 
     public static final String PLACES_NEAR_LINK = PUBLIC_API + "places/?radius=5000&fields=id,title,adress,phone,coords,address";
 

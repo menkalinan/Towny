@@ -32,15 +32,15 @@ import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
+import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.AttractionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.BarsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.ClubsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.HotelsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.MuseumsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.RecreationsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.RestaurantsFragment;
-import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.ShopsFragment;
 import com.goldenpie.devs.kievrest.utils.CategoryTypeEnum;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
@@ -58,16 +58,18 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity {
     @State
-    Integer currentScreen;
+    protected Integer currentScreen;
     @State
-    Integer currentPage;
+    protected Integer currentPage;
     @State
-    Parcelable viewPagerSate;
+    protected Parcelable viewPagerSate;
     @State
-    Parcelable pagerSate;
+    protected Parcelable pagerSate;
+    @State
+    protected String currentCat;
 
     @Bind(R.id.materialViewPager)
-    public MaterialViewPager mViewPager;
+    protected MaterialViewPager mViewPager;
     @Bind({R.id.nav_drawer_main_layout
             , R.id.nav_drawer_places_layout})
     protected List<View> drawerItems;
@@ -81,7 +83,7 @@ public class MainActivity extends BaseActivity {
     protected IconTextView currentWeather;
     @Bind(R.id.nav_drawer_header_image)
     protected ImageView drawerHeaderImage;
-    private String currentCat = CategoryTypeEnum.MAIN.name();
+
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
@@ -119,10 +121,13 @@ public class MainActivity extends BaseActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
 
-        if (currentScreen == null || currentScreen == 0)
+        if (currentScreen == null || currentScreen == 0) {
             setMainViewPager();
-        else if (currentScreen == 1)
+        } else if (currentScreen == 1)
             setPlacesViewPager();
+
+        if (currentCat == null)
+            currentCat = CategoryTypeEnum.MAIN.name();
 
         if (viewPagerSate != null) {
             mViewPager.getViewPager().onRestoreInstanceState(pagerSate);
