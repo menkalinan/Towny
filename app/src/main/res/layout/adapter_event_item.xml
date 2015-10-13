@@ -22,7 +22,7 @@
             <ImageView
                 android:id="@+id/adp_event_item_image"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="210dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/no_preview_available" />
 
@@ -92,7 +92,7 @@
                 android:layout_below="@+id/adp_event_item_title"
                 android:ellipsize="end"
                 android:maxLines="8"
-                android:paddingBottom="8dp"
+                android:paddingBottom="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
@@ -104,6 +104,7 @@
                 android:id="@+id/adp_event_expand_layout"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:visibility="gone"
                 android:layout_below="@+id/adp_event_item_description"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
@@ -113,62 +114,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="8dp"
                     android:text="Когда?"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/primary"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:layout_alignParentEnd="true"
+                    android:paddingRight="16dp" />
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/adp_event_item_date_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/adp_event_expand_layout">
-
-                <include layout="@layout/divider" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/adp_event_item_date"
-                        fontPath="fonts/PTSansItalic.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imageView"
-                        android:layout_toRightOf="@+id/imageView"
-                        android:paddingBottom="8dp"
-                        android:paddingRight="16dp"
-                        android:paddingTop="8dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="14sp"
-                        tools:ignore="MissingPrefix"
-                        tools:text="10 сентября, 16:30" />
-
-                    <android.support.v7.internal.widget.TintImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginTop="8dp"
-                        android:padding="2dp"
-                        android:src="@drawable/ic_action_place"
-                        android:tint="@color/secondary_text" />
-                </RelativeLayout>
-
-            </RelativeLayout>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

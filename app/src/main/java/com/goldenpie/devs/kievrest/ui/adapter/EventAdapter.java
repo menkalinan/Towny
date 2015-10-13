@@ -71,18 +71,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             holder.preview.setVisibility(View.GONE);
         }
 
-        if (model.getPlace() != null)
-            holder.date.setText(model.getPlace().getTitle());
-        else
-            holder.dateLayout.setVisibility(View.GONE);
-
+        holder.isFree.setVisibility(View.GONE);
         if (model.isFree()) {
             holder.isFree.setVisibility(View.VISIBLE);
         }
 
+        holder.adultLayout.setVisibility(View.GONE);
         if (model.getAgeRestriction() != null && model.getAgeRestriction() != 0) {
             holder.adultLayout.setVisibility(View.VISIBLE);
-            holder.adultText.setText(String.valueOf(model.getAgeRestriction()) + "+");
+            holder.adultText.setText(String.format("%d%s", model.getAgeRestriction(), "+"));
             if (model.getAgeRestriction() <= 12) {
                 holder.adultLayout.setBackgroundResource(R.drawable.green_circle_drawable);
             } else if (model.getAgeRestriction() <= 16) {
@@ -152,10 +149,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         TextView title;
         @Bind(R.id.adp_event_item_description)
         TextView description;
-        @Bind(R.id.adp_event_item_date)
-        TextView date;
-        @Bind(R.id.adp_event_item_date_layout)
-        RelativeLayout dateLayout;
         @Bind(R.id.adp_event_item_image)
         ImageView preview;
         @Bind(R.id.adp_event_item_card)
