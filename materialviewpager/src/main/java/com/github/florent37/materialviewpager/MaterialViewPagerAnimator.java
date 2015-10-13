@@ -49,54 +49,54 @@ public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
-    public static Branslate header enter animation
-    private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
+    public static Boolean ENABLE_LOG = true;
 
-    //referenontextoolean ENABLE_LOG = true;
+    private Context context;
 
-    private Cs Mate layout elevation (if attr viewpager_enableToolbarElevation = true)
-    public final float elevation;
-
-    //max scrn of tich will be dispatched for all scrollable
-    public final float scrollMax;
-
-    // equalsce to lMax in DP (saved to avoir convert to dp anytime I use it)
-    public final float scrollMaxDp;
-
-    protectedoolbarthe current MaterialViewPager
-    protected MaterialViewPager materialViewPager;
-
-    //final toll wh lastYOffset = -1; //the current yOffset
-    protected  scrol lastPercent = 0; //the current Percent
-
-    //contain floatattributes given to MaterialViewPager from layout
-    protected MaterialViewPagerSettings settings;
-
-    //list offloategistered scrollers
-    protected List<View> scrollViewList = new ArrayList<>();
-
-    //save als the sets of scrollables
-    protected HashMap<Object, Integer> yOffsets = new HashMap<>();
-
-    //the las all rcrollToolbarIsVisible = false;
-    float firsl yOffllValue = Float.MIN_VALUE;
-    boolean jut headlbarAnimated = false;
-
-    //intial  headece between pager & toolbat
-    float initialDistance = -1;
-
-    public MaollowS context;
-
-    //containtScrorialViewPager subviews references
+    //contains MaterialViewPager subviews references
     private MaterialViewPagerHeader mHeader;
 
-    //duratiostTooerYOffset during scroll
+    //duration of translate header enter animation
+    private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
+
+    //reference to the current MaterialViewPager
+    protected MaterialViewPager materialViewPager;
+
+    //final toolbar layout elevation (if attr viewpager_enableToolbarElevation = true)
+    public final float elevation;
+
+    //max scroll which will be dispatched for all scrollable
+    public final float scrollMax;
+
+    // equals scrollMax in DP (saved to avoir convert to dp anytime I use it)
+    public final float scrollMaxDp;
+
+    protected float lastYOffset = -1; //the current yOffset
+    protected float lastPercent = 0; //the current Percent
+
+    //contains the attributes given to MaterialViewPager from layout
+    protected MaterialViewPagerSettings settings;
+
+    //list of all registered scrollers
+    protected List<View> scrollViewList = new ArrayList<>();
+
+    //save all yOffsets of scrollables
+    protected HashMap<Object, Integer> yOffsets = new HashMap<>();
+
+    //the last headerYOffset during scroll
     private float headerYOffset = Float.MAX_VALUE;
 
-    //the tmpdistanrAnimator (not null if animating, else null)
+    //the tmp headerAnimator (not null if animating, else null)
     private Object headerAnimator;
 
-    boolean fterialViewPagerAnimator(MaterialViewPager materialViewPager) {
+    boolean followScrollToolbarIsVisible = false;
+    float firstScrollValue = Float.MIN_VALUE;
+    boolean justToolbarAnimated = false;
+
+    //intial distance between pager & toolbat
+    float initialDistance = -1;
+
+    public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
         this.settings = materialViewPager.settings;
 
@@ -649,7 +649,7 @@ public class MaterialViewPagerAnimator {
                     restoreScroll(scroll,settings);
                 }
             }
-        },0);
+        },100);
 
     }
 
