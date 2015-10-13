@@ -81,7 +81,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             holder.adultLayout.setVisibility(View.VISIBLE);
             holder.adultText.setText(String.format("%d%s", model.getAgeRestriction(), "+"));
             if (model.getAgeRestriction() <= 12) {
-                holder.adultLayout.setBackgroundResource(R.drawable.green_circle_drawable);
+                holder.adultLayout.setBackgroundResource(R.drawable.dark_green_circle_drawable);
             } else if (model.getAgeRestriction() <= 16) {
                 holder.adultLayout.setBackgroundResource(R.drawable.blue_circle_drawable);
             } else if (model.getAgeRestriction() == 18) {

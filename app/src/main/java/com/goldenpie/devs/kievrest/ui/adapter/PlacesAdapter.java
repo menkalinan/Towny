@@ -1,7 +1,7 @@
 package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,7 +17,9 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.models.CoordinatesModel;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
-import com.google.android.gms.maps.MapView;
+import com.goldenpie.devs.kievrest.ui.fragment.MapDialog;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,9 +40,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     @Getter
     @Setter
     private boolean hasNextPage = true;
-    private MapView mMapView;
-    private AlertDialog dialog;
-    private View mapView;
+    private MapDialog mapDialog;
+    private int status = -1;
 
     public PlacesAdapter(ArrayList<PlaceModel> models, Context context) {
         this.context = context;
@@ -72,12 +73,12 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         }
 
         holder.isOpen.setText(getContext().getString(model.isClosed() ? R.string.closed : R.string.opened));
-        holder.isOpen.setBackgroundColor(getContext().getResources().getColor(model.isClosed() ? R.color.red : R.color.green));
+        holder.isOpen.setBackgroundColor(getContext().getResources().getColor(model.isClosed() ? R.color.red : R.color.dark_green));
 
         holder.expandLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buildMapDialog(model.getCoordinates());
+                buildMapDialog(model.getCoordinates(), model.getAddress());
             }
         });
 
@@ -89,31 +90,23 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         }
     }
 
-    private void buildMapDialog(CoordinatesModel coordinates) {
-        if (mapView == null)
-            mapView = View.inflate(getContext(), R.layout.dialog_map, null);
+    private void buildMapDialog(CoordinatesModel coordinates, String address) {
+        if (status == -1)
+            status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getContext());
 
-//        RelativeLayout layout = new RelativeLayout(getContext());
-//        layout.setLayoutParams(new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.MATCH_PARENT,
-//                RelativeLayout.LayoutParams.MATCH_PARENT));
-//        GoogleMapOptions options = new GoogleMapOptions();
-//        options.camera(new CameraPosition(
-//                new LatLng(coordinates.getLatitude(), coordinates.getLongitude()), 15, 0, 0));
-//        mMapView = new MapView(getContext(), options);
-//        mMapView.setLayoutParams(new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT));
-//        mMapView.getMap();
-//
-//        layout.addView(mMapView);
+        if (status == ConnectionResult.SUCCESS) {
+            if (mapDialog == null)
+                mapDialog = MapDialog.newInstance();
 
-        if (dialog == null)
-            dialog = new AlertDialog.Builder(getContext()).setView(mapView).create();
+            mapDialog.setLatLng(coordinates.getCoordinates());
+            mapDialog.setLabel(address);
+            mapDialog.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), "Map");
 
-        if (!dialog.isShowing())
-            dialog.show();
-//        mMapView.invalidate();
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(status, (AppCompatActivity) getContext(), status);
+        }
+
+
     }
 
     @Override

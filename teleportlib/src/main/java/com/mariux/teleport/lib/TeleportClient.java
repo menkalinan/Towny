@@ -112,7 +112,11 @@ public class TeleportClient implements DataApi.DataListener,
                     flagHandled = true;
                 }
                 if (!flagHandled && onSyncDataItemTask != null) {
-                    onSyncDataItemTask.execute(dataMap);
+                    try {
+                        onSyncDataItemTask.execute(dataMap);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     flagHandled = true;
                 }
 

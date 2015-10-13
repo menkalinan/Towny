@@ -40,7 +40,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/circle_drawable"
+                    android:background="@drawable/dark_green_circle_drawable"
                     android:visibility="gone">
 
                     <TextView
@@ -58,7 +58,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/green_circle_drawable"
+                    android:background="@drawable/dark_green_circle_drawable"
                     android:visibility="gone">
 
                     <TextView
