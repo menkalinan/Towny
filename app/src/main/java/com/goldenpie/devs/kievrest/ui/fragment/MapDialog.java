@@ -16,14 +16,12 @@ import butterknife.ButterKnife;
 import lombok.Setter;
 
 public class MapDialog extends DialogFragment {
-    @Setter
-    private LatLng latLng;
-
-    @Setter
-    private String label;
-
     @Bind(R.id.title)
     protected TextView labelTextView;
+    @Setter
+    private LatLng latLng;
+    @Setter
+    private String label;
 
     public static MapDialog newInstance() {
         return new MapDialog();

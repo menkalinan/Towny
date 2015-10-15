@@ -83,6 +83,24 @@ public class DataHelper {
     public ArrayList<EventModel> getConcertsList() {
         return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.CONCERTS);
     }
+    @SuppressWarnings("unchecked")
+    public ArrayList<EventModel> getFestivalsList() {
+        return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.FESTIVALS);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<EventModel> getTheatersList() {
+        return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.THEATERS);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<EventModel> getYarmarkiList() {
+        return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.YARMARKI);
+    }
+    @SuppressWarnings("unchecked")
+    public ArrayList<EventModel> getEntertainmentsList() {
+        return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.ENTERTAINMENT);
+    }
 
     public int getWeatherImage() {
         Calendar calendar = new GregorianCalendar();

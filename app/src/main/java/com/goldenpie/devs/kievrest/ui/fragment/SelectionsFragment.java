@@ -1,23 +1,18 @@
 package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.SelectionsAdapter;
-import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
-
-import butterknife.OnClick;
 
 public class SelectionsFragment extends BaseListFragment {
     private SelectionsAdapter adapter;
@@ -42,7 +37,7 @@ public class SelectionsFragment extends BaseListFragment {
         return ModelTypeEnum.SELECTIONS;
     }
 
-    @OnClick(R.id.no_internet_layout_repaet_button)
+
     protected void reload() {
         service.loadSelections();
         super.reload();
@@ -60,19 +55,14 @@ public class SelectionsFragment extends BaseListFragment {
         } else {
             service.loadSelections();
         }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        list.setLayoutManager(linearLayoutManager);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
+    }
 
-        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                if (adapter.isHasNextPage()) {
-                    swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreSelection((adapter.getItemCount() / 20) + 1);
-                }
-            }
-        });
+    @Override
+    protected void onLoadMoreCalled(int page) {
+        if (adapter.isHasNextPage()) {
+            swipeRefreshLayout.setRefreshing(true);
+            service.loadMoreSelection((adapter.getItemCount() / 20) + 1);
+        }
     }
 
 

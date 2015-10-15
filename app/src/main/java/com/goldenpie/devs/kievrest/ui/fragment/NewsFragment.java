@@ -16,8 +16,6 @@ import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 
-import butterknife.OnClick;
-
 public class NewsFragment extends BaseListFragment {
 
     private NewsAdapter adapter;
@@ -39,7 +37,6 @@ public class NewsFragment extends BaseListFragment {
         return ModelTypeEnum.NEWS;
     }
 
-    @OnClick(R.id.no_internet_layout_repaet_button)
     protected void reload() {
         service.loadNews();
         super.reload();
@@ -56,19 +53,14 @@ public class NewsFragment extends BaseListFragment {
             service.loadNews();
         }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        list.setLayoutManager(linearLayoutManager);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
+    }
 
-        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                if (adapter.isHasNextPage()) {
-                    swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreNews((adapter.getItemCount() / 20) + 1);
-                }
-            }
-        });
+    @Override
+    protected void onLoadMoreCalled(int page) {
+        if (adapter.isHasNextPage()) {
+            swipeRefreshLayout.setRefreshing(true);
+            service.loadMoreNews((adapter.getItemCount() / 20) + 1);
+        }
     }
 
     @SuppressWarnings("unused")

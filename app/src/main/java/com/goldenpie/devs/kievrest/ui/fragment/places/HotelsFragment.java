@@ -1,24 +1,19 @@
 package com.goldenpie.devs.kievrest.ui.fragment.places;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
-import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import butterknife.OnClick;
 
 public class HotelsFragment extends BaseListFragment {
     private PlacesAdapter adapter;
@@ -40,7 +35,7 @@ public class HotelsFragment extends BaseListFragment {
         return ModelTypeEnum.SHOPS;
     }
 
-    @OnClick(R.id.no_internet_layout_repaet_button)
+
     protected void reload() {
         service.loadHotels();
         super.reload();
@@ -56,20 +51,14 @@ public class HotelsFragment extends BaseListFragment {
         } else {
             service.loadHotels();
         }
+    }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        list.setLayoutManager(linearLayoutManager);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
-
-        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                if (adapter.isHasNextPage()) {
-                    swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreHotels((preferences.getTotalHotelsDataSize() / 20) + 1);
-                }
-            }
-        });
+    @Override
+    protected void onLoadMoreCalled(int page) {
+        if (adapter.isHasNextPage()) {
+            swipeRefreshLayout.setRefreshing(true);
+            service.loadMoreHotels((preferences.getTotalHotelsDataSize() / 20) + 1);
+        }
     }
 
     @SuppressWarnings("unused")
@@ -85,12 +74,12 @@ public class HotelsFragment extends BaseListFragment {
         event.getResults().addAll(uniqueItems);
 
         if (helper.getDataMap().containsKey(ModelTypeEnum.HOTELS)) {
-            preferences.setTotalShopsDataSize(preferences.getTotalHotelsDataSize() + size);
+            preferences.setTotalHotelsDataSize(preferences.getTotalHotelsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getHotelsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.HOTELS, tempList);
         } else {
-            preferences.setTotalShopsDataSize(size);
+            preferences.setTotalHotelsDataSize(size);
             helper.getDataMap().put(ModelTypeEnum.HOTELS, event.getResults());
         }
 

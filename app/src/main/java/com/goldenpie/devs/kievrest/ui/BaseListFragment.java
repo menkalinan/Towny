@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
+import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
@@ -24,7 +27,9 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import lombok.Getter;
 
 public abstract class BaseListFragment extends Fragment {
 
@@ -45,6 +50,8 @@ public abstract class BaseListFragment extends Fragment {
     protected ProgressBar progressBar;
     @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout swipeRefreshLayout;
+    @Getter
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,15 +71,27 @@ public abstract class BaseListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        list.setLayoutManager(linearLayoutManager);
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
         swipeRefreshLayout.setEnabled(false);
         swipeRefreshLayout.setProgressViewOffset(false, 0,
                 getActivity().getResources().getDimensionPixelSize(R.dimen.scroll_offset));
+        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(getLinearLayoutManager()) {
+            @Override
+            public void onLoadMore(int current_page) {
+                onLoadMoreCalled(current_page);
+            }
+        });
     }
+
+    protected abstract void onLoadMoreCalled(int page);
 
     protected abstract int getContentView();
 
     protected abstract ModelTypeEnum getFragmentType();
 
+    @OnClick(R.id.no_internet_layout_repaet_button)
     protected void reload() {
         showLoader();
     }

@@ -21,4 +21,10 @@
     <string name="settings">Настройки</string>
     <string name="ok">Ок</string>
     <string name="hostels_and_hotels">Хостелы и Отели</string>
+    <string name="concerts">Концерты</string>
+    <string name="exhibitions">Выставки</string>
+    <string name="theaters">Театры</string>
+    <string name="festivals">Фестивали</string>
+    <string name="entertaiment">Развлечения</string>
+    <string name="yarmarki">Ярмарки</string>
 </resources>

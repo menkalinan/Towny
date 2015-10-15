@@ -35,7 +35,11 @@ import com.goldenpie.devs.kievrest.ui.BaseActivity;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.events.ConcertsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.events.EntertainmentFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.events.ExhibitionsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.events.FestivalsFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.events.TheatersFragment;
+import com.goldenpie.devs.kievrest.ui.fragment.events.YarmarkiFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.AttractionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.BarsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.places.ClubsFragment;
@@ -386,7 +390,7 @@ public class MainActivity extends BaseActivity {
         currentScreen = 2;
         updateDrawerItem(drawerItems.get(2));
         setTitle("События");
-        final int count = 2;
+        final int count = 6;
         mViewPager.getViewPager().setAdapter(
                 new FragmentStatePagerAdapter(getSupportFragmentManager()) {
                     @Override
@@ -396,6 +400,14 @@ public class MainActivity extends BaseActivity {
                                 return ConcertsFragment.newInstance();
                             case 1:
                                 return ExhibitionsFragment.newInstance();
+                            case 2:
+                                return TheatersFragment.newInstance();
+                            case 3:
+                                return FestivalsFragment.newInstance();
+                            case 4:
+                                return YarmarkiFragment.newInstance();
+                            case 5:
+                                return EntertainmentFragment.newInstance();
                             default:
                                 return null;
                         }
@@ -410,9 +422,17 @@ public class MainActivity extends BaseActivity {
                     public CharSequence getPageTitle(int position) {
                         switch (position) {
                             case 0:
-                                return "Концерты";
+                                return getString(R.string.concerts);
                             case 1:
-                                return "Выставки";
+                                return getString(R.string.exhibitions);
+                            case 2:
+                                return getString(R.string.theaters);
+                            case 3:
+                                return getString(R.string.festivals);
+                            case 4:
+                                return getString(R.string.yarmarki);
+                            case 5:
+                                return getString(R.string.entertaiment);
                         }
                         return "";
                     }
@@ -429,12 +449,28 @@ public class MainActivity extends BaseActivity {
                     public void run() {
                         switch (page) {
                             case 0:
-                                headerLogoBackground.setBackgroundResource(R.drawable.blue_circle_drawable);
-                                headerImage.setImageResource(R.drawable.news_icon);
+                                headerLogoBackground.setBackgroundResource(R.drawable.orange_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_mic);
                                 break;
                             case 1:
-                                headerLogoBackground.setBackgroundResource(R.drawable.purple_circle_drawable);
-                                headerImage.setImageResource(R.drawable.ic_action_whatshot);
+                                headerLogoBackground.setBackgroundResource(R.drawable.lime_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_satellite);
+                                break;
+                            case 2:
+                                headerLogoBackground.setBackgroundResource(R.drawable.green_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_local_activity);
+                                break;
+                            case 3:
+                                headerLogoBackground.setBackgroundResource(R.drawable.red_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_today);
+                                break;
+                            case 4:
+                                headerLogoBackground.setBackgroundResource(R.drawable.blue_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_card_giftcard);
+                                break;
+                            case 5:
+                                headerLogoBackground.setBackgroundResource(R.drawable.teal_circle_drawable);
+                                headerImage.setImageResource(R.drawable.ic_action_mood);
                                 break;
                         }
                         YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
@@ -444,11 +480,27 @@ public class MainActivity extends BaseActivity {
                 switch (page) {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.dark_indigo,
+                                R.color.dark_orange,
                                 "http://cdn01.wallconvert.com/_media/wallpapers_1920x1200/1/2/blurry-city-lights-14941.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.dark_purple,
+                                R.color.dark_lime,
+                                "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
+                    case 2:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_green,
+                                "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
+                    case 3:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_red,
+                                "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
+                    case 4:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_blue,
+                                "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
+                    case 5:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_teal,
                                 "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
                 }
 

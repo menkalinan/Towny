@@ -30,10 +30,10 @@ public class Constants {
     public static final String SHOPS_LINK = PUBLIC_API + "places/?categories=shops,books,clothing,confectioneries,farmer-shops,flea-market,gifts,handmade,health-food,online-shopping,perfume-stores,shopping-mall,tea,toys" + EXTRA_FIELDS;
     public static final String HOTELS_LINK = PUBLIC_API + "places/?categories=hostels,hotels,inn" + EXTRA_FIELDS;
 
-    public static final String EXHEBITIONS_LINK = PUBLIC_API + "events/?categories=exhibition" + EXTRA_EVENT_FIELDS;
+    public static final String EXHIBITIONS_LINK = PUBLIC_API + "events/?categories=exhibition" + EXTRA_EVENT_FIELDS;
     public static final String CONCERTS_LINK = PUBLIC_API + "events/?categories=concert" + EXTRA_EVENT_FIELDS;
     public static final String THEATERS_LINK = PUBLIC_API + "events/?categories=theater" + EXTRA_EVENT_FIELDS;
-    public static final String FESTIVLS_LINK = PUBLIC_API + "events/?categories=festival" + EXTRA_EVENT_FIELDS;
+    public static final String FESTIVALS_LINK = PUBLIC_API + "events/?categories=festival" + EXTRA_EVENT_FIELDS;
     public static final String ENTERTAIMENT_LINK = PUBLIC_API + "events/?categories=circus,comedy-club,flashmob,games,kvn,magic,masquerade,quest,romance,show,speed-dating,stand-up" + EXTRA_EVENT_FIELDS;
     public static final String YARMARKI_LINK = PUBLIC_API + "events/?categories=yarmarki-razvlecheniya-yarmarki" + EXTRA_EVENT_FIELDS;
 

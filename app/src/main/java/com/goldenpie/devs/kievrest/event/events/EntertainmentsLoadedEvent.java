@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import lombok.Data;
 
 @Data
-public class EntertaimentsLoadedEvent extends BaseLoadedEvent {
+public class EntertainmentsLoadedEvent extends BaseLoadedEvent {
     @SerializedName("results")
     private ArrayList<EventModel> results;
 }

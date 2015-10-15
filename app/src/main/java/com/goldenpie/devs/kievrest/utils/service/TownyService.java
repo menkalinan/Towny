@@ -6,19 +6,23 @@ import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
+import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
+import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.ConcertsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.EntertainmentsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.ExhibitionsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.FestivalsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.TheatersLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.YarmarkiLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.MuseumsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
-import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.RecreationsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.RestaurantsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
-import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.ShopsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.utils.BaseCallback;
 
@@ -152,5 +156,37 @@ public class TownyService {
 
     public void loadMoreExhibitions(int current_page) {
         townyApi.getExhibitions(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<ExhibitionsLoadedEvent>());
+    }
+
+    public void loadFestivals() {
+        townyApi.getFestivals(preferences.getCurrentCity(), new BaseCallback<FestivalsLoadedEvent>());
+    }
+
+    public void loadMoreFestivals(int current_page) {
+        townyApi.getFestivals(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<FestivalsLoadedEvent>());
+    }
+
+    public void loadTheaters() {
+        townyApi.getTheaters(preferences.getCurrentCity(), new BaseCallback<TheatersLoadedEvent>());
+    }
+
+    public void loadMoreTheaters(int current_page) {
+        townyApi.getTheaters(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<TheatersLoadedEvent>());
+    }
+
+    public void loadYarmarki() {
+        townyApi.getYarmarki(preferences.getCurrentCity(), new BaseCallback<YarmarkiLoadedEvent>());
+    }
+
+    public void loadMoreYarmarki(int current_page) {
+        townyApi.getYarmarki(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<YarmarkiLoadedEvent>());
+    }
+
+    public void loadEntertainments() {
+        townyApi.getEntertainments(preferences.getCurrentCity(), new BaseCallback<EntertainmentsLoadedEvent>());
+    }
+
+    public void loadMoreEntertainments(int current_page) {
+        townyApi.getEntertainments(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<EntertainmentsLoadedEvent>());
     }
 }

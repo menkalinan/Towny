@@ -62,7 +62,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         holder.title.setText(model.getFinalTitle());
         holder.description.setText(model.getDescription());
 
-        if (model.getPhotos() != null && !model.getPhotos().isEmpty() && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
+        if (model.getPhotos() != null && !model.getPhotos().isEmpty()
+                && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             holder.preview.setVisibility(View.VISIBLE);
             Picasso.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())

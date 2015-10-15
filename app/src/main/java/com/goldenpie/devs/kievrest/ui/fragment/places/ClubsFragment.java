@@ -1,22 +1,17 @@
 package com.goldenpie.devs.kievrest.ui.fragment.places;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.places.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
-import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
-
-import butterknife.OnClick;
 
 public class ClubsFragment extends BaseListFragment {
     private PlacesAdapter adapter;
@@ -38,7 +33,7 @@ public class ClubsFragment extends BaseListFragment {
         return ModelTypeEnum.CLUBS;
     }
 
-    @OnClick(R.id.no_internet_layout_repaet_button)
+
     protected void reload() {
         service.loadClubs();
         super.reload();
@@ -54,20 +49,14 @@ public class ClubsFragment extends BaseListFragment {
         } else {
             service.loadClubs();
         }
+    }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        list.setLayoutManager(linearLayoutManager);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
-
-        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                if (adapter.isHasNextPage()) {
-                    swipeRefreshLayout.setRefreshing(true);
-                    service.loadMoreClubs((adapter.getItemCount() / 20) + 1);
-                }
-            }
-        });
+    @Override
+    protected void onLoadMoreCalled(int page) {
+        if (adapter.isHasNextPage()) {
+            swipeRefreshLayout.setRefreshing(true);
+            service.loadMoreClubs((adapter.getItemCount() / 20) + 1);
+        }
     }
 
     @SuppressWarnings("unused")

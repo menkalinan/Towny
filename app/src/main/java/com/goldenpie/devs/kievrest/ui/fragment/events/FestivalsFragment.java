@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.event.events.ConcertsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.FestivalsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.EventModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.EventAdapter;
@@ -13,14 +13,14 @@ import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 
-public class ConcertsFragment extends BaseListFragment {
+public class FestivalsFragment extends BaseListFragment {
     private EventAdapter adapter;
 
-    public ConcertsFragment() {
+    public FestivalsFragment() {
     }
 
-    public static ConcertsFragment newInstance() {
-        return new ConcertsFragment();
+    public static FestivalsFragment newInstance() {
+        return new FestivalsFragment();
     }
 
     @Override
@@ -30,24 +30,24 @@ public class ConcertsFragment extends BaseListFragment {
 
     @Override
     protected ModelTypeEnum getFragmentType() {
-        return ModelTypeEnum.CONCERTS;
+        return ModelTypeEnum.FESTIVALS;
     }
 
 
     protected void reload() {
-        service.loadConcerts();
+        service.loadFestivals();
         super.reload();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.CONCERTS)) {
-            adapter = new EventAdapter(helper.getConcertsList(), getActivity());
+        if (helper.getDataMap().containsKey(ModelTypeEnum.FESTIVALS)) {
+            adapter = new EventAdapter(helper.getFestivalsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         } else {
-            service.loadConcerts();
+            service.loadFestivals();
         }
     }
 
@@ -55,24 +55,24 @@ public class ConcertsFragment extends BaseListFragment {
     protected void onLoadMoreCalled(int page) {
         if (adapter.isHasNextPage()) {
             swipeRefreshLayout.setRefreshing(true);
-            service.loadMoreConcerts((adapter.getItemCount() / 20) + 1);
+            service.loadMoreFestivals((adapter.getItemCount() / 20) + 1);
         }
     }
 
     @SuppressWarnings("unused")
-    public void onEvent(ConcertsLoadedEvent event) {
+    public void onEvent(FestivalsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.CONCERTS)) {
-            ArrayList<EventModel> tempList = helper.getConcertsList();
+        if (helper.getDataMap().containsKey(ModelTypeEnum.FESTIVALS)) {
+            ArrayList<EventModel> tempList = helper.getFestivalsList();
             tempList.addAll(event.getResults());
-            helper.getDataMap().put(ModelTypeEnum.CONCERTS, tempList);
+            helper.getDataMap().put(ModelTypeEnum.FESTIVALS, tempList);
         } else {
-            helper.getDataMap().put(ModelTypeEnum.CONCERTS, event.getResults());
+            helper.getDataMap().put(ModelTypeEnum.FESTIVALS, event.getResults());
         }
 
         if (adapter == null) {
-            adapter = new EventAdapter(helper.getConcertsList(), getActivity());
+            adapter = new EventAdapter(helper.getFestivalsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
         }
