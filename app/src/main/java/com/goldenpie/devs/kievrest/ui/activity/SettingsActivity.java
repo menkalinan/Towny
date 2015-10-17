@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
+import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.models.CityModel;
@@ -30,6 +32,7 @@ public class SettingsActivity extends BaseActivity {
     @Getter
     @Setter
     private String city;
+    private MaterialMenuDrawable materialMenu;
 
     @Override
     protected int getContentView() {
@@ -40,6 +43,7 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
 
@@ -52,7 +56,18 @@ public class SettingsActivity extends BaseActivity {
                 actionBar.setHomeButtonEnabled(true);
             }
         }
+
+        materialMenu.setIconState(MaterialMenuDrawable.IconState.BURGER);
+        toolbar.setNavigationIcon(materialMenu);
+
         setTitle(R.string.settings);
+
+        toolbar.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
+            }
+        }, 500);
     }
 
     @SuppressWarnings("unused")
@@ -112,7 +127,7 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;

@@ -86,7 +86,7 @@
                     android:clickable="true"
                     android:focusable="true">
 
-                    <android.support.v7.internal.widget.TintImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/adp_selection_expand_arrow"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
@@ -193,7 +193,7 @@
                     tools:ignore="MissingPrefix"
                     tools:text="10 сентября, 16:30" />
 
-                <android.support.v7.internal.widget.TintImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imageView"
                     android:layout_width="16dp"
                     android:layout_height="16dp"

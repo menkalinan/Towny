@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.internal.widget.TintImageView;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -101,7 +101,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Icepick.restoreInstanceState(this, savedInstanceState);
         service.loadCurrentWeather();
         service.loadCites(preferences.getLang());
 
@@ -129,7 +128,6 @@ public class MainActivity extends BaseActivity {
         mDrawer.setDrawerListener(mDrawerToggle);
 
         restoreState();
-
         drawerHeaderImage.setImageResource(helper.getWeatherImage());
     }
 
@@ -151,7 +149,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @SuppressWarnings("unused")
-    private void onEvent(ArrayList<CityModel> event) { //TODO: Handle data for spinner
+    private void onEvent(ArrayList<CityModel> event) {
         helper.getDataMap().put(ModelTypeEnum.CITES, event);
     }
 
@@ -347,7 +345,7 @@ public class MainActivity extends BaseActivity {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_green,
-                                "http://www.maisonduloup.com/wp-content/uploads/2013/05/cafe-restaurant-amsterdam.jpg");
+                                "http://www.vihomei.com/i/2015/09/ideas-of-restaurant-design-recessed-ceiling-lighting-oak-wooden-ceiling-decor-modest-wooden-table-denim-single-chairs-maple-wooden-flooring-interiors-of-restaurants-interior-gorgeous-interiors-of-res.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_teal,
@@ -557,8 +555,8 @@ public class MainActivity extends BaseActivity {
             View v = ((ViewGroup) view).getChildAt(i);
             if (v instanceof TextView) {
                 ((TextView) v).setTextColor(getResources().getColor(R.color.primary_dark));
-            } else if (v instanceof TintImageView) {
-                ((TintImageView) v).setColorFilter(getResources().getColor(R.color.primary_dark));
+            } else if (v instanceof AppCompatImageView) {
+                ((AppCompatImageView) v).setColorFilter(getResources().getColor(R.color.primary_dark));
             }
         }
     }
@@ -570,8 +568,8 @@ public class MainActivity extends BaseActivity {
                 View v = ((ViewGroup) item).getChildAt(j);
                 if (v instanceof TextView) {
                     ((TextView) v).setTextColor(getResources().getColor(R.color.primary_text));
-                } else if (v instanceof TintImageView) {
-                    ((TintImageView) v).setColorFilter(getResources().getColor(R.color.secondary_text));
+                } else if (v instanceof AppCompatImageView) {
+                    ((AppCompatImageView) v).setColorFilter(getResources().getColor(R.color.secondary_text));
                 }
             }
         }
@@ -646,10 +644,12 @@ public class MainActivity extends BaseActivity {
     @SuppressWarnings("unused")
     @OnClick(R.id.nav_drawer_settings_layout)
     protected void oSettingsClick() {
+        final Intent i = new Intent(MainActivity.this, SettingsActivity.class);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         }, Constants.DRAWER_ANIMATION_DURATION);
         mDrawer.closeDrawers();

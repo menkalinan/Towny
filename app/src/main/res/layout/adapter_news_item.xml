@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp">
 
-                            <android.support.v7.internal.widget.TintImageView
+                            <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/imageView1"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
@@ -166,7 +166,7 @@
                         tools:ignore="MissingPrefix"
                         tools:text="10 сентября, 16:30" />
 
-                    <android.support.v7.internal.widget.TintImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/imageView"
                         android:layout_width="16dp"
                         android:layout_height="16dp"

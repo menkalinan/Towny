@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import icepick.Icepick;
 
 public abstract class BaseActivity extends AppCompatActivity {
     @Inject
@@ -29,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
+        Icepick.restoreInstanceState(this, savedInstanceState);
         TownyApplication.appComponent().inject(this);
         BUS.register(this);
         ButterKnife.bind(this);

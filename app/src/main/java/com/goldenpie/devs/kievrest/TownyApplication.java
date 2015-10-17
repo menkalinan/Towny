@@ -38,7 +38,8 @@ public class TownyApplication extends android.app.Application {
                 .build();
         appComponent.inject(this);
 
-        Fabric.with(this, new Crashlytics());
+        if (!BuildConfig.DEBUG)
+            Fabric.with(this, new Crashlytics());
 
         setContext(this);
     }

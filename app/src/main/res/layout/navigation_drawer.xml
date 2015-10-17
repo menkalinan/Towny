@@ -50,7 +50,7 @@
                 android:clickable="true"
                 android:focusable="true">
 
-                <android.support.v7.internal.widget.TintImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_margin="16dp"
@@ -78,7 +78,7 @@
                 android:clickable="true"
                 android:focusable="true">
 
-                <android.support.v7.internal.widget.TintImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_margin="16dp"
@@ -106,7 +106,7 @@
                 android:clickable="true"
                 android:focusable="true">
 
-                <android.support.v7.internal.widget.TintImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_margin="16dp"
@@ -133,7 +133,7 @@
                 android:clickable="true"
                 android:focusable="true">
 
-                <android.support.v7.internal.widget.TintImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -165,7 +165,7 @@
                 android:focusable="true">
 
 
-                <android.support.v7.internal.widget.TintImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
