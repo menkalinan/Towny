@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +20,7 @@ import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
+import com.goldenpie.devs.kievrest.utils.UtilsScreen;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.TownyService;
 
@@ -51,7 +52,7 @@ public abstract class BaseListFragment extends Fragment {
     @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout swipeRefreshLayout;
     @Getter
-    private LinearLayoutManager linearLayoutManager;
+    private StaggeredGridLayoutManager linearLayoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public abstract class BaseListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new StaggeredGridLayoutManager(UtilsScreen.getDisplayColumns(getActivity()), StaggeredGridLayoutManager.VERTICAL);
         list.setLayoutManager(linearLayoutManager);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
         swipeRefreshLayout.setEnabled(false);

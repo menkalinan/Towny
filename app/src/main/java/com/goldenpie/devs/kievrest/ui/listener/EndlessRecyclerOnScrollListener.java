@@ -1,7 +1,7 @@
 package com.goldenpie.devs.kievrest.ui.listener;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
     public static String TAG = EndlessRecyclerOnScrollListener.class.getSimpleName();
@@ -11,10 +11,10 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     private boolean loading = true;
     private int current_page = 1;
 
-    private LinearLayoutManager mLinearLayoutManager;
+    private StaggeredGridLayoutManager mLinearLayoutManager;
 
 
-    public EndlessRecyclerOnScrollListener(LinearLayoutManager linearLayoutManager) {
+    public EndlessRecyclerOnScrollListener(StaggeredGridLayoutManager linearLayoutManager) {
         this.mLinearLayoutManager = linearLayoutManager;
     }
 
@@ -24,7 +24,8 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
 
         visibleItemCount = recyclerView.getChildCount();
         totalItemCount = mLinearLayoutManager.getItemCount();
-        firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int[] visibleItems = mLinearLayoutManager.findFirstVisibleItemPositions(null);
+        firstVisibleItem = visibleItems[0];
 
         if (loading) {
             if (totalItemCount > previousTotal) {
