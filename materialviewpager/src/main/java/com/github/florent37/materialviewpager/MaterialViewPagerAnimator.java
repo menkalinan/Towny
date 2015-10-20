@@ -36,67 +36,67 @@ import static com.github.florent37.materialviewpager.Utils.setScale;
 
 /**
  * Created by florentchampigny on 24/04/15.
- *
+ * <p/>
  * Listen to Scrollable inside MaterialViewPager
  * When notified scroll, dispatch the current scroll to other scrollable
- *
+ * <p/>
  * Note : didn't want to translate the MaterialViewPager or intercept Scroll,
  * so added a ViewPager with scrollables containing a transparent placeholder on top
- *
+ * <p/>
  * When scroll, animate the MaterialViewPager Header (toolbar, logo, color ...)
  */
 public class MaterialViewPagerAnimator {
 
     private static final String TAG = MaterialViewPagerAnimator.class.getSimpleName();
 
-    public static Branslate header enter animation
-    private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
+    public static Boolean ENABLE_LOG = true;
 
-    //referenontextoolean ENABLE_LOG = true;
+    private Context context;
 
-    private Cs Mate layout elevation (if attr viewpager_enableToolbarElevation = true)
-    public final float elevation;
-
-    //max scrn of tich will be dispatched for all scrollable
-    public final float scrollMax;
-
-    // equalsce to lMax in DP (saved to avoir convert to dp anytime I use it)
-    public final float scrollMaxDp;
-
-    protectedoolbarthe current MaterialViewPager
-    protected MaterialViewPager materialViewPager;
-
-    //final toll wh lastYOffset = -1; //the current yOffset
-    protected  scrol lastPercent = 0; //the current Percent
-
-    //contain floatattributes given to MaterialViewPager from layout
-    protected MaterialViewPagerSettings settings;
-
-    //list offloategistered scrollers
-    protected List<View> scrollViewList = new ArrayList<>();
-
-    //save als the sets of scrollables
-    protected HashMap<Object, Integer> yOffsets = new HashMap<>();
-
-    //the las all rcrollToolbarIsVisible = false;
-    float firsl yOffllValue = Float.MIN_VALUE;
-    boolean jut headlbarAnimated = false;
-
-    //intial  headece between pager & toolbat
-    float initialDistance = -1;
-
-    public MaollowS context;
-
-    //containtScrorialViewPager subviews references
+    //contains MaterialViewPager subviews references
     private MaterialViewPagerHeader mHeader;
 
-    //duratiostTooerYOffset during scroll
+    //duration of translate header enter animation
+    private static final int ENTER_TOOLBAR_ANIMATION_DURATION = 600;
+
+    //reference to the current MaterialViewPager
+    protected MaterialViewPager materialViewPager;
+
+    //final toolbar layout elevation (if attr viewpager_enableToolbarElevation = true)
+    public final float elevation;
+
+    //max scroll which will be dispatched for all scrollable
+    public final float scrollMax;
+
+    // equals scrollMax in DP (saved to avoir convert to dp anytime I use it)
+    public final float scrollMaxDp;
+
+    protected float lastYOffset = -1; //the current yOffset
+    protected float lastPercent = 0; //the current Percent
+
+    //contains the attributes given to MaterialViewPager from layout
+    protected MaterialViewPagerSettings settings;
+
+    //list of all registered scrollers
+    protected List<View> scrollViewList = new ArrayList<>();
+
+    //save all yOffsets of scrollables
+    protected HashMap<Object, Integer> yOffsets = new HashMap<>();
+
+    //the last headerYOffset during scroll
     private float headerYOffset = Float.MAX_VALUE;
 
-    //the tmpdistanrAnimator (not null if animating, else null)
+    //the tmp headerAnimator (not null if animating, else null)
     private Object headerAnimator;
 
-    boolean fterialViewPagerAnimator(MaterialViewPager materialViewPager) {
+    boolean followScrollToolbarIsVisible = false;
+    float firstScrollValue = Float.MIN_VALUE;
+    boolean justToolbarAnimated = false;
+
+    //intial distance between pager & toolbat
+    float initialDistance = -1;
+
+    public MaterialViewPagerAnimator(MaterialViewPager materialViewPager) {
 
         this.settings = materialViewPager.settings;
 
@@ -156,7 +156,7 @@ public class MaterialViewPagerAnimator {
      */
     public boolean onMaterialScrolled(Object source, float yOffset) {
 
-        if(initialDistance == -1 || initialDistance == 0) {
+        if (initialDistance == -1 || initialDistance == 0) {
             initialDistance = mHeader.mPagerSlidingTabStrip.getTop() - mHeader.toolbar.getBottom();
         }
 
@@ -191,7 +191,7 @@ public class MaterialViewPagerAnimator {
         if (ENABLE_LOG)
             Log.d("percent1", "" + percent);
 
-        if(percent != 0) {
+        if (percent != 0) {
             //distance between pager & toolbar
             float newDistance = ViewHelper.getY(mHeader.mPagerSlidingTabStrip) - mHeader.toolbar.getBottom();
 
@@ -201,13 +201,13 @@ public class MaterialViewPagerAnimator {
                 Log.d("percent2", "" + percent);
         }
 
-        if(Float.isNaN(percent)) //fix for orientation change
+        if (Float.isNaN(percent)) //fix for orientation change
             return false;
 
         //fix quick scroll
-        if(percent == 0 && headerAnimator != null) {
+        if (percent == 0 && headerAnimator != null) {
             cancelHeaderAnimator();
-            ViewHelper.setTranslationY(mHeader.toolbarLayout,0);
+            ViewHelper.setTranslationY(mHeader.toolbarLayout, 0);
         }
 
         percent = minMax(0, percent, 1);
@@ -285,8 +285,8 @@ public class MaterialViewPagerAnimator {
         return true;
     }
 
-    private  void cancelHeaderAnimator(){
-        if(headerAnimator != null) {
+    private void cancelHeaderAnimator() {
+        if (headerAnimator != null) {
             if (headerAnimator instanceof ObjectAnimator)
                 ((ObjectAnimator) headerAnimator).cancel();
             else if (headerAnimator instanceof android.animation.ObjectAnimator)
@@ -411,7 +411,7 @@ public class MaterialViewPagerAnimator {
 
             float translationY = firstScrollValue - yOffset;
 
-            if(translationY > 0) {
+            if (translationY > 0) {
                 translationY = 0;
             }
 
@@ -645,11 +645,11 @@ public class MaterialViewPagerAnimator {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(!onMaterialScrolled(null, scroll)){
-                    restoreScroll(scroll,settings);
+                if (!onMaterialScrolled(null, scroll)) {
+                    restoreScroll(scroll, settings);
                 }
             }
-        },100);
+        }, 100);
 
     }
 
