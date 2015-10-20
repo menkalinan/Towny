@@ -21,6 +21,7 @@ import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
+import com.goldenpie.devs.kievrest.utils.DistanceUtils;
 import com.nineoldandroids.animation.Animator;
 
 import java.io.IOException;
@@ -60,8 +61,7 @@ public class FirstRunActivity extends BaseActivity {
     }
 
     private String getLang() {
-        preferences.setLang(Locale.getDefault().getLanguage().equals("ru") ? "ru" : "en");
-        return preferences.getLang();
+        return (Locale.getDefault().getLanguage().equals("ru") ? "ru" : "en");
     }
 
     public void onEvent(ArrayList<CityModel> event) {
@@ -74,8 +74,7 @@ public class FirstRunActivity extends BaseActivity {
             String location = getLocation();
             for (int i = 0; i < event.size(); i++) {
                 if (event.get(i).getName().equals(location)) {
-                    preferences.setCurrentCity(event.get(i).getSlug());
-                    preferences.setCurrentCityName(event.get(i).getName());
+                    invokePrefs(event.get(i).getSlug(), event.get(i).getName());
                     cityExist = true;
                     break;
                 }
@@ -107,8 +106,7 @@ public class FirstRunActivity extends BaseActivity {
                 if (initial[0]) {
                     for (int j = 0; j < event.size(); j++) {
                         if (event.get(j).getName().equals(ITEMS[i])) {
-                            preferences.setCurrentCity(event.get(j).getSlug());
-                            preferences.setCurrentCityName(event.get(j).getName());
+                            invokePrefs(event.get(j).getSlug(), event.get(j).getName());
                             YoYo.with(Techniques.FadeIn).duration(300).playOn(goView);
                             goView.setVisibility(View.VISIBLE);
 
@@ -231,4 +229,10 @@ public class FirstRunActivity extends BaseActivity {
         return null;
     }
 
+    private void invokePrefs(String slug, String name) {
+        preferences.setLang(getLang());
+        preferences.setCurrentCity(slug);
+        preferences.setCurrentCityName(name);
+        preferences.setUnits(getLang().equals("ru") ? DistanceUtils.KILLOMETRE : DistanceUtils.MILLES);
+    }
 }

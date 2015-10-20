@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/no_preview_available" />
+                android:src="@drawable/bkg_06_june" />
 
             <RelativeLayout
                 android:id="@+id/frag_news_item_adult_layout"
@@ -78,25 +78,62 @@
                 android:id="@+id/frag_place_item_is_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="false"
-                android:background="@color/green"
-                android:padding="4dp"
-                android:text="Открыто"
+                android:text="Открыто до хз"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/dark_green"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingRight="8dp"
+                android:textSize="14sp"
+                android:layout_below="@+id/adp_place_item_description"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ac414141"
+                android:layout_alignBottom="@+id/adp_place_item_image"
+                android:layout_alignRight="@+id/frag_news_item_adult_layout"
+                android:layout_alignEnd="@+id/frag_news_item_adult_layout"
+                android:layout_marginBottom="16dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/view"
+                    android:tint="@color/white"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_action_place" />
+
+                <TextView
+                    android:id="@+id/adp_place_item_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white"
+                    android:layout_toRightOf="@+id/view"
+                    android:textSize="12sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp" />
+            </RelativeLayout>
 
             <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/adp_place_item_description"
-                android:layout_margin="8dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                card:cardElevation="0dp">
+                card:cardElevation="0dp"
+                android:id="@+id/textView8"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_below="@+id/frag_place_item_is_open">
 
                 <RelativeLayout
                     android:id="@+id/adp_place_expand_layout"

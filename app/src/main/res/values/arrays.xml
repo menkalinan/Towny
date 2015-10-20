@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="default_units" >
+        <item>@string/kilometres</item>
+        <item>@string/miles</item>
+        </string-array>
 </resources>

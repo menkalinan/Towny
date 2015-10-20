@@ -27,4 +27,8 @@
     <string name="festivals">Фестивали</string>
     <string name="entertaiment">Развлечения</string>
     <string name="yarmarki">Ярмарки</string>
+    <string name="mile">мили</string>
+    <string name="km">км</string>
+    <string name="kilometres">Километры</string>
+    <string name="miles">Мили</string>
 </resources>

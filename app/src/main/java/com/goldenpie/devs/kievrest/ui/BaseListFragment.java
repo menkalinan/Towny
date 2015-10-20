@@ -20,7 +20,7 @@ import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
-import com.goldenpie.devs.kievrest.utils.UtilsScreen;
+import com.goldenpie.devs.kievrest.utils.ScreenUtils;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.TownyService;
 
@@ -72,7 +72,7 @@ public abstract class BaseListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        linearLayoutManager = new StaggeredGridLayoutManager(UtilsScreen.getDisplayColumns(getActivity()), StaggeredGridLayoutManager.VERTICAL);
+        linearLayoutManager = new StaggeredGridLayoutManager(ScreenUtils.getDisplayColumns(getActivity()), StaggeredGridLayoutManager.VERTICAL);
         list.setLayoutManager(linearLayoutManager);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
         swipeRefreshLayout.setEnabled(false);

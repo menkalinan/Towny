@@ -68,7 +68,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         if(!TextUtils.isEmpty(model.getDescription()))
             holder.description.setText(model.getClearDescription());
 
-        getDate(holder, position);
+//        getDate(holder, position);
 
         holder.listLayout.setVisibility(View.GONE);
         if (model.getPhotos() != null) {
@@ -116,6 +116,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
                             holder.listLayout.setVisibility(View.VISIBLE);
                             YoYo.with(Techniques.FadeIn).duration(200).playOn(holder.listLayout);
                             holder.expandArrow.setRotation(0);
+                            holder.expandText.setText("Свернуть");
                         } else {
                             YoYo.with(Techniques.FadeOut).duration(200).playOn(holder.listLayout);
                             new Handler().postDelayed(new Runnable() {
@@ -123,6 +124,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
                                 public void run() {
                                     holder.listLayout.setVisibility(View.GONE);
                                     holder.expandArrow.setRotation(270);
+                                    holder.expandText.setText("Развернуть");
                                 }
                             }, 200);
                         }
@@ -138,18 +140,16 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         return models.size();
     }
 
-    private void getDate(ViewHolder viewHolder, int position) {
-        Date time = new Date(models.get(position).getPublicationDate() * 1000);
-        viewHolder.date.setText(Constants.dateFormat.format(time));
-    }
+//    private void getDate(ViewHolder viewHolder, int position) {
+//        Date time = new Date(models.get(position).getPublicationDate() * 1000);
+//        viewHolder.date.setText(Constants.dateFormat.format(time));
+//    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.adp_selection_item_title)
         TextView title;
         @Bind(R.id.adp_selection_item_description)
         TextView description;
-        @Bind(R.id.adp_selection_item_date)
-        TextView date;
         @Bind(R.id.adp_selection_item_image)
         ImageView preview;
         @Bind(R.id.adp_selection_item_list)
@@ -164,6 +164,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         ImageView expandArrow;
         @Bind(R.id.adp_selection_expand_layout)
         RelativeLayout expandLayout;
+        @Bind(R.id.adp_selection_expand_text)
+        TextView expandText;
 
 
         ViewHolder(View view) {

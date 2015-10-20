@@ -98,7 +98,7 @@
                         android:src="@drawable/expand_arrow_down" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/adp_selection_expand_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -132,79 +132,6 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/adp_selection_expand_view">
-
-                <include layout="@layout/divider" />
-
-                <LinearLayout
-                    android:id="@+id/frag_listing_item_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/adp_selection_item_date"
-                    android:layout_toStartOf="@+id/adp_selection_item_date"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/frag_listing_item_location_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:minLines="1"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:paddingTop="8dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp"
-                        tools:text="Medium Text" />
-
-                    <TextView
-                        android:id="@+id/frag_listing_item_location_is_open"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="16dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="12sp"
-                        tools:text="Small Text" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/adp_selection_item_date"
-                    fontPath="fonts/PTSansItalic.ttf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/frag_listing_item_location"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentLeft="false"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentStart="false"
-                    android:paddingBottom="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="16dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="12sp"
-                    tools:ignore="MissingPrefix"
-                    tools:text="10 сентября, 16:30" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
-                    android:layout_toLeftOf="@+id/adp_selection_item_date"
-                    android:layout_toStartOf="@+id/adp_selection_item_date"
-                    android:src="@drawable/ic_action_calendar"
-                    android:tint="@color/secondary_text" />
-
-            </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

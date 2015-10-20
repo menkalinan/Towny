@@ -3,7 +3,10 @@ package com.goldenpie.devs.kievrest.utils.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
+
+import com.goldenpie.devs.kievrest.utils.DistanceUtils;
 
 public class ApplicationPreferences {
     private static final String RESTAURANTS_PAGE = "total_restaurants_data_size";
@@ -14,6 +17,8 @@ public class ApplicationPreferences {
     private static final String CITY_NAME = "city_name";
     private static final String HOTELS_PAGE = "total_hotels_data_size";
     private static final String ENTERTAINMENTS_PAGE = "entertainments_data_size";
+    private static final String CALC_SYSTEM = "calculating_system";
+
     private SharedPreferences preferences;
 
     public ApplicationPreferences(Context context) {
@@ -102,5 +107,14 @@ public class ApplicationPreferences {
         preferences.edit()
                 .putInt(ENTERTAINMENTS_PAGE, totalHotelsDataSize)
                 .apply();
+    }
+
+    public void setUnits(char unit) {
+        preferences.edit()
+                .putString(CALC_SYSTEM, String.valueOf(unit))
+                .apply();
+    }
+    public char getUnits() {
+        return preferences.getString(CALC_SYSTEM, String.valueOf(DistanceUtils.KILLOMETRE)).charAt(0);
     }
 }

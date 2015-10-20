@@ -37,7 +37,7 @@ public class MiniMapFragment extends SupportMapFragment {
         UiSettings settings = getMap().getUiSettings();
         settings.setAllGesturesEnabled(false);
 
-        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
         getMap().addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_yellow)));
     }
 } 

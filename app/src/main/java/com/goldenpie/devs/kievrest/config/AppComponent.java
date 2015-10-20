@@ -5,6 +5,7 @@ import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.activity.InitActivity;
+import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
 import com.goldenpie.devs.kievrest.utils.service.DataShareService;
 import com.goldenpie.devs.kievrest.utils.service.TownyService;
 
@@ -26,4 +27,6 @@ public interface AppComponent {
     void inject(InitActivity initActivity);
 
     void inject(BaseActivity baseActivity);
+
+    void inject(PlacesAdapter placesAdapter);
 }

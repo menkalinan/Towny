@@ -15,6 +15,7 @@ import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
+import com.goldenpie.devs.kievrest.utils.DistanceUtils;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
@@ -71,6 +72,31 @@ public class SettingsActivity extends BaseActivity {
     }
 
     @SuppressWarnings("unused")
+    @OnClick(R.id.act_settings_default_metrics)
+    protected void onUnitsChoose() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item, getResources().getStringArray(R.array.default_units));
+        if (dialog == null)
+            dialog = new AlertDialog.Builder(this).setAdapter(adapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    setSystem(i);
+                }
+            }).setNegativeButton(R.id.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).create();
+
+        if (!dialog.isShowing())
+            dialog.show();
+    }
+
+    private void setSystem(int i) {
+        preferences.setUnits(i == 0 ? DistanceUtils.KILLOMETRE : DistanceUtils.MILLES);
+    }
+
+    @SuppressWarnings("unused")
     @OnClick(R.id.act_settings_city_choose)
     protected void onCityChoose() {
         if (helper.getCitesList() != null && !helper.getCitesList().isEmpty()) {
@@ -93,7 +119,8 @@ public class SettingsActivity extends BaseActivity {
                     }
                 }).create();
 
-            dialog.show();
+            if (!dialog.isShowing())
+                dialog.show();
         } else {
             service.loadCites(preferences.getLang());
         }
