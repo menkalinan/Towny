@@ -137,7 +137,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     }
 
     public String getUnit() {
-        return (preferences.getUnits() == DistanceUtils.KILLOMETRE
+        return (preferences.getUnits() == DistanceUtils.KILOMETRE
                 ? context.getString(R.string.km) : context.getString(R.string.mile));
     }
 

@@ -233,6 +233,6 @@ public class FirstRunActivity extends BaseActivity {
         preferences.setLang(getLang());
         preferences.setCurrentCity(slug);
         preferences.setCurrentCityName(name);
-        preferences.setUnits(getLang().equals("ru") ? DistanceUtils.KILLOMETRE : DistanceUtils.MILLES);
+        preferences.setUnits(getLang().equals("ru") ? DistanceUtils.KILOMETRE : DistanceUtils.MILES);
     }
 }

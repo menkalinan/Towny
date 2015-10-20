@@ -1,8 +1,8 @@
 package com.goldenpie.devs.kievrest.utils;
 
 public class DistanceUtils {
-    public static final char KILLOMETRE = 'K';
-    public static final char MILLES = 'N';
+    public static final char KILOMETRE = 'K';
+    public static final char MILES = 'N';
 
     public static double getDistance(double lat1, double lon1, double lat2, double lon2, char unit) {
         double theta = lon1 - lon2;

@@ -3,7 +3,6 @@ package com.goldenpie.devs.kievrest.utils.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 
 import com.goldenpie.devs.kievrest.utils.DistanceUtils;
@@ -109,12 +108,13 @@ public class ApplicationPreferences {
                 .apply();
     }
 
+    public char getUnits() {
+        return preferences.getString(CALC_SYSTEM, String.valueOf(DistanceUtils.KILOMETRE)).charAt(0);
+    }
+
     public void setUnits(char unit) {
         preferences.edit()
                 .putString(CALC_SYSTEM, String.valueOf(unit))
                 .apply();
-    }
-    public char getUnits() {
-        return preferences.getString(CALC_SYSTEM, String.valueOf(DistanceUtils.KILLOMETRE)).charAt(0);
     }
 }

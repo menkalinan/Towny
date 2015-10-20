@@ -93,7 +93,7 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void setSystem(int i) {
-        preferences.setUnits(i == 0 ? DistanceUtils.KILLOMETRE : DistanceUtils.MILLES);
+        preferences.setUnits(i == 0 ? DistanceUtils.KILOMETRE : DistanceUtils.MILES);
     }
 
     @SuppressWarnings("unused")
