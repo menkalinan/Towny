@@ -101,9 +101,15 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
             }
         });
 
-        holder.distance.setText(String.format("~%.2f" + getUnit(), DistanceUtils.getDistance(
-                model.getCoordinates().getLatitude(), model.getCoordinates().getLongitude(),
-                location.getLatitude(), location.getLongitude(), preferences.getUnits())).replace(",", "."));
+        try {
+            holder.distanceLayout.setVisibility(View.VISIBLE);
+            holder.distance.setText(String.format("~%.2f" + getUnit(), DistanceUtils.getDistance(
+                    model.getCoordinates().getLatitude(), model.getCoordinates().getLongitude(),
+                    location.getLatitude(), location.getLongitude(), preferences.getUnits())).replace(",", "."));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            holder.distanceLayout.setVisibility(View.GONE);
+        }
 
         holder.cardView.setVisibility(View.VISIBLE);
 
@@ -126,7 +132,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
             mapDialog.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), "Map");
 
         } else {
-            GooglePlayServicesUtil.getErrorDialog(status, (AppCompatActivity) getContext(), status);
+            GooglePlayServicesUtil.getErrorDialog(status, (AppCompatActivity) getContext(), status).show();
         }
 
     }
@@ -156,6 +162,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         CardView cardView;
         @Bind(R.id.adp_place_expand_layout)
         RelativeLayout expandLayout;
+        @Bind(R.id.adp_place_item_distance_layout)
+        RelativeLayout distanceLayout;
 
         ViewHolder(View view) {
             super(view);

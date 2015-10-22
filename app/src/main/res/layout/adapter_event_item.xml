@@ -100,12 +100,29 @@
                 android:textSize="14sp"
                 tools:text="Разработчики «ВКонтакте» вводят новую полезную функцию для сообществ социальной сети. Теперь все нежелательные комментарии будут автоматически блокироваться системой." />
 
+
+            <TextView
+                android:id="@+id/adp_event_item_is_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/adp_event_item_description"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
+                android:text="Открыто до хз"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dark_green"
+                android:textSize="14sp" />
+
             <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/adp_event_item_description"
+                android:layout_below="@+id/adp_event_item_is_open"
                 android:layout_margin="8dp"
                 android:clickable="true"
                 android:focusable="true"

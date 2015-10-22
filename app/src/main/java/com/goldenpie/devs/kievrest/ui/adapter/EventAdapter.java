@@ -21,6 +21,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -88,6 +89,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 holder.adultLayout.setBackgroundResource(R.drawable.red_circle_drawable);
             }
         }
+        checkIfOpen(holder, model);
 
         if (model.getDates() != null && !model.getDates().isEmpty()) {
             holder.expandLayout.setVisibility(View.VISIBLE);
@@ -103,6 +105,42 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         if (lastPosition < position) {
             lastPosition = position;
             YoYo.with(Techniques.FadeInUp).duration(300).playOn(holder.cardView);
+        }
+    }
+
+    private void checkIfOpen(ViewHolder holder, EventModel model) {
+        Calendar todayDate = Calendar.getInstance();
+        Date today = new Date();
+        todayDate.setTime(today);
+        Date lastDate = new Date(Integer.parseInt(
+                model.getDates().get(model.getDates().size() - 1).getEndDate()) * 1000L);
+        Date firstDate = new Date(Integer.parseInt(
+                model.getDates().get(0).getStartDate()) * 1000L);
+
+        Calendar lastCalendar = Calendar.getInstance();
+        lastCalendar.setTime(lastDate);
+        Calendar firstCalendar = Calendar.getInstance();
+        firstCalendar.setTime(firstDate);
+
+        holder.isOpen.setTextColor(getContext().getResources().getColor(R.color.green));
+        holder.isOpen.setText("");
+
+        if (todayDate.after(firstCalendar) && todayDate.before(lastCalendar) && model.getDates().size() > 1) {
+            holder.isOpen.setText("Проходит сейчас");
+            return;
+        } else if(todayDate.after(firstCalendar) && todayDate.before(lastCalendar) && model.getDates().size() == 1){
+            holder.isOpen.setText("Прошло");
+            holder.isOpen.setTextColor(getContext().getResources().getColor(R.color.red));
+            return;
+        }
+        if (todayDate.before(firstCalendar)) {
+            holder.isOpen.setText("Еще не началось");
+            return;
+        }
+        if (todayDate.after(lastCalendar)) {
+            holder.isOpen.setText("Прошло");
+            holder.isOpen.setTextColor(getContext().getResources().getColor(R.color.red));
+            return;
         }
     }
 
@@ -155,6 +193,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         CardView cardView;
         @Bind(R.id.adp_event_item_adult_text)
         TextView adultText;
+        @Bind(R.id.adp_event_item_is_open)
+        TextView isOpen;
         @Bind(R.id.adp_event_item_adult_layout)
         RelativeLayout adultLayout;
         @Bind(R.id.adp_event_item_is_free)

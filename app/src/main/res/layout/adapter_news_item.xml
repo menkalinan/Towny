@@ -13,7 +13,6 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:visibility="gone"
         card:cardElevation="2dp">
 
         <RelativeLayout
@@ -79,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/adp_news_item_description">
 
-                <include layout="@layout/divider" />
 
                 <LinearLayout
                     android:id="@+id/adp_news_item_location"
@@ -137,10 +135,6 @@
 
                     </LinearLayout>
 
-                    <include
-                        layout="@layout/divider"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <RelativeLayout
