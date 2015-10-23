@@ -93,4 +93,5 @@ dependencies {
     compile 'frankiesardo:icepick:3.1.1-SNAPSHOT'
     provided 'frankiesardo:icepick-processor:3.1.1-SNAPSHOT'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
 }
