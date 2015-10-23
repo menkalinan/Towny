@@ -13,17 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.config.Constants;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
-import com.squareup.picasso.Picasso;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.Bind;
@@ -73,9 +71,10 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         holder.listLayout.setVisibility(View.GONE);
         if (model.getPhotos() != null) {
             holder.preview.setVisibility(View.VISIBLE);
-            Picasso.with(getContext())
+            Glide.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
                     .placeholder(R.drawable.no_preview_available)
+                    .crossFade()
                     .into(holder.preview);
         } else {
             holder.preview.setVisibility(View.GONE);

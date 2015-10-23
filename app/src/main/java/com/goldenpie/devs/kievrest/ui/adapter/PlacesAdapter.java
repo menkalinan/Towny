@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
@@ -25,8 +26,6 @@ import com.goldenpie.devs.kievrest.utils.DistanceUtils;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -83,9 +82,10 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         if (model.getPhotos() != null && !model.getPhotos().isEmpty()
                 && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             holder.preview.setVisibility(View.VISIBLE);
-            Picasso.with(getContext())
+            Glide.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
                     .placeholder(R.drawable.no_preview_available)
+                    .crossFade()
                     .into(holder.preview);
         } else {
             holder.preview.setVisibility(View.GONE);

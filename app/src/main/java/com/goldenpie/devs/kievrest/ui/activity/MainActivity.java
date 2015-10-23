@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.materialviewpager.MaterialViewPager;
@@ -128,7 +129,8 @@ public class MainActivity extends BaseActivity {
         mDrawer.setDrawerListener(mDrawerToggle);
 
         restoreState();
-        drawerHeaderImage.setImageResource(helper.getWeatherImage());
+
+        Glide.with(this).load(helper.getWeatherImage()).fitCenter().into(drawerHeaderImage);
     }
 
     private void restoreState() {
@@ -183,8 +185,7 @@ public class MainActivity extends BaseActivity {
                     public CharSequence getPageTitle(int position) {
                         switch (position) {
                             case 0:
-                                return !isNewYork ? getString(R.string.news)
-                                        : getString(R.string.interesting);
+                                return !isNewYork ? getString(R.string.news) : getString(R.string.interesting);
                             case 1:
                                 return getString(R.string.interesting);
                         }
@@ -196,9 +197,15 @@ public class MainActivity extends BaseActivity {
             @Override
             public HeaderDesign getHeaderDesign(final int page) {
                 currentPage = page;
-                YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
+                    }
+                }, 50);
+
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         switch (page) {
@@ -213,7 +220,7 @@ public class MainActivity extends BaseActivity {
                         }
                         YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
                     }
-                }, 200);
+                }, 250);
 
                 switch (page) {
                     case 0:
@@ -298,9 +305,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public HeaderDesign getHeaderDesign(final int page) {
                 currentPage = page;
-                YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
+                    }
+                }, 50);
+
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         switch (page) {
@@ -339,7 +351,7 @@ public class MainActivity extends BaseActivity {
                         }
                         YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
                     }
-                }, 200);
+                }, 250);
 
                 switch (page) {
                     case 0:
@@ -440,9 +452,15 @@ public class MainActivity extends BaseActivity {
             @Override
             public HeaderDesign getHeaderDesign(final int page) {
                 currentPage = page;
-                YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
+                    }
+                }, 50);
+
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         switch (page) {
@@ -473,7 +491,7 @@ public class MainActivity extends BaseActivity {
                         }
                         YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
                     }
-                }, 200);
+                }, 250);
 
                 switch (page) {
                     case 0:
@@ -580,19 +598,7 @@ public class MainActivity extends BaseActivity {
     protected void onPlacesClick() {
         if (!currentCat.equals(CategoryTypeEnum.PLACES.name())) {
             currentCat = CategoryTypeEnum.PLACES.name();
-            mViewPager.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
-                }
-            }, Constants.DRAWER_ANIMATION_DURATION - 50L);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setPlacesViewPager();
-                    mViewPager.notifyHeaderChanged();
-                }
-            }, Constants.DRAWER_ANIMATION_DURATION);
+            setViewPager(CategoryTypeEnum.PLACES);
         }
         mDrawer.closeDrawers();
     }
@@ -602,19 +608,7 @@ public class MainActivity extends BaseActivity {
     protected void onManeClick() {
         if (!currentCat.equals(CategoryTypeEnum.MAIN.name())) {
             currentCat = CategoryTypeEnum.MAIN.name();
-            mViewPager.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
-                }
-            }, Constants.DRAWER_ANIMATION_DURATION - 50L);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setMainViewPager();
-                    mViewPager.notifyHeaderChanged();
-                }
-            }, Constants.DRAWER_ANIMATION_DURATION);
+            setViewPager(CategoryTypeEnum.MAIN);
         }
         mDrawer.closeDrawers();
     }
@@ -624,19 +618,7 @@ public class MainActivity extends BaseActivity {
     protected void onEventsClick() {
         if (!currentCat.equals(CategoryTypeEnum.EVENTS.name())) {
             currentCat = CategoryTypeEnum.EVENTS.name();
-            mViewPager.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
-                }
-            }, Constants.DRAWER_ANIMATION_DURATION - 50L);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setEventViewPager();
-                    mViewPager.notifyHeaderChanged();
-                }
-            }, Constants.DRAWER_ANIMATION_DURATION);
+            setViewPager(CategoryTypeEnum.EVENTS);
         }
         mDrawer.closeDrawers();
     }
@@ -653,6 +635,35 @@ public class MainActivity extends BaseActivity {
             }
         }, Constants.DRAWER_ANIMATION_DURATION);
         mDrawer.closeDrawers();
+    }
+
+    private void setViewPager(final CategoryTypeEnum cat) {
+        mViewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
+            }
+        }, Constants.DRAWER_ANIMATION_DURATION - 50L);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                switch (cat) {
+                    case MAIN:
+                        setMainViewPager();
+                        break;
+                    case PLACES:
+                        setPlacesViewPager();
+                        break;
+                    case EVENTS:
+                        setEventViewPager();
+                        break;
+                }
+                mViewPager.notifyHeaderChanged();
+            }
+        }, Constants.DRAWER_ANIMATION_DURATION);
+
+
     }
 
     @Override
