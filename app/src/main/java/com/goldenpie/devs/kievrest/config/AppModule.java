@@ -6,6 +6,7 @@ import android.content.Context;
 import com.goldenpie.devs.kievrest.api.TownyApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
+import com.goldenpie.devs.kievrest.utils.ViewPagerHelper;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.TownyService;
 import com.google.gson.FieldNamingPolicy;
@@ -51,6 +52,12 @@ public class AppModule {
     @Singleton
     public TownyService provideKievRestService(TownyApi townyApi, WeatherApi weatherApi) {
         return new TownyService(townyApi, weatherApi);
+    }
+
+    @Provides
+    @Singleton
+    public ViewPagerHelper provideViewPagerHelper(Context context) {
+        return new ViewPagerHelper(context);
     }
 
     @Provides

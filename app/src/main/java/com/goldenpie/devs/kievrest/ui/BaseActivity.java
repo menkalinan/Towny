@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.utils.DataHelper;
+import com.goldenpie.devs.kievrest.utils.ViewPagerHelper;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.goldenpie.devs.kievrest.utils.service.TownyService;
 
@@ -23,6 +24,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected DataHelper helper;
     @Inject
     protected ApplicationPreferences preferences;
+    @Inject
+    protected ViewPagerHelper viewPagerHelper;
 
     protected abstract int getContentView();
 
