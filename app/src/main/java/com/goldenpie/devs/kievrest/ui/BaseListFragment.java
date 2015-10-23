@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
@@ -130,7 +131,15 @@ public abstract class BaseListFragment extends Fragment {
 
     @Override
     public void onDetach() {
+        if (list.getAdapter() != null) {
+            RecyclerView.Adapter adapter = list.getAdapter();
+            adapter = null;
+            list.setAdapter(null);
+        }
+        Glide.get(getActivity()).clearMemory();
+        ButterKnife.unbind(this);
         BUS.unregister(this);
+        System.gc();
         super.onDetach();
     }
 }
