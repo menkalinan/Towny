@@ -7,13 +7,13 @@ import android.view.View;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
-import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.BaseSubCategoryFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 
-public class BarsFragment extends BaseListFragment {
+public class BarsFragment extends BaseSubCategoryFragment {
     private PlacesAdapter adapter;
 
     public BarsFragment() {

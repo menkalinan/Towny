@@ -3,7 +3,8 @@ package com.goldenpie.devs.kievrest.config;
 
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
-import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.BaseCategoryFragment;
+import com.goldenpie.devs.kievrest.ui.BaseSubCategoryFragment;
 import com.goldenpie.devs.kievrest.ui.activity.InitActivity;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
 import com.goldenpie.devs.kievrest.utils.service.DataShareService;
@@ -18,7 +19,7 @@ import dagger.Component;
 public interface AppComponent {
     void inject(TownyApplication townyApplication);
 
-    void inject(BaseListFragment baseListFragment);
+    void inject(BaseSubCategoryFragment baseListFragment);
 
     void inject(DataShareService dataShareService);
 
@@ -29,4 +30,6 @@ public interface AppComponent {
     void inject(BaseActivity baseActivity);
 
     void inject(PlacesAdapter placesAdapter);
+
+    void inject(BaseCategoryFragment baseFragment);
 }

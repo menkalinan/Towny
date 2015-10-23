@@ -7,7 +7,7 @@ import android.view.View;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.places.ShopsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
-import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.BaseSubCategoryFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ShopsFragment extends BaseListFragment {
+public class ShopsFragment extends BaseSubCategoryFragment {
     private PlacesAdapter adapter;
 
     public ShopsFragment() {

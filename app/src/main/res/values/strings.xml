@@ -31,4 +31,5 @@
     <string name="km">км</string>
     <string name="kilometres">Километры</string>
     <string name="miles">Мили</string>
+    <string name="events">События</string>
 </resources>

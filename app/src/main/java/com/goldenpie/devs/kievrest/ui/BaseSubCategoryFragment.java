@@ -33,7 +33,7 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import lombok.Getter;
 
-public abstract class BaseListFragment extends Fragment {
+public abstract class BaseSubCategoryFragment extends Fragment {
 
     @Inject
     protected DataHelper helper;

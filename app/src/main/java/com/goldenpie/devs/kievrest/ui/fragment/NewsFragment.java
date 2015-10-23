@@ -1,22 +1,19 @@
 package com.goldenpie.devs.kievrest.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.NewsModel;
-import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.BaseSubCategoryFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.NewsAdapter;
-import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 
-public class NewsFragment extends BaseListFragment {
+public class NewsFragment extends BaseSubCategoryFragment {
 
     private NewsAdapter adapter;
 

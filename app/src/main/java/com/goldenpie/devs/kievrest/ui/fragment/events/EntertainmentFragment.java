@@ -7,7 +7,7 @@ import android.view.View;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.events.EntertainmentsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.EventModel;
-import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.BaseSubCategoryFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.EventAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class EntertainmentFragment extends BaseListFragment {
+public class EntertainmentFragment extends BaseSubCategoryFragment {
     private EventAdapter adapter;
 
     public EntertainmentFragment() {

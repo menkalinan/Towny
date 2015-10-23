@@ -8,13 +8,13 @@ import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
-import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.BaseSubCategoryFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.SelectionsAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 
-public class SelectionsFragment extends BaseListFragment {
+public class SelectionsFragment extends BaseSubCategoryFragment {
     private SelectionsAdapter adapter;
 
     private int itemCount = 0;

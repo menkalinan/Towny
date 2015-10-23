@@ -7,13 +7,13 @@ import android.view.View;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.events.TheatersLoadedEvent;
 import com.goldenpie.devs.kievrest.models.EventModel;
-import com.goldenpie.devs.kievrest.ui.BaseListFragment;
+import com.goldenpie.devs.kievrest.ui.BaseSubCategoryFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.EventAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
 
-public class TheatersFragment extends BaseListFragment {
+public class TheatersFragment extends BaseSubCategoryFragment {
     private EventAdapter adapter;
 
     public TheatersFragment() {
