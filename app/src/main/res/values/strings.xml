@@ -32,4 +32,8 @@
     <string name="kilometres">Километры</string>
     <string name="miles">Мили</string>
     <string name="events">События</string>
+    <string name="films">Кино</string>
+    <string name="duration">Длится:</string>
+    <string name="rating">Рейтинг:</string>
+    <string name="poster">poster</string>
 </resources>

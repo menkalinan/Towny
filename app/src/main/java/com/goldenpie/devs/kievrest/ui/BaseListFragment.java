@@ -33,7 +33,7 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import lombok.Getter;
 
-public abstract class BaseListFragment extends Fragment {
+public abstract class BaseListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     protected DataHelper helper;
@@ -54,6 +54,8 @@ public abstract class BaseListFragment extends Fragment {
     protected SwipeRefreshLayout swipeRefreshLayout;
     @Getter
     private StaggeredGridLayoutManager linearLayoutManager;
+
+    protected boolean isFromReload = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,16 +87,21 @@ public abstract class BaseListFragment extends Fragment {
                 onLoadMoreCalled(current_page);
             }
         });
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     protected abstract void onLoadMoreCalled(int page);
 
     protected abstract int getContentView();
 
+    protected abstract void onReload();
+
     protected abstract ModelTypeEnum getFragmentType();
 
     @OnClick(R.id.no_internet_layout_repaet_button)
+
     protected void reload() {
+        helper.getDataMap().get(getFragmentType()).clear();
         showLoader();
     }
 
@@ -141,5 +148,11 @@ public abstract class BaseListFragment extends Fragment {
         BUS.unregister(this);
         System.gc();
         super.onDetach();
+    }
+
+    @Override
+    public void onRefresh() {
+        isFromReload = true;
+        onReload();
     }
 }

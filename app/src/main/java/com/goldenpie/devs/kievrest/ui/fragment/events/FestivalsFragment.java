@@ -34,6 +34,11 @@ public class FestivalsFragment extends BaseListFragment {
     }
 
 
+    @Override
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadFestivals();
         super.reload();
@@ -42,7 +47,7 @@ public class FestivalsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.FESTIVALS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new EventAdapter(helper.getFestivalsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -63,7 +68,7 @@ public class FestivalsFragment extends BaseListFragment {
     public void onEvent(FestivalsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.FESTIVALS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             ArrayList<EventModel> tempList = helper.getFestivalsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.FESTIVALS, tempList);

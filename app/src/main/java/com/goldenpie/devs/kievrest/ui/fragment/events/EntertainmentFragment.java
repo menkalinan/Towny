@@ -35,6 +35,10 @@ public class EntertainmentFragment extends BaseListFragment {
         return ModelTypeEnum.ENTERTAINMENT;
     }
 
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadEntertainments();
         super.reload();
@@ -43,7 +47,7 @@ public class EntertainmentFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.ENTERTAINMENT)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new EventAdapter(helper.getEntertainmentsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -72,7 +76,7 @@ public class EntertainmentFragment extends BaseListFragment {
         event.getResults().clear();
         event.getResults().addAll(uniqueItems);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.ENTERTAINMENT)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             preferences.setTotalEntertainmentsDataSize(preferences.getTotalEntertainmentsDataSize() + size);
             ArrayList<EventModel> tempList = helper.getEntertainmentsList();
             tempList.addAll(event.getResults());

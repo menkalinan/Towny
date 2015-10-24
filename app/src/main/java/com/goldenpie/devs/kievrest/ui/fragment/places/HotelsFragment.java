@@ -36,6 +36,11 @@ public class HotelsFragment extends BaseListFragment {
     }
 
 
+    @Override
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadHotels();
         super.reload();
@@ -44,7 +49,7 @@ public class HotelsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.HOTELS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new PlacesAdapter(helper.getHotelsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -73,7 +78,7 @@ public class HotelsFragment extends BaseListFragment {
         event.getResults().clear();
         event.getResults().addAll(uniqueItems);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.HOTELS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             preferences.setTotalHotelsDataSize(preferences.getTotalHotelsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getHotelsList();
             tempList.addAll(event.getResults());

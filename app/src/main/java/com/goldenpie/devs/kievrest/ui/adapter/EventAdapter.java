@@ -63,14 +63,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.description.setText(model.getClearDescription());
 
         if (model.getPhotos() != null && !model.getPhotos().isEmpty() && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
-            holder.preview.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
-                    .placeholder(R.drawable.no_preview_available)
+                    .placeholder(R.drawable.no_photo_preview)
                     .crossFade()
                     .into(holder.preview);
-        } else {
-            holder.preview.setVisibility(View.GONE);
         }
 
         holder.isFree.setVisibility(View.GONE);
@@ -86,7 +83,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 holder.adultLayout.setBackgroundResource(R.drawable.dark_green_circle_drawable);
             } else if (model.getAgeRestriction() <= 16) {
                 holder.adultLayout.setBackgroundResource(R.drawable.blue_circle_drawable);
-            } else if (model.getAgeRestriction() == 18) {
+            } else if (model.getAgeRestriction() >= 18) {
                 holder.adultLayout.setBackgroundResource(R.drawable.red_circle_drawable);
             }
         }

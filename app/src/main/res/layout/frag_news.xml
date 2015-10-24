@@ -17,8 +17,8 @@
             android:dividerHeight="0px"
             android:paddingTop="280dp"
             android:scrollbars="none"
-            tools:context="com.goldenpie.devs.kievrest.ui.fragment.NewsFragment"
-            tools:listitem="@layout/news_adapter_item" />
+            tools:listitem="@android:layout/adapter_film_item"
+            tools:context="com.goldenpie.devs.kievrest.ui.fragment.NewsFragment"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

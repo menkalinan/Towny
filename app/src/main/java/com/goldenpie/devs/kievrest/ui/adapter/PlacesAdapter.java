@@ -81,14 +81,11 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
         if (model.getPhotos() != null && !model.getPhotos().isEmpty()
                 && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
-            holder.preview.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
-                    .placeholder(R.drawable.no_preview_available)
+                    .placeholder(R.drawable.no_photo_preview)
                     .crossFade()
                     .into(holder.preview);
-        } else {
-            holder.preview.setVisibility(View.GONE);
         }
 
         holder.isOpen.setText(getContext().getString(model.isClosed() ? R.string.closed : R.string.opened));
@@ -148,7 +145,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.adp_place_item_title)
+        @Bind(R.id.adp_film_item_title)
         TextView title;
         @Bind(R.id.adp_place_item_distance)
         TextView distance;

@@ -1,8 +1,9 @@
 package com.goldenpie.devs.kievrest.api;
 
 import com.goldenpie.devs.kievrest.config.Constants;
-import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.FilmsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.AttractionsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.BarsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
@@ -187,4 +188,13 @@ public interface TownyApi {
     @GET(Constants.ENTERTAIMENT_LINK)
     void getEntertainments(@Query("location") String currentCity,
                       BaseCallback<EntertainmentsLoadedEvent> callback);
+
+    @GET(Constants.FILMS_LINK)
+    void getFilms(@Query("page") String page,
+                      @Query("lang") String lang,
+                      BaseCallback<FilmsLoadedEvent> callback);
+
+    @GET(Constants.FILMS_LINK)
+    void getFilms(@Query("lang") String lang,
+                      BaseCallback<FilmsLoadedEvent> callback);
 }

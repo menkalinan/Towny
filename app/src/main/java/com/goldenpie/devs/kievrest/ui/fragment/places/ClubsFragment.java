@@ -34,6 +34,11 @@ public class ClubsFragment extends BaseListFragment {
     }
 
 
+    @Override
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadClubs();
         super.reload();
@@ -42,7 +47,7 @@ public class ClubsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.CLUBS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new PlacesAdapter(helper.getClubsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -63,7 +68,7 @@ public class ClubsFragment extends BaseListFragment {
     public void onEvent(ClubsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.CLUBS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             ArrayList<PlaceModel> tempList = helper.getClubsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.CLUBS, tempList);

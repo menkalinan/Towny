@@ -36,6 +36,11 @@ public class RestaurantsFragment extends BaseListFragment {
     }
 
 
+    @Override
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadRestaurants();
         super.reload();
@@ -44,7 +49,7 @@ public class RestaurantsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new PlacesAdapter(helper.getRestaurantsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -73,7 +78,7 @@ public class RestaurantsFragment extends BaseListFragment {
         event.getResults().clear();
         event.getResults().addAll(uniqueItems);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.RESTAURANTS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             preferences.setTotalRestaurantsDataSize(preferences.getTotalRestaurantsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getRestaurantsList();
             tempList.addAll(event.getResults());

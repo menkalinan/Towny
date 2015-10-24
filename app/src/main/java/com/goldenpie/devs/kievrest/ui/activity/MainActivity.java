@@ -44,8 +44,7 @@ import icepick.State;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity {
-    @State
-    protected Integer currentScreen;
+
     @State
     protected Integer currentPage;
     @State
@@ -59,7 +58,8 @@ public class MainActivity extends BaseActivity {
     protected MaterialViewPager mViewPager;
     @Bind({R.id.nav_drawer_main_layout,
             R.id.nav_drawer_places_layout,
-            R.id.nav_drawer_event_layout})
+            R.id.nav_drawer_event_layout,
+            R.id.nav_drawer_films_layout})
     protected List<View> drawerItems;
     @Bind(R.id.drawer_layout)
     protected DrawerLayout mDrawer;
@@ -131,6 +131,10 @@ public class MainActivity extends BaseActivity {
                 setEventViewPager();
                 updateDrawerItem(drawerItems.get(2));
                 break;
+            case FILMS:
+                setFilmsViewPager();
+                updateDrawerItem(drawerItems.get(3));
+                break;
         }
 
         if (viewPagerSate != null) {
@@ -146,7 +150,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setMainViewPager() {
-        updateDrawerItem(drawerItems.get(0));
         setTitle(getString(R.string.main));
         boolean isNewYork = preferences.getCurrentCity().equals("new-york");
         int count = !isNewYork ? 2 : 1;
@@ -158,7 +161,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setPlacesViewPager() {
-        updateDrawerItem(drawerItems.get(1));
         setTitle(getString(R.string.places));
         int count = 8;
 
@@ -169,13 +171,21 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setEventViewPager() {
-        currentScreen = 2;
-        updateDrawerItem(drawerItems.get(2));
         setTitle(getString(R.string.events));
         final int count = 6;
 
         mViewPager.getViewPager().setAdapter(viewPagerHelper.getEventsPagerAdapter(count));
         mViewPager.setMaterialViewPagerListener(viewPagerHelper.getEventsPagerListener());
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+    }
+
+    private void setFilmsViewPager() {
+        setTitle(getString(R.string.films));
+        final int count = 1;
+
+        mViewPager.getViewPager().setAdapter(viewPagerHelper.getFilmsPagerAdapter(count));
+        mViewPager.setMaterialViewPagerListener(viewPagerHelper.getFilmsPagerListener());
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
     }
@@ -277,6 +287,16 @@ public class MainActivity extends BaseActivity {
         mDrawer.closeDrawers();
     }
 
+    @SuppressWarnings("unused")
+    @OnClick(R.id.nav_drawer_films_layout)
+    protected void onFilmsClick() {
+        if (currentCat != CategoryTypeEnum.FILMS) {
+            currentCat = CategoryTypeEnum.FILMS;
+            setViewPager(CategoryTypeEnum.FILMS);
+        }
+        mDrawer.closeDrawers();
+    }
+
 
     @SuppressWarnings("unused")
     @OnClick(R.id.nav_drawer_settings_layout)
@@ -316,6 +336,10 @@ public class MainActivity extends BaseActivity {
                     case EVENTS:
                         setEventViewPager();
                         updateDrawerItem(drawerItems.get(2));
+                        break;
+                    case FILMS:
+                        setFilmsViewPager();
+                        updateDrawerItem(drawerItems.get(3));
                         break;
                 }
                 mViewPager.notifyHeaderChanged();

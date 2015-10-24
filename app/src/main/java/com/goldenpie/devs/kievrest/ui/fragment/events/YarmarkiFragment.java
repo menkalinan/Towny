@@ -33,6 +33,11 @@ public class YarmarkiFragment extends BaseListFragment {
         return ModelTypeEnum.YARMARKI;
     }
 
+    @Override
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadYarmarki();
         super.reload();
@@ -41,7 +46,7 @@ public class YarmarkiFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.YARMARKI)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new EventAdapter(helper.getYarmarkiList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -62,7 +67,7 @@ public class YarmarkiFragment extends BaseListFragment {
     public void onEvent(YarmarkiLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.YARMARKI)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             ArrayList<EventModel> tempList = helper.getYarmarkiList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.YARMARKI, tempList);

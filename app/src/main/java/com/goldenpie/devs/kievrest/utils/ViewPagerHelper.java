@@ -13,6 +13,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.ui.fragment.FilmsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.NewsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.SelectionsFragment;
 import com.goldenpie.devs.kievrest.ui.fragment.events.ConcertsFragment;
@@ -125,6 +126,68 @@ public class ViewPagerHelper {
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_purple,
                                 "http://www.zastavki.com/pictures/originals/2013/Archive___Miscellaneous__039598_.jpg");
+                }
+
+                return null;
+            }
+        };
+    }
+
+    public FragmentStatePagerAdapter getFilmsPagerAdapter(final int count) {
+        return new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        return FilmsFragment.newInstance();
+                    default:
+                        return null;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return count;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position) {
+                    case 0:
+                        return "Фильмы";
+                }
+                return "";
+            }
+        };
+    }
+
+    public MaterialViewPager.Listener getFilmsPagerListener() {
+        return new MaterialViewPager.Listener() {
+            @Override
+            public HeaderDesign getHeaderDesign(final int page) {
+                currentPage = page;
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        YoYo.with(Techniques.ZoomOut).duration(200).playOn(headerLogoBackground);
+                    }
+                }, 50);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        YoYo.with(Techniques.ZoomIn).duration(200).playOn(headerLogoBackground);
+                    }
+                }, 250);
+
+                switch (page) {
+                    case 0:
+                        headerLogoBackground.setBackgroundResource(R.drawable.red_circle_drawable);
+                        headerImage.setImageResource(R.drawable.ic_action_whatshot);
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.dark_red,
+                                "http://www.44-16.com/wp-content/uploads/2013/09/IMG_3422.jpg");
                 }
 
                 return null;

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.goldenpie.devs.kievrest.R;
-import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.PlacesAdapter;
@@ -34,6 +34,11 @@ public class AttractionsFragment extends BaseListFragment {
     }
 
 
+    @Override
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadAttractions();
         super.reload();
@@ -42,7 +47,7 @@ public class AttractionsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.ATTRACTIONS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new PlacesAdapter(helper.getAttractionsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -63,7 +68,7 @@ public class AttractionsFragment extends BaseListFragment {
     public void onEvent(AttractionsLoadedEvent event) {
         swipeRefreshLayout.setRefreshing(false);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.ATTRACTIONS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             ArrayList<PlaceModel> tempList = helper.getAttractionsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.ATTRACTIONS, tempList);

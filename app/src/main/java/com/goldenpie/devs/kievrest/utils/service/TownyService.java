@@ -4,19 +4,20 @@ import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.api.TownyApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
 import com.goldenpie.devs.kievrest.config.Constants;
-import com.goldenpie.devs.kievrest.event.AttractionsLoadedEvent;
-import com.goldenpie.devs.kievrest.event.BarsLoadedEvent;
+import com.goldenpie.devs.kievrest.event.FilmsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NearPlacesLoadedEvent;
 import com.goldenpie.devs.kievrest.event.NewsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionLoadedEvent;
 import com.goldenpie.devs.kievrest.event.SelectionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.WeatherLoadedEvent;
+import com.goldenpie.devs.kievrest.event.events.AttractionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.ConcertsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.EntertainmentsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.ExhibitionsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.FestivalsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.TheatersLoadedEvent;
 import com.goldenpie.devs.kievrest.event.events.YarmarkiLoadedEvent;
+import com.goldenpie.devs.kievrest.event.places.BarsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.ClubsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.HotelsLoadedEvent;
 import com.goldenpie.devs.kievrest.event.places.MuseumsLoadedEvent;
@@ -188,5 +189,13 @@ public class TownyService {
 
     public void loadMoreEntertainments(int current_page) {
         townyApi.getEntertainments(String.valueOf(current_page), preferences.getCurrentCity(), new BaseCallback<EntertainmentsLoadedEvent>());
+    }
+
+    public void loadFilms() {
+        townyApi.getFilms(preferences.getLang(), new BaseCallback<FilmsLoadedEvent>());
+    }
+
+    public void loadMoreFilms(int current_page) {
+        townyApi.getFilms(String.valueOf(current_page), preferences.getLang(), new BaseCallback<FilmsLoadedEvent>());
     }
 }

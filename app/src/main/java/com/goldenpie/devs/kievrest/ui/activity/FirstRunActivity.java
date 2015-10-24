@@ -61,7 +61,7 @@ public class FirstRunActivity extends BaseActivity {
     }
 
     private String getLang() {
-        return (Locale.getDefault().getLanguage().equals("ru") ? "ru" : "en");
+        return Locale.getDefault().getLanguage().equals("ru") ? "ru" : "en";
     }
 
     public void onEvent(ArrayList<CityModel> event) {

@@ -24,10 +24,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/no_preview_available" />
+                android:src="@drawable/no_photo_preview" />
 
             <RelativeLayout
-                android:id="@+id/frag_news_item_adult_layout"
+                android:id="@+id/adp_film_item_adult_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

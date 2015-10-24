@@ -35,6 +35,11 @@ public class ShopsFragment extends BaseListFragment {
         return ModelTypeEnum.SHOPS;
     }
 
+    @Override
+    protected void onReload() {
+        reload();
+    }
+
     protected void reload() {
         service.loadShops();
         super.reload();
@@ -43,7 +48,7 @@ public class ShopsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.SHOPS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             adapter = new PlacesAdapter(helper.getShopsList(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
@@ -72,7 +77,7 @@ public class ShopsFragment extends BaseListFragment {
         event.getResults().clear();
         event.getResults().addAll(uniqueItems);
 
-        if (helper.getDataMap().containsKey(ModelTypeEnum.SHOPS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             preferences.setTotalShopsDataSize(preferences.getTotalShopsDataSize() + size);
             ArrayList<PlaceModel> tempList = helper.getShopsList();
             tempList.addAll(event.getResults());

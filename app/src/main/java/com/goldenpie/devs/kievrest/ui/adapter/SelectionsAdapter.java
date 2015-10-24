@@ -63,21 +63,18 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
 //        holder.itemView.setVisibility(View.VISIBLE);
         holder.title.setText(model.getTitle());
-        if(!TextUtils.isEmpty(model.getDescription()))
+        if (!TextUtils.isEmpty(model.getDescription()))
             holder.description.setText(model.getClearDescription());
 
 //        getDate(holder, position);
 
         holder.listLayout.setVisibility(View.GONE);
         if (model.getPhotos() != null) {
-            holder.preview.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
-                    .placeholder(R.drawable.no_preview_available)
+                    .placeholder(R.drawable.no_photo_preview)
                     .crossFade()
                     .into(holder.preview);
-        } else {
-            holder.preview.setVisibility(View.GONE);
         }
 
         if (!TextUtils.isEmpty(model.getType()) && model.getType().equals("list")) {

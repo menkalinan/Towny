@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/adp_place_item_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5">
+
+            <ImageView
+                android:id="@+id/adp_film_item_poster"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/poster"
+                android:maxHeight="300dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_film_preview" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/adp_film_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/primary_text"
+                android:textSize="18sp"
+                tools:text="Warcraft" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    card:cardBackgroundColor="@color/blue"
+                    card:cardCornerRadius="12dp"
+                    card:cardElevation="0dp">
+
+                    <TextView
+                        android:id="@+id/adp_film_item_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adp_film_item_title"
+                        android:ellipsize="end"
+                        android:maxLines="7"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        tools:text="2016" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/adp_film_item_adult_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    card:cardBackgroundColor="@color/dark_red"
+                    card:cardCornerRadius="12dp"
+                    card:cardElevation="0dp">
+
+                    <TextView
+                        android:id="@+id/adp_film_item_adult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adp_film_item_title"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:maxLines="7"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        tools:text="8+" />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/adp_film_item_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="7"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/secondary_text"
+                android:textSize="12sp"
+                tools:text="Место действия блокбастера - мир людей Азерот. Эта киноистория поведает обо всех подробностях и последствиях первой встречи человечества с орками. Эпицентром событий станет противостояние между Альянсом под предводительством Андуина Лотара и Ордой, олицетворением которой станет Дуротан." />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/adp_film_item_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_toEndOf="@+id/adp_film_item_rating_title"
+                    android:layout_toRightOf="@+id/adp_film_item_rating_title"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"
+                    android:textColor="@color/primary_text"
+                    android:textSize="12sp"
+                    tools:text="8.3" />
+
+                <TextView
+                    android:id="@+id/adp_film_item_rating_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
+                    android:text="@string/rating"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/adp_film_item_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_toEndOf="@+id/adp_film_item_duration_title"
+                    android:layout_toRightOf="@+id/adp_film_item_duration_title"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="4dp"
+                    android:textColor="@color/primary_text"
+                    android:textSize="12sp"
+                    tools:text="120 мин." />
+
+                <TextView
+                    android:id="@+id/adp_film_item_duration_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="4dp"
+                    android:text="@string/duration"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

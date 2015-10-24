@@ -3,6 +3,7 @@ package com.goldenpie.devs.kievrest.utils;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.models.EventModel;
+import com.goldenpie.devs.kievrest.models.FilmModel;
 import com.goldenpie.devs.kievrest.models.NewsModel;
 import com.goldenpie.devs.kievrest.models.PlaceModel;
 import com.goldenpie.devs.kievrest.models.SelectionModel;
@@ -65,6 +66,7 @@ public class DataHelper {
     public ArrayList<PlaceModel> getAttractionsList() {
         return (ArrayList<PlaceModel>) dataMap.get(ModelTypeEnum.ATTRACTIONS);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayList<CityModel> getCitesList() {
         return (ArrayList<CityModel>) dataMap.get(ModelTypeEnum.CITES);
@@ -79,10 +81,12 @@ public class DataHelper {
     public ArrayList<EventModel> getExhibitionsList() {
         return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.EXHIBITIONS);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayList<EventModel> getConcertsList() {
         return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.CONCERTS);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayList<EventModel> getFestivalsList() {
         return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.FESTIVALS);
@@ -97,9 +101,15 @@ public class DataHelper {
     public ArrayList<EventModel> getYarmarkiList() {
         return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.YARMARKI);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayList<EventModel> getEntertainmentsList() {
         return (ArrayList<EventModel>) dataMap.get(ModelTypeEnum.ENTERTAINMENT);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<FilmModel> getFilmsList() {
+        return (ArrayList<FilmModel>) dataMap.get(ModelTypeEnum.FILMS);
     }
 
     public int getWeatherImage() {
@@ -133,4 +143,5 @@ public class DataHelper {
                 return 0;
         }
     }
+
 }

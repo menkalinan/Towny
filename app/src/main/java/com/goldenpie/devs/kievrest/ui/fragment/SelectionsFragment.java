@@ -37,6 +37,9 @@ public class SelectionsFragment extends BaseListFragment {
         return ModelTypeEnum.SELECTIONS;
     }
 
+    protected void onReload() {
+        reload();
+    }
 
     protected void reload() {
         service.loadSelections();
@@ -46,7 +49,7 @@ public class SelectionsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             if (adapter == null) {
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
                 list.setAdapter(adapter);
@@ -70,7 +73,7 @@ public class SelectionsFragment extends BaseListFragment {
     public void onEvent(SelectionsLoadedEvent event) {
 
         hasNextUrl = !TextUtils.isEmpty(event.getNextUrl());
-        if (helper.getDataMap().containsKey(ModelTypeEnum.SELECTIONS)) {
+        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
             ArrayList<SelectionModel> tempList = helper.getSelectionsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.SELECTIONS, tempList);

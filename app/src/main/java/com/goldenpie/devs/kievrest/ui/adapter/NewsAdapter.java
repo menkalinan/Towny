@@ -61,15 +61,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         getDate(holder, position);
 
         if (model.getPhotos() != null && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
-            holder.preview.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(model.getPhotos().get(0).getThumbnails().getLargeThumbnail())
-                    .placeholder(R.drawable.no_preview_available)
+                    .placeholder(R.drawable.no_photo_preview)
                     .crossFade()
                     .into(holder.preview);
-        } else {
-            holder.preview.setVisibility(View.GONE);
         }
+
         if (model.getPlace() != null) {
             holder.placeLayout.setVisibility(View.VISIBLE);
             holder.locationDescription.setText(model.getPlace().getFinalTitle());
