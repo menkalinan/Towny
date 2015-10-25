@@ -1,7 +1,6 @@
 package com.goldenpie.devs.kievrest.ui.adapter;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,9 +15,10 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.models.FilmModel;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,7 +29,9 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.ViewHolder> 
 
     private final LayoutInflater inflater;
 
-    private ArrayList<FilmModel> models;
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    @Getter
+    private ArrayList<FilmModel> models = new ArrayList<>();
     @Getter
     private Context context;
     private int lastPosition = -1;
@@ -38,10 +40,21 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.ViewHolder> 
     private boolean hasNextPage = true;
 
     public FilmsAdapter(ArrayList<FilmModel> models, Context context) {
+        addAll(models, true);
         this.context = context;
-        this.models = models;
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         lastPosition = -1;
+    }
+
+    public void addAll(ArrayList<FilmModel> filmModels, boolean refresh) {
+        if (refresh) {
+            getModels().clear();
+            lastPosition = -1;
+        }
+        if (!getModels().containsAll(filmModels)) {
+            getModels().addAll(filmModels);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -67,8 +80,8 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.ViewHolder> 
         }
 
         holder.year.setText(String.valueOf(model.getYear()));
-        if(!TextUtils.isEmpty(model.getImdbRating()) && !model.getImdbRating().equals("null"))
-        holder.rating.setText(String.format("%s %S", model.getImdbRating(), model.getMpaaRating()));
+        if (!TextUtils.isEmpty(model.getImdbRating()) && !model.getImdbRating().equals("null"))
+            holder.rating.setText(String.format("%s %S", model.getImdbRating(), model.getMpaaRating()));
         else holder.rating.setText("N/A");
 
         holder.duration.setText(String.format("%d %s.", model.getRunningTime(), "мин"));

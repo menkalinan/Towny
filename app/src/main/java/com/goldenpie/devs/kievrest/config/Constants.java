@@ -14,7 +14,7 @@ public class Constants {
     public static final String PUBLIC_API = "/public-api/v1/";
     public static final String EXTRA_FIELDS = "&fields=id,title,slug,adress,timetable,images,phone,body_text,site_url,foreign_url,coords,subway,is_closed,address&expand=images,place";
     public static final String EXTRA_EVENT_FIELDS = "&order_by=-publication_date&fields=age_restriction,description,is_free,dates,id,title,slug,images,body_text,site_url,foreign_url,publication_date,place&expand=images,place";
-    public static final String EXTRA_FILM_FIELDS = "&order_by=-year,-publication_date&fields=id,title,poster,status,publication_date,description,body_text,is_editors_choice,genres,original_title,locale,country,year,language,running_time,budget_currency,budget,mpaa_rating,age_restriction,stars,director,writer,awards,trailer,images,url,imdb_url,imdb_rating&expand=poster,images";
+    public static final String EXTRA_FILM_FIELDS = "?order_by=-year,-publication_date&fields=id,title,poster,status,publication_date,description,body_text,is_editors_choice,genres,original_title,locale,country,year,language,running_time,budget_currency,budget,mpaa_rating,age_restriction,stars,director,writer,awards,trailer,images,url,imdb_url,imdb_rating&expand=poster,images";
 
     public static final String SELECTION_LINK = PUBLIC_API + "lists/";
     public static final String MORE_SELECTIONS_LINK = PUBLIC_API + "lists/";
@@ -38,7 +38,7 @@ public class Constants {
     public static final String ENTERTAIMENT_LINK = PUBLIC_API + "events/?categories=circus,comedy-club,flashmob,games,kvn,magic,masquerade,quest,romance,show,speed-dating,stand-up" + EXTRA_EVENT_FIELDS;
     public static final String YARMARKI_LINK = PUBLIC_API + "events/?categories=yarmarki-razvlecheniya-yarmarki" + EXTRA_EVENT_FIELDS;
 
-    public static final String FILMS_LINK = PUBLIC_API + "movies/?categories=yarmarki-razvlecheniya-yarmarki" + EXTRA_FILM_FIELDS;
+    public static final String FILMS_LINK = PUBLIC_API + "movies/" + EXTRA_FILM_FIELDS;
 
     public static final String PLACES_NEAR_LINK = PUBLIC_API + "places/?radius=5000&fields=id,title,adress,phone,coords,address";
 

@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.event.FilmsLoadedEvent;
-import com.goldenpie.devs.kievrest.models.FilmModel;
 import com.goldenpie.devs.kievrest.ui.BaseListFragment;
 import com.goldenpie.devs.kievrest.ui.adapter.FilmsAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
-
-import java.util.ArrayList;
 
 public class FilmsFragment extends BaseListFragment {
     private FilmsAdapter adapter;
@@ -67,28 +63,28 @@ public class FilmsFragment extends BaseListFragment {
 
     @SuppressWarnings("unused")
     public void onEvent(FilmsLoadedEvent event) {
+        swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setRefreshing(false);
 
         if (helper.getDataMap().containsKey(getFragmentType())
                 && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
-            ArrayList<FilmModel> tempList = helper.getFilmsList();
-            tempList.addAll(event.getResults());
-            helper.getDataMap().put(getFragmentType(), tempList);
+            if (!helper.getFilmsList().containsAll(event.getResults()))
+                helper.getFilmsList().addAll(event.getResults());
         } else {
             helper.getDataMap().put(getFragmentType(), event.getResults());
         }
 
-        if (adapter == null || isFromReload) {
-            isFromReload = false;
-            adapter = new FilmsAdapter(helper.getFilmsList(), getActivity());
+        if (adapter == null) {
+            adapter = new FilmsAdapter(event.getResults(), getActivity());
             list.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
+        } else {
+            adapter.addAll(event.getResults(), isFromReload);
         }
 
+        isFromReload = false;
+
         hideError();
-        adapter.notifyDataSetChanged();
-
         adapter.setHasNextPage(!TextUtils.isEmpty(event.getNextUrl()));
-
     }
 }

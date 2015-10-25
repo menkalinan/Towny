@@ -12,4 +12,9 @@ public class BaseLoadedEvent {
     protected String nextUrl;
     @SerializedName("previous")
     protected String previousUrl;
+
+    public int getNextPage() {
+        return !getNextUrl().equals("null") ?
+                Integer.parseInt(getNextUrl().substring(getNextUrl().lastIndexOf("=") + 1)) : -1;
+    }
 }

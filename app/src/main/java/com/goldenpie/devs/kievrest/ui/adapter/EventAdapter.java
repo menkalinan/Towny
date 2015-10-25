@@ -18,6 +18,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.models.EventModel;
+import com.goldenpie.devs.kievrest.models.FilmModel;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
@@ -33,7 +34,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     private final LayoutInflater inflater;
 
-    private ArrayList<EventModel> models;
+    @Getter
+    private ArrayList<EventModel> models = new ArrayList<>();
     @Getter
     private Context context;
     private int lastPosition = -1;
@@ -44,10 +46,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     private MaterialCalendarView materialCalendarView;
 
     public EventAdapter(ArrayList<EventModel> models, Context context) {
+        addAll(models, true);
         this.context = context;
-        this.models = models;
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        lastPosition = -1;
     }
+
+    public void addAll(ArrayList<EventModel> eventModels, boolean refresh) {
+        if (refresh) {
+            getModels().clear();
+            lastPosition = -1;
+        }
+        if (!getModels().containsAll(eventModels)) {
+            getModels().addAll(eventModels);
+            notifyDataSetChanged();
+        }
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

@@ -33,7 +33,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
     private final LayoutInflater inflater;
 
-    private ArrayList<SelectionModel> models;
+    @Getter
+    private ArrayList<SelectionModel> models = new ArrayList<>();
     @Getter
     private Context context;
     private int lastPosition = -1;
@@ -45,9 +46,21 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
     private HashMap<Integer, SelectionPlaceAdapter> placeAdapterHashMap = new HashMap<>();
 
     public SelectionsAdapter(ArrayList<SelectionModel> models, Context context) {
+        addAll(models, true);
         this.context = context;
-        this.models = models;
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        lastPosition = -1;
+    }
+
+    public void addAll(ArrayList<SelectionModel> selectionModels, boolean refresh) {
+        if (refresh) {
+            getModels().clear();
+            lastPosition = -1;
+        }
+        if (!getModels().containsAll(selectionModels)) {
+            getModels().addAll(selectionModels);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

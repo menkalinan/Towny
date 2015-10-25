@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
+import com.goldenpie.devs.kievrest.event.BaseLoadedEvent;
 import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.ui.listener.EndlessRecyclerOnScrollListener;
@@ -32,6 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import lombok.Getter;
+import lombok.Setter;
 
 public abstract class BaseListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -55,7 +57,16 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
     @Getter
     private StaggeredGridLayoutManager linearLayoutManager;
 
+    private EndlessRecyclerOnScrollListener listener;
     protected boolean isFromReload = false;
+
+    @Setter
+    @Getter
+    private int nextPage = -1;
+
+    @Setter
+    @Getter
+    private boolean hasNextPage = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,15 +89,18 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
         linearLayoutManager = new StaggeredGridLayoutManager(ScreenUtils.getDisplayColumns(getActivity()), StaggeredGridLayoutManager.VERTICAL);
         list.setLayoutManager(linearLayoutManager);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), list, null);
-        swipeRefreshLayout.setEnabled(false);
         swipeRefreshLayout.setProgressViewOffset(false, 0,
                 getActivity().getResources().getDimensionPixelSize(R.dimen.scroll_offset));
-        list.addOnScrollListener(new EndlessRecyclerOnScrollListener(getLinearLayoutManager()) {
+
+        listener = new EndlessRecyclerOnScrollListener(getLinearLayoutManager()) {
             @Override
             public void onLoadMore(int current_page) {
-                onLoadMoreCalled(current_page);
+                onLoadMoreCalled(nextPage);
             }
-        });
+        };
+
+        list.addOnScrollListener(listener);
+
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -102,7 +116,7 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
 
     protected void reload() {
         helper.getDataMap().get(getFragmentType()).clear();
-        showLoader();
+//        showLoader();
     }
 
     protected void showError() {
@@ -139,8 +153,6 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
     @Override
     public void onDetach() {
         if (list.getAdapter() != null) {
-            RecyclerView.Adapter adapter = list.getAdapter();
-            adapter = null;
             list.setAdapter(null);
         }
         Glide.get(getActivity()).clearMemory();
@@ -152,6 +164,7 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
+        listener.clearState();
         isFromReload = true;
         onReload();
     }

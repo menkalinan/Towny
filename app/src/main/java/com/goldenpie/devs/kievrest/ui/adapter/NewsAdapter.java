@@ -16,6 +16,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.config.Constants;
+import com.goldenpie.devs.kievrest.models.FilmModel;
 import com.goldenpie.devs.kievrest.models.NewsModel;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
 
-    private ArrayList<NewsModel> models;
+    @Getter
+    private ArrayList<NewsModel> models = new ArrayList<>();
     @Getter
     private Context context;
     private int lastPosition = -1;
@@ -40,10 +42,23 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private boolean hasNextPage = true;
 
     public NewsAdapter(ArrayList<NewsModel> models, Context context) {
+        addAll(models, true);
         this.context = context;
-        this.models = models;
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        lastPosition = -1;
     }
+
+    public void addAll(ArrayList<NewsModel> newsModels, boolean refresh) {
+        if (refresh) {
+            getModels().clear();
+            lastPosition = -1;
+        }
+        if (!getModels().containsAll(newsModels)) {
+            getModels().addAll(newsModels);
+            notifyDataSetChanged();
+        }
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

@@ -26,6 +26,7 @@ import com.goldenpie.devs.kievrest.utils.DistanceUtils;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -42,7 +43,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     @Inject
     protected ApplicationPreferences preferences;
 
-    private ArrayList<PlaceModel> models;
+    @Getter
+    private ArrayList<PlaceModel> models = new ArrayList<>();
     @Getter
     private Context context;
     private int lastPosition = -1;
@@ -56,14 +58,26 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
     public PlacesAdapter(ArrayList<PlaceModel> models, Context context) {
         TownyApplication.appComponent().inject(this);
+        addAll(models, true);
         this.context = context;
-        this.models = models;
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        lastPosition = -1;
 
         if (locationManager == null)
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         if (location == null)
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+    }
+
+    public void addAll(ArrayList<PlaceModel> placeModels, boolean refresh) {
+        if (refresh) {
+            getModels().clear();
+            lastPosition = -1;
+        }
+        if (!getModels().containsAll(placeModels)) {
+            getModels().addAll(placeModels);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
