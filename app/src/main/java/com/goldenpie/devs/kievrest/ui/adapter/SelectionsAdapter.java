@@ -78,7 +78,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
         }
 
         if (!TextUtils.isEmpty(model.getType()) && model.getType().equals("list")) {
-            if (model.getItems().get(0).getType().equals("place")) {
+            if (model.getItems().get(0).getType().equals("place")
+                    || model.getItems().get(0).getType().equals("listitem")) {
                 setInnerListLogic(holder, position, model);
             }
         }
