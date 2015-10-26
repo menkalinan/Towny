@@ -4,6 +4,7 @@ import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import de.greenrobot.event.EventBus;
@@ -23,6 +24,8 @@ public class BaseCallback<T> implements Callback<T> {
         }
         if (error.getCause() != null && error.getCause() instanceof UnknownHostException) {
             message += "\nPlease check your network connection and try again";
+        } else if (error.getCause() instanceof SocketTimeoutException) {
+            message = "Server temporary unavailable";
         }
         return message;
     }
@@ -35,22 +38,14 @@ public class BaseCallback<T> implements Callback<T> {
     @Override
     public void failure(RetrofitError error) {
         handleError(error);
-        handleGlobalError(error);
     }
 
     protected void handleError(RetrofitError error) {
         String message = getErrorHeaderMessage(error);
-        EventBus.getDefault().post(new ErrorEvent<T>(message));
+        if (!message.contains("Please check your network connection and try again")) {
+            EventBus.getDefault().post(new ErrorEvent<T>(message));
+        } else
+            EventBus.getDefault().post(new NetworkErrorEvent());
     }
 
-    /**
-     * Handle all non HTTP errors
-     *
-     * @param error current error
-     */
-    public void handleGlobalError(RetrofitError error) {
-        if (error.getKind() == RetrofitError.Kind.NETWORK) {
-            EventBus.getDefault().post(new NetworkErrorEvent());
-        }
-    }
 }
