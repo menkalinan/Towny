@@ -38,6 +38,7 @@ public class BaseDataModel {
         description = description.replaceAll("\n", "");
         description = description.replaceAll("(\\(.*?\\))", "");
         description = description.replaceAll("\\[|\\]", "");
+        description = description.replaceAll("_", "");
         return description;
     }
 

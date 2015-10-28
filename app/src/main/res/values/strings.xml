@@ -36,4 +36,5 @@
     <string name="duration">Длится:</string>
     <string name="rating">Рейтинг:</string>
     <string name="poster">poster</string>
+    <string name="version">Версия: %1$s</string>
 </resources>

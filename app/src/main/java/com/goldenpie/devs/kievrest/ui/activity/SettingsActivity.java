@@ -9,8 +9,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.goldenpie.devs.kievrest.BuildConfig;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.models.CityModel;
@@ -29,10 +31,15 @@ public class SettingsActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     protected Toolbar toolbar;
+    @Bind(R.id.act_settings_version)
+    protected TextView versionCode;
+
     private AlertDialog dialog;
+
     @Getter
     @Setter
     private String city;
+
     private MaterialMenuDrawable materialMenu;
 
     @Override
@@ -69,6 +76,8 @@ public class SettingsActivity extends BaseActivity {
                 materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
             }
         }, 500);
+
+        versionCode.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
     }
 
     @SuppressWarnings("unused")

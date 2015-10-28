@@ -188,6 +188,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(viewPagerHelper.getFilmsPagerListener());
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+        mViewPager.getPagerTitleStrip().setUnderlineHeight(0);
     }
 
 

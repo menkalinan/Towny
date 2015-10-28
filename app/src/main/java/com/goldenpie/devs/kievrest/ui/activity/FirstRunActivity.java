@@ -14,10 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.goldenpie.devs.kievrest.R;
+import com.goldenpie.devs.kievrest.event.ErrorEvent;
 import com.goldenpie.devs.kievrest.event.NetworkErrorEvent;
 import com.goldenpie.devs.kievrest.models.CityModel;
 import com.goldenpie.devs.kievrest.ui.BaseActivity;
@@ -45,6 +47,8 @@ public class FirstRunActivity extends BaseActivity {
     protected RelativeLayout successLayout;
     @Bind(R.id.act_first_run_no_internet_layout)
     protected RelativeLayout noInternetLayout;
+    @Bind(R.id.act_first_run_no_internet_description)
+    protected TextView noInternet;
     @Bind(R.id.act_first_run_go)
     protected ImageView goView;
     private LocationManager locationManager;
@@ -199,6 +203,12 @@ public class FirstRunActivity extends BaseActivity {
     @SuppressWarnings("unused")
     public void onEvent(NetworkErrorEvent errorEvent) {
         delayedAnimation(noInternetLayout);
+    }
+
+    @SuppressWarnings("unused")
+    public void onEvent(ErrorEvent errorEvent) {
+        delayedAnimation(noInternetLayout);
+        noInternet.setText(errorEvent.getError());
     }
 
 

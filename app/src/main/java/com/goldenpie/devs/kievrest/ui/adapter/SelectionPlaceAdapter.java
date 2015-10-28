@@ -35,9 +35,16 @@ public class SelectionPlaceAdapter extends RecyclerView.Adapter<SelectionPlaceAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.locationLayout.setVisibility(View.VISIBLE);
+
         if (!TextUtils.isEmpty(getItem(position).getAddress()))
             holder.location.setText(getItem(position).getAddress());
-        else holder.locationLayout.setVisibility(View.INVISIBLE);
+        else {
+            if (!TextUtils.isEmpty(getItem(position).getAdditionalAddress()))
+                holder.location.setText(getItem(position).getAdditionalAddress());
+            else
+                holder.locationLayout.setVisibility(View.GONE);
+        }
 
         holder.description.setText(getItem(position).getFinalDescription());
         holder.title.setText(String.format("#%d. %s", position + 1, getItem(position).getFinalTitle()));
