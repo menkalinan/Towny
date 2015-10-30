@@ -19,6 +19,19 @@ allprojects {
         def versionBuild = 1
         appVersionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         appVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+        getGitVersionName = { ->
+            try {
+                def stdout = new ByteArrayOutputStream()
+                exec {
+                    commandLine 'git', 'describe', '--tags', '--dirty'
+                    standardOutput = stdout
+                }
+                return stdout.toString().trim()
+            }
+            catch (ignored) {
+                return null;
+            }
+        }
     }
 
     repositories {
@@ -26,4 +39,6 @@ allprojects {
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://clojars.org/repo/" }
     }
+
+
 }
