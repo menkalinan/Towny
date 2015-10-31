@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.goldenpie.devs.kievrest.BuildConfig;
+import com.goldenpie.devs.kievrest.Git;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.models.CityModel;
@@ -77,7 +78,7 @@ public class SettingsActivity extends BaseActivity {
             }
         }, 500);
 
-        versionCode.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
+        versionCode.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME, Git.GIT_VERSION));
     }
 
     @SuppressWarnings("unused")

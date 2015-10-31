@@ -3,11 +3,22 @@
 - New project that will help cityzents to find places where to rest and where to go alone or with friends.
 - Great matirial design and many categories to choose.
 
-# Project setup
+# No IDE build
+ - Clone repo to your PC, take a look on this ***[Link](https://github.com/GarageGames/Torque2D/wiki/Cloning-the-repo-and-working-with-Git)*** 
+ - Open root directory of the project
+ - (For Linux and etc.) Open terminal and run    
+
+        ./gradlew build assemble debug
+ - (For Windows) Open CMD and run    
+
+        gradlew.bat build assemble debug
+
+
+# Project setup (IDE Build)
 # 1. Download and install Java Developer Kit and Android Studio
 - Android Studio requires Java 7 to run so you will need to make sure you have java installed before proceeding. Download and install JDK 7 and make note of its installation location. Android Studio will ask for this path once you import the theme template. Once the JDK is installed you will need to download and install Android Studio, making sure you meet the system requirements listed on the Android Studio page prior to downloading. After installing Android Studio you will need to add an SDK by following these instructions. Make note of the location that the SDK is installed to as this will be needed once you import the theme template.
 
-# 2. Import project to Android Studio
+# 2. Clone project to PC
 - For information about cloning repo to your PC, take a look on this ***[Link](https://github.com/GarageGames/Torque2D/wiki/Cloning-the-repo-and-working-with-Git)***
 
 # 3. Import project to Android Studio

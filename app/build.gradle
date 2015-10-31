@@ -31,6 +31,27 @@ android {
         versionName appVersionName
         signingConfig signingConfigs.release
     }
+
+    String data = "/**\n" +
+            " * Automatically generated file. DO NOT MODIFY\n" +
+            " */\n" +
+            "package com.goldenpie.devs.kievrest;\n" +
+            "\n" +
+            "public class Git {\n" +
+            "    public static final String GIT_VERSION = \"%s\";\n" +
+            "}"
+    def gitinfo = new File("app/build/generated/source/buildConfig/debug/com/goldenpie/devs/kievrest/Git.java")
+    if (gitinfo.exists())
+        gitinfo.delete()
+    gitinfo.createNewFile()
+    data = String.format(data, "$getGitVersionName")
+
+    def fileWritter = new FileWriter(gitinfo, true)
+    def bufferWritter = new BufferedWriter(fileWritter)
+    bufferWritter.write(data)
+    bufferWritter.close()
+
+
     buildTypes {
         release {
             minifyEnabled false
