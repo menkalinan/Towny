@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -50,6 +51,8 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
     protected RelativeLayout noInternetLayout;
     @Bind(R.id.progressBar)
     protected ProgressBar progressBar;
+    @Bind(R.id.progressText)
+    protected TextView progress;
     @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout swipeRefreshLayout;
     @Getter
@@ -101,13 +104,16 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
     @OnClick(R.id.no_internet_layout_repaet_button)
 
     protected void reload() {
-        helper.getDataMap().get(getFragmentType()).clear();
+        if (helper.getDataMap().get(getFragmentType()) != null)
+            helper.getDataMap().get(getFragmentType()).clear();
         showLoader();
     }
 
     protected void showError() {
-        noInternetLayout.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
+        if (isAdded()) {
+            noInternetLayout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     protected void showLoader() {
@@ -133,14 +139,16 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
 
     @SuppressWarnings("UnusedParameters")
     public void onEvent(ErrorEvent errorEvent) {
-        onEvent(new NetworkErrorEvent());
+        if(!swipeRefreshLayout.isRefreshing()) {
+            onEvent(new NetworkErrorEvent());
+        } else {
+            swipeRefreshLayout.isRefreshing();
+        }
     }
 
     @Override
     public void onDetach() {
         if (list.getAdapter() != null) {
-            RecyclerView.Adapter adapter = list.getAdapter();
-            adapter = null;
             list.setAdapter(null);
         }
         Glide.get(getActivity()).clearMemory();

@@ -3,7 +3,7 @@ package com.goldenpie.devs.kievrest.event;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class ErrorEvent<T> {
+public class ErrorEvent {
     private final String error;
 
     public String getError() {

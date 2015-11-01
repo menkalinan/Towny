@@ -2,6 +2,7 @@ package com.goldenpie.devs.kievrest.config;
 
 import android.app.Application;
 import android.content.Context;
+import android.location.LocationManager;
 
 import com.goldenpie.devs.kievrest.api.TownyApi;
 import com.goldenpie.devs.kievrest.api.WeatherApi;
@@ -64,6 +65,11 @@ public class AppModule {
     @Singleton
     public ApplicationPreferences provideApplicationPreferences(Context context) {
         return new ApplicationPreferences(context);
+    }
+    @Provides
+    @Singleton
+    public LocationManager provideLocationManager(Context context) {
+        return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
     @Provides

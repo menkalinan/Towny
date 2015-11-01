@@ -56,7 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         NewsModel model = models.get(position);
 
         holder.title.setText(model.getTitle());
-        holder.description.setText(model.getDescription());
+        holder.description.setText(model.getClearDescription());
 
         getDate(holder, position);
 

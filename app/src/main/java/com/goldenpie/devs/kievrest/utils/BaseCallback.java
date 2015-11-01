@@ -43,7 +43,7 @@ public class BaseCallback<T> implements Callback<T> {
     protected void handleError(RetrofitError error) {
         String message = getErrorHeaderMessage(error);
         if (!message.contains("Please check your network connection and try again")) {
-            EventBus.getDefault().post(new ErrorEvent<T>(message));
+            EventBus.getDefault().post(new ErrorEvent(message));
         } else
             EventBus.getDefault().post(new NetworkErrorEvent());
     }

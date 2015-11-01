@@ -16,7 +16,7 @@ allprojects {
         def versionMajor = 1
         def versionMinor = 1
         def versionPatch = 2
-        def versionBuild = 1
+        def versionBuild = 5
         appVersionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         appVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
         getGitVersionName = { ->

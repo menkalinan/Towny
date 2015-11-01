@@ -184,7 +184,7 @@ public class ViewPagerHelper {
                 switch (page) {
                     case 0:
                         headerLogoBackground.setBackgroundResource(R.drawable.red_circle_drawable);
-                        headerImage.setImageResource(R.drawable.ic_action_whatshot);
+                        headerImage.setImageResource(R.drawable.ic_action_movie);
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.dark_red,
                                 "http://www.44-16.com/wp-content/uploads/2013/09/IMG_3422.jpg");

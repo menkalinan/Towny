@@ -1,7 +1,6 @@
 package com.goldenpie.devs.kievrest.utils.service;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -34,9 +33,10 @@ public class DataShareService extends Service implements LocationListener {
     protected TownyService service;
     @Inject
     protected EventBus BUS;
+    @Inject
+    protected LocationManager locationManager;
 
     protected TeleportClient mTeleportClient;
-    private LocationManager locationManager;
 
     @Override
     public void onCreate() {
@@ -147,9 +147,6 @@ public class DataShareService extends Service implements LocationListener {
     }
 
     private void getCurrentLocation() {
-        if (locationManager == null)
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         boolean network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (network_enabled) {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

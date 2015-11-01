@@ -22,6 +22,10 @@ public class DataHelper {
     @Setter
     private HashMap<ModelTypeEnum, ArrayList<?>> dataMap = new HashMap<>();
 
+    @Getter
+    @Setter
+    private boolean isSelectionTotallyLoaded;
+
     @SuppressWarnings("unchecked")
     public ArrayList<NewsModel> getNewsList() {
         return (ArrayList<NewsModel>) dataMap.get(ModelTypeEnum.NEWS);

@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.goldenpie.devs.kievrest.BuildConfig;
-import com.goldenpie.devs.kievrest.Git;
 import com.goldenpie.devs.kievrest.R;
 import com.goldenpie.devs.kievrest.TownyApplication;
 import com.goldenpie.devs.kievrest.models.CityModel;
@@ -78,25 +78,28 @@ public class SettingsActivity extends BaseActivity {
             }
         }, 500);
 
-        versionCode.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME, Git.GIT_VERSION));
+        versionCode.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
+
+        if (!TextUtils.isEmpty(BuildConfig.GIT_VERSION)) {
+            versionCode.append(String.format(getString(R.string.sborka), BuildConfig.GIT_VERSION));
+        }
     }
 
     @SuppressWarnings("unused")
     @OnClick(R.id.act_settings_default_metrics)
     protected void onUnitsChoose() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item, getResources().getStringArray(R.array.default_units));
-        if (dialog == null)
-            dialog = new AlertDialog.Builder(this).setAdapter(adapter, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    setSystem(i);
-                }
-            }).setNegativeButton(R.id.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            }).create();
+        dialog = new AlertDialog.Builder(this).setAdapter(adapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                setSystem(i);
+            }
+        }).setNegativeButton(R.id.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).create();
 
         if (!dialog.isShowing())
             dialog.show();
@@ -115,19 +118,18 @@ public class SettingsActivity extends BaseActivity {
                 ITEMS[i] = helper.getCitesList().get(i).getName();
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item, ITEMS);
-            if (dialog == null)
-                dialog = new AlertDialog.Builder(this).setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        setCity(ITEMS[i]);
-                        onCityChosen();
-                    }
-                }).setNegativeButton(R.id.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).create();
+            dialog = new AlertDialog.Builder(this).setAdapter(adapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    setCity(ITEMS[i]);
+                    onCityChosen();
+                }
+            }).setNegativeButton(R.id.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).create();
 
             if (!dialog.isShowing())
                 dialog.show();

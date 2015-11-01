@@ -158,6 +158,8 @@ public class MainActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(viewPagerHelper.getMainPagerListener(isNewYork));
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+        mViewPager.getPagerTitleStrip().setIndicatorColor(isNewYork ? 0 : getResources().getColor(R.color.white));
     }
 
     private void setPlacesViewPager() {
@@ -168,6 +170,8 @@ public class MainActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(viewPagerHelper.getPlacesPagerListener());
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+        mViewPager.getPagerTitleStrip().setIndicatorColor(getResources().getColor(R.color.white));
     }
 
     private void setEventViewPager() {
@@ -178,6 +182,8 @@ public class MainActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(viewPagerHelper.getEventsPagerListener());
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+        mViewPager.getPagerTitleStrip().setIndicatorColor(getResources().getColor(R.color.white));
     }
 
     private void setFilmsViewPager() {
@@ -188,7 +194,8 @@ public class MainActivity extends BaseActivity {
         mViewPager.setMaterialViewPagerListener(viewPagerHelper.getFilmsPagerListener());
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
-        mViewPager.getPagerTitleStrip().setUnderlineHeight(0);
+
+        mViewPager.getPagerTitleStrip().setIndicatorColor(0);
     }
 
 
@@ -319,12 +326,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void run() {
                 MaterialViewPagerHelper.getAnimator(MainActivity.this).restoreScroll(0, null);
-            }
-        }, Constants.DRAWER_ANIMATION_DURATION - 50L);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 switch (cat) {
                     case MAIN:
                         setMainViewPager();
@@ -346,7 +347,6 @@ public class MainActivity extends BaseActivity {
                 mViewPager.notifyHeaderChanged();
             }
         }, Constants.DRAWER_ANIMATION_DURATION);
-
 
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }

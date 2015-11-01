@@ -13,12 +13,19 @@ import com.goldenpie.devs.kievrest.ui.adapter.SelectionsAdapter;
 import com.goldenpie.devs.kievrest.utils.ModelTypeEnum;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import lombok.Getter;
 
 public class SelectionsFragment extends BaseListFragment {
     private SelectionsAdapter adapter;
 
     private int itemCount = 0;
-    private boolean hasNextUrl;
+
+    @Getter
+    private HashMap<Integer, Integer> selectionIds = new HashMap<>();
+    private int nextInt = 0;
+    private boolean hasNext;
 
     public SelectionsFragment() {
     }
@@ -49,13 +56,21 @@ public class SelectionsFragment extends BaseListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
+        if (helper.getDataMap().containsKey(getFragmentType())
+                && !helper.getDataMap().get(getFragmentType()).isEmpty()
+                && helper.isSelectionTotallyLoaded()) {
             if (adapter == null) {
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
                 list.setAdapter(adapter);
             }
             progressBar.setVisibility(View.GONE);
         } else {
+            if (helper.getDataMap().containsKey(getFragmentType())
+                    && !helper.getDataMap().get(getFragmentType()).isEmpty())
+                helper.getDataMap().remove(getFragmentType());
+
+            progress.setVisibility(View.VISIBLE);
+            progress.setText("0%");
             service.loadSelections();
         }
     }
@@ -70,10 +85,11 @@ public class SelectionsFragment extends BaseListFragment {
 
 
     @SuppressWarnings("unused")
-    public void onEvent(SelectionsLoadedEvent event) {
-
-        hasNextUrl = !TextUtils.isEmpty(event.getNextUrl());
-        if (helper.getDataMap().containsKey(getFragmentType()) && !helper.getDataMap().get(getFragmentType()).isEmpty()) {
+    public void onEvent(final SelectionsLoadedEvent event) {
+        hasNext = !TextUtils.isEmpty(event.getNextUrl());
+        if (helper.getDataMap().containsKey(getFragmentType())
+                && !helper.getDataMap().get(getFragmentType()).isEmpty()
+                && helper.isSelectionTotallyLoaded()) {
             ArrayList<SelectionModel> tempList = helper.getSelectionsList();
             tempList.addAll(event.getResults());
             helper.getDataMap().put(ModelTypeEnum.SELECTIONS, tempList);
@@ -82,8 +98,14 @@ public class SelectionsFragment extends BaseListFragment {
         }
 
         for (int i = 0; i < event.getResults().size(); i++) {
-            service.loadSelection(String.valueOf(event.getResults().get(i).getId()));
+            getSelectionIds().put(i, event.getResults().get(i).getId());
         }
+
+        getNextSelection(nextInt = 0);
+    }
+
+    private void getNextSelection(int i) {
+        service.loadSelection(String.valueOf(getSelectionIds().get(i)));
     }
 
     @SuppressWarnings("unused")
@@ -95,18 +117,34 @@ public class SelectionsFragment extends BaseListFragment {
                 break;
             }
         }
+
+        progress.setText(String.format("%d%%", (int) ((itemCount * 100) / helper.getSelectionsList().size())));
+
         if (helper.getSelectionsList().size() == itemCount) {
+            getSelectionIds().clear();
+            helper.setSelectionTotallyLoaded(true);
             swipeRefreshLayout.setRefreshing(false);
+
             if (adapter == null) {
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
                 list.setAdapter(adapter);
             }
-            progressBar.setVisibility(View.GONE);
-            adapter.notifyDataSetChanged();
-            hideError();
 
-            adapter.setHasNextPage(hasNextUrl);
+            adapter.setHasNextPage(hasNext);
+            adapter.notifyDataSetChanged();
+
+            progressBar.setVisibility(View.GONE);
+            progress.setVisibility(View.GONE);
+
+            hideError();
+        } else {
+            nextInt++;
+            getNextSelection(nextInt);
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 }

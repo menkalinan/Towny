@@ -26,6 +26,7 @@ import com.goldenpie.devs.kievrest.utils.DistanceUtils;
 import com.goldenpie.devs.kievrest.utils.service.ApplicationPreferences;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -41,6 +42,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
     @Inject
     protected ApplicationPreferences preferences;
+    @Inject
+    protected LocationManager locationManager;
 
     private ArrayList<PlaceModel> models;
     @Getter
@@ -51,7 +54,6 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     private boolean hasNextPage = true;
     private MapDialog mapDialog;
     private int status = -1;
-    private LocationManager locationManager;
     private Location location;
 
     public PlacesAdapter(ArrayList<PlaceModel> models, Context context) {
@@ -60,10 +62,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         this.models = models;
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (locationManager == null)
-            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        if (location == null)
-            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     }
 
     @Override
@@ -136,7 +135,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return models.size();
+        if (models != null)
+            return models.size();
+        else return 0;
     }
 
     public String getUnit() {
