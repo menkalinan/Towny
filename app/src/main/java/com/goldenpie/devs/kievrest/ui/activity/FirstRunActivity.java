@@ -51,7 +51,6 @@ public class FirstRunActivity extends BaseActivity {
     protected TextView noInternet;
     @Bind(R.id.act_first_run_go)
     protected ImageView goView;
-    private LocationManager locationManager;
 
     @Override
     protected int getContentView() {

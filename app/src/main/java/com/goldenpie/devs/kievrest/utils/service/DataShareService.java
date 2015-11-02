@@ -36,6 +36,8 @@ public class DataShareService extends Service implements LocationListener {
     @Inject
     protected LocationManager locationManager;
 
+    private boolean fromHere = false;
+
     protected TeleportClient mTeleportClient;
 
     @Override
@@ -77,47 +79,50 @@ public class DataShareService extends Service implements LocationListener {
 
     @SuppressWarnings("unused")
     public void onEvent(NearPlacesLoadedEvent event) {
-        DataMap dataMap = new DataMap();
-        if (event.getResults() != null && !event.getResults().isEmpty()) {
-            ArrayList<String> ids = new ArrayList<>();
-            ArrayList<String> labels = new ArrayList<>();
-            ArrayList<String> address = new ArrayList<>();
-            ArrayList<String> phones = new ArrayList<>();
+        if (fromHere) {
+            fromHere = false;
+            DataMap dataMap = new DataMap();
+            if (event.getResults() != null && !event.getResults().isEmpty()) {
+                ArrayList<String> ids = new ArrayList<>();
+                ArrayList<String> labels = new ArrayList<>();
+                ArrayList<String> address = new ArrayList<>();
+                ArrayList<String> phones = new ArrayList<>();
 
-            float[] longitudes = new float[event.getResults().size()];
-            float[] latitude = new float[event.getResults().size()];
+                float[] longitudes = new float[event.getResults().size()];
+                float[] latitude = new float[event.getResults().size()];
 
-            for (int i = 0; i < event.getResults().size(); i++) {
-                ids.add(String.valueOf(event.getResults().get(i).getId()));
-                labels.add(event.getResults().get(i).getFinalTitle());
-                address.add(event.getResults().get(i).getAddress());
+                for (int i = 0; i < event.getResults().size(); i++) {
+                    ids.add(String.valueOf(event.getResults().get(i).getId()));
+                    labels.add(event.getResults().get(i).getTitle());
+                    address.add(event.getResults().get(i).getAddress());
 
-                String phone = event.getResults().get(i).getPhone();
-                if (!TextUtils.isEmpty(phone)) {
-                    if (phone.contains(","))
-                        phones.add(phone.substring(0, phone.indexOf(",")));
-                    else phones.add(phone);
-                } else
-                    phones.add("0");
+                    String phone = event.getResults().get(i).getPhone();
+                    if (!TextUtils.isEmpty(phone)) {
+                        if (phone.contains(","))
+                            phones.add(phone.substring(0, phone.indexOf(",")));
+                        else phones.add(phone);
+                    } else
+                        phones.add("0");
 
-                longitudes[i] = event.getResults().get(i).getCoordinates().getLongitude();
-                latitude[i] = event.getResults().get(i).getCoordinates().getLatitude();
+                    longitudes[i] = event.getResults().get(i).getCoordinates().getLongitude();
+                    latitude[i] = event.getResults().get(i).getCoordinates().getLatitude();
+                }
+
+                dataMap.putStringArrayList(Constants.ID_LIST, ids);
+                dataMap.putStringArrayList(Constants.LABEL_LIST, labels);
+                dataMap.putStringArrayList(Constants.ADDRESS_LIST, address);
+                dataMap.putStringArrayList(Constants.PHONE, phones);
+                dataMap.putFloatArray(Constants.LONGITUDE, longitudes);
+                dataMap.putFloatArray(Constants.LATITUDE, latitude);
+            } else {
+                dataMap.putString(Constants.ERROR, Constants.NO_PLACES_ERROR);
             }
 
-            dataMap.putStringArrayList(Constants.ID_LIST, ids);
-            dataMap.putStringArrayList(Constants.LABEL_LIST, labels);
-            dataMap.putStringArrayList(Constants.ADDRESS_LIST, address);
-            dataMap.putStringArrayList(Constants.PHONE, phones);
-            dataMap.putFloatArray(Constants.LONGITUDE, longitudes);
-            dataMap.putFloatArray(Constants.LATITUDE, latitude);
-        } else {
-            dataMap.putString(Constants.ERROR, Constants.NO_PLACES_ERROR);
+            dataMap.putLong("time_stamp", new Date().getTime());
+
+            if (mTeleportClient.getGoogleApiClient().isConnected())
+                mTeleportClient.syncAll(dataMap);
         }
-
-        dataMap.putLong("time_stamp", new Date().getTime());
-
-        if (mTeleportClient.getGoogleApiClient().isConnected())
-            mTeleportClient.syncAll(dataMap);
     }
 
     private void openMap(float longitude, float latitude, String label) {
@@ -150,6 +155,7 @@ public class DataShareService extends Service implements LocationListener {
         boolean network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (network_enabled) {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            fromHere = true;
             service.loadPlacesNearMe(location.getLongitude(), location.getLatitude());
         }
     }

@@ -13,6 +13,7 @@ import io.fabric.sdk.android.Fabric;
 import lombok.Getter;
 import lombok.Setter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class TownyApplication extends android.app.Application {
     @Getter
@@ -43,5 +44,4 @@ public class TownyApplication extends android.app.Application {
 
         setContext(this);
     }
-
 }

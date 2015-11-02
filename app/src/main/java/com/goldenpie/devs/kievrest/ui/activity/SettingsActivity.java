@@ -151,7 +151,7 @@ public class SettingsActivity extends BaseActivity {
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
-        this.finish();
+        onBackPressed();
     }
 
     public void onEvent(ArrayList<CityModel> cityModels) {
@@ -162,6 +162,7 @@ public class SettingsActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         this.finish();
+        overridePendingTransition(0, android.R.anim.fade_out);
     }
 
     @Override

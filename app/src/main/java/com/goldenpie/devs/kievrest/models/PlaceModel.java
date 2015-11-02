@@ -45,15 +45,15 @@ public class PlaceModel {
         return getIsClosed().equals("true");
     }
 
-    public String getFinalTitle() {
+    public String getTitle() {
         return title.substring(0, 1).toUpperCase() + title.substring(1);
     }
 
-    public String getFinalBody() {
+    public String getBody() {
         return Html.fromHtml(body).toString();
     }
 
     public String getDescription() {
-        return getFinalBody().substring(0, getFinalBody().indexOf("\n"));
+        return getBody().substring(0, getBody().indexOf("\n"));
     }
 }

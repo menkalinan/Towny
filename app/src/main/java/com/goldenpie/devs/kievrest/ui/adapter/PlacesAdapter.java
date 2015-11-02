@@ -75,7 +75,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         final PlaceModel model = models.get(position);
 
-        holder.title.setText(model.getFinalTitle());
+        holder.title.setText(model.getTitle());
         holder.description.setText(model.getDescription());
 
         if (model.getPhotos() != null && !model.getPhotos().isEmpty()

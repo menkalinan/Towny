@@ -79,15 +79,6 @@ public class MaterialViewPagerHeader {
         return this;
     }
 
-    public int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
     public MaterialViewPagerHeader withLogo(View logo) {
         this.mLogo = logo;
 

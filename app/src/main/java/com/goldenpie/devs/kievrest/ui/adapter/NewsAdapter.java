@@ -70,7 +70,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         if (model.getPlace() != null) {
             holder.placeLayout.setVisibility(View.VISIBLE);
-            holder.locationDescription.setText(model.getPlace().getFinalTitle());
+            holder.locationDescription.setText(model.getPlace().getTitle());
             holder.locationPlace.setText(model.getPlace().getAddress());
         } else {
             holder.placeLayout.setVisibility(View.GONE);
