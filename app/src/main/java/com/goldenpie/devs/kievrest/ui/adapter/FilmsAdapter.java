@@ -55,7 +55,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.ViewHolder> 
         final FilmModel model = models.get(position);
 
         holder.title.setText(model.getLocaleTitle());
-        holder.description.setText(model.getClearBody());
+        holder.description.setText(model.getBody());
 
         if (model.getPoster() != null && model.getPoster().getImageUrl() != null) {
             Glide.with(getContext())

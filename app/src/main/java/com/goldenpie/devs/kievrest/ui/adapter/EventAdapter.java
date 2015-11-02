@@ -59,8 +59,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final EventModel model = models.get(position);
 
-        holder.title.setText(model.getFinalTitle());
-        holder.description.setText(model.getClearDescription());
+        holder.title.setText(model.getTitle());
+        holder.description.setText(model.getDescription());
 
         if (model.getPhotos() != null && !model.getPhotos().isEmpty() && !TextUtils.isEmpty(model.getPhotos().get(0).getImageUrl())) {
             Glide.with(getContext())
@@ -106,6 +106,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void checkIfOpen(ViewHolder holder, EventModel model) {
         Calendar todayDate = Calendar.getInstance();
         Date today = new Date();
@@ -138,7 +139,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         if (todayDate.after(lastCalendar)) {
             holder.isOpen.setText("Прошло");
             holder.isOpen.setTextColor(getContext().getResources().getColor(R.color.red));
-            return;
         }
     }
 

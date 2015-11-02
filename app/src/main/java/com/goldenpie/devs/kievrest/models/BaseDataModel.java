@@ -29,11 +29,11 @@ public class BaseDataModel {
     @SerializedName("comments_count")
     protected int commentsCount;
 
-    public String getClearBody() {
-        return Html.fromHtml(getBody()).toString();
+    public String getBody() {
+        return Html.fromHtml(body).toString();
     }
 
-    public String getClearDescription() {
+    public String getDescription() {
         description = Html.fromHtml(description).toString();
         description = description.replaceAll("\n", "");
         description = description.replaceAll("(\\(.*?\\))", "");
@@ -42,7 +42,7 @@ public class BaseDataModel {
         return description;
     }
 
-    public String getFinalTitle() {
+    public String getTitle() {
         return title.substring(0, 1).toUpperCase() + title.substring(1);
     }
 }

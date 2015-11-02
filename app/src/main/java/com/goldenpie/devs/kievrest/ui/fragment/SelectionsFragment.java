@@ -59,6 +59,7 @@ public class SelectionsFragment extends BaseListFragment {
         if (helper.getDataMap().containsKey(getFragmentType())
                 && !helper.getDataMap().get(getFragmentType()).isEmpty()
                 && helper.isSelectionTotallyLoaded()) {
+            itemCount = helper.getSelectionsList().size();
             if (adapter == null) {
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
                 list.setAdapter(adapter);
@@ -118,7 +119,8 @@ public class SelectionsFragment extends BaseListFragment {
             }
         }
 
-        progress.setText(String.format("%d%%", (int) ((itemCount * 100) / helper.getSelectionsList().size())));
+        progress.setText(String.format("%d%%", (int) ((itemCount * 100)
+                / helper.getSelectionsList().size())));
 
         if (helper.getSelectionsList().size() == itemCount) {
             getSelectionIds().clear();
@@ -128,8 +130,12 @@ public class SelectionsFragment extends BaseListFragment {
             if (adapter == null) {
                 adapter = new SelectionsAdapter(helper.getSelectionsList(), getActivity());
                 list.setAdapter(adapter);
+            } else {
+                for (int i = 0; i < helper.getSelectionsList().size(); i++) {
+                    adapter.addModel(helper.getSelectionsList().get(i));
+                }
+                adapter.addAll(helper.getSelectionsList());
             }
-
             adapter.setHasNextPage(hasNext);
             adapter.notifyDataSetChanged();
 

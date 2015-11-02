@@ -33,7 +33,8 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
     private final LayoutInflater inflater;
 
-    private ArrayList<SelectionModel> models;
+    @Setter
+    private ArrayList<SelectionModel> models = new ArrayList<>();
     @Getter
     private Context context;
     private int lastPosition = -1;
@@ -46,8 +47,22 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 
     public SelectionsAdapter(ArrayList<SelectionModel> models, Context context) {
         this.context = context;
-        this.models = models;
+        addAll(models);
         this.inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void addModel(SelectionModel model) {
+        if (!models.contains(model)) {
+            models.add(model);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void addAll(ArrayList<SelectionModel> models) {
+        if (!this.models.containsAll(models)) {
+            this.models.addAll(models);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -64,7 +79,7 @@ public class SelectionsAdapter extends RecyclerView.Adapter<SelectionsAdapter.Vi
 //        holder.itemView.setVisibility(View.VISIBLE);
         holder.title.setText(model.getTitle());
         if (!TextUtils.isEmpty(model.getDescription()))
-            holder.description.setText(model.getClearDescription());
+            holder.description.setText(model.getDescription());
 
 //        getDate(holder, position);
 
